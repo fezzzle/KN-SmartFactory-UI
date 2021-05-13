@@ -16,7 +16,6 @@
 
 */
 import { useState } from "react";
-import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
 import "./Map.css";
 import {
   MapContainer,
@@ -71,55 +70,44 @@ function Map() {
   return (
     <>
       <div className="content">
-        <Row>
-          <Col md="12">
-            <Card className="card-plain">
-              <CardBody>
-                <MapContainer
-                  className="container"
-                  center={tallinn}
-                  zoom={8}
-                  scrollWheelZoom={true}
-                  whenCreated={(map) => setMap(map)}
-                >
-                  <TileLayer
-                    style={{ width: "100px" }}
-                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  />
-                  {cityData.cities.map((city) => (
-                    <Marker
-                      key={city.id}
-                      position={[city.coordinates[0], city.coordinates[1]]}
-                      icon={factory}
-                      eventHandlers={{
-                        click: () => {
-                          setActiveCity(city);
-                        },
-                      }}
-                    />
-                  ))}
-                  {activeCity && (
-                    <Popup
-                      position={[
-                        activeCity.coordinates[0],
-                        activeCity.coordinates[1],
-                      ]}
-                    >
-                      <h3 style={{ color: "black" }}>{activeCity.name}</h3>
-                      <p style={{ color: "black" }}>
-                        Populataion: {activeCity.population}
-                      </p>
-                    </Popup>
-                  )}
-                  <button className="find" onClick={changePos}>
-                    <img src={findMePic} />
-                  </button>
-                </MapContainer>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+        <MapContainer
+          className="container"
+          center={tallinn}
+          zoom={8}
+          scrollWheelZoom={true}
+          whenCreated={(map) => setMap(map)}
+        >
+          <TileLayer
+            style={{ width: "100px" }}
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {cityData.cities.map((city) => (
+            <Marker
+              key={city.id}
+              position={[city.coordinates[0], city.coordinates[1]]}
+              icon={factory}
+              eventHandlers={{
+                click: () => {
+                  setActiveCity(city);
+                },
+              }}
+            />
+          ))}
+          {activeCity && (
+            <Popup
+              position={[activeCity.coordinates[0], activeCity.coordinates[1]]}
+            >
+              <h3 style={{ color: "black" }}>{activeCity.name}</h3>
+              <p style={{ color: "black" }}>
+                Populataion: {activeCity.population}
+              </p>
+            </Popup>
+          )}
+          <button className="find" onClick={changePos}>
+            <img src={findMePic} />
+          </button>
+        </MapContainer>
       </div>
     </>
   );
