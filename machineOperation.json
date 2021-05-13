@@ -1,0 +1,101 @@
+{
+    "cities": [
+      {
+        "name": "Tallinn",
+        "id": 1,
+        "machines": [
+          {
+            "mid": 101,
+            "operating": true 
+          },
+          {
+            "mid": 102,
+            "operating": false 
+          },
+          {
+            "mid": 103,
+            "operating": true 
+          }
+
+        ]
+      },
+      {
+        "name": "Tartu",
+        "id": 2,
+        "machines": [
+          {
+            "mid": 201,
+            "operating": true 
+          },
+          {
+            "mid": 202,
+            "operating": false 
+          },
+          {
+            "mid": 203,
+            "operating": true 
+          }
+
+        ]
+      },
+      {
+        "name": "Narva",
+        "id": 3,
+        "machines": [
+          {
+            "mid": 301,
+            "operating": true 
+          },
+          {
+            "mid": 302,
+            "operating": false 
+          },
+          {
+            "mid": 303,
+            "operating": true 
+          }
+
+        ]
+      },
+      {
+        "name": "Pärnu",
+        "id": 4,
+        "machines": [
+          {
+            "mid": 401,
+            "operating": true 
+          },
+          {
+            "mid": 402,
+            "operating": false 
+          },
+          {
+            "mid": 403,
+            "operating": true 
+          }
+
+        ]
+      },
+      {
+        "name": "Maardu",
+        "id": 5,
+        "machines": [
+          {
+            "mid": 501,
+            "operating": true 
+          },
+          {
+            "mid": 502,
+            "operating": false 
+          },
+          {
+            "mid": 503,
+            "operating": true 
+          }
+
+        ]
+      }
+     
+    ]
+  }
+  
