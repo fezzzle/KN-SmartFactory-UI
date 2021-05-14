@@ -23,7 +23,7 @@ import Rtl from "views/Rtl.js";
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import UserProfile from "views/UserProfile.js";
-import MachinePanel from "views/MachinePanel.js"
+import MachinePanel from "views/operations/MachinePanel.js"
 
 var routes = [
   {

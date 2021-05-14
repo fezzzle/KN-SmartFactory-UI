@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import machineStatus from 'remote/MachineServices.js'
 import './MachinePanel.css';
@@ -27,26 +27,19 @@ export default class MachinePanel extends React.Component {
         axios.get('http://localhost:7100/smart-factory/machines').then(response => {
             this.setState({
               cities: response.data.cities,
+              isLoading: true
             });
           }).catch(error => this.setState({ error, isLoading: false }));
     };
 
     render(){
-
-
-
         return (
-
         <div className="content">
-    
 
       { this.state.cities.map(city => 
 
         <MachinePerFactory key={city.id} name={city.name} mdata={city.machines}/>
       )}
-
-      
-
 
       </div>)
 

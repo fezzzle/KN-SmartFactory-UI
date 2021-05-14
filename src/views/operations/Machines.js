@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from "react-bootstrap/Card";
 import './MachinePanel.css'
+import Button from 'react-bootstrap/Button'
 
 class Machine extends React.Component {
     constructor(props) {
@@ -31,7 +32,7 @@ class Machine extends React.Component {
         <li>Detail 3</li>
       </ul> */}
     </Card.Text>
-    {/* <Button color = 'primary' onClick={ () => this.changeStatus()}>{this.state.operating? 'Turn On':'Turn Off'}</Button> */}
+    <Button color = 'primary' onClick={ () => this.changeStatus()}>{!this.state.operating? 'Turn On':'Turn Off'}</Button>
 
   </Card.Body>
 

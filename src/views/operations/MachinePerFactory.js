@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Row, Col, Collapse } from "reactstrap";
+import React from 'react';
+import { Row, Collapse } from "reactstrap";
 import Button from 'react-bootstrap/Button';
 import Machine from './Machines.js'
 import './MachinePanel.css';
@@ -10,7 +10,7 @@ export default class MachinePerFactory extends React.Component {
       super(props);
       this.state = {
           machines: props.mdata,
-          isOpen: true,
+          isOpen: false,
           name: props.name
       };
       this.toggle = this.toggle.bind(this)
@@ -24,10 +24,7 @@ export default class MachinePerFactory extends React.Component {
 
     render(){
 
-        const { machines, isOpen } = this.state;
-
-        
-
+        const { machines} = this.state;
         return (
 
             <div className='machineCards'>
@@ -45,40 +42,7 @@ export default class MachinePerFactory extends React.Component {
                                 </Row>
                             </Collapse>
                 </div>
-        // <Machine key={item.mid} details={{name: `Machine ${item.mid}`, operating:false}}/>
-
-
 
   )
     }}
-
-// const MachinePerFactory = (props) => {
-
-
-// const [isOpen, setIsOpen] = useState(false);
-// const toggle = () => setIsOpen(!isOpen);
-
-// const [machines, setMachines] = useState({...props.data})
-// console.log(props.data)
-
-// return(
-
-//         <div className='machineCards'>
-
-//         <Button color="primary" onClick={toggle} style={{ marginBottom: '1rem', width:'10rem' }}>Tallinn</Button>
-
-//                 <Collapse isOpen={isOpen}>
-//                     <Row className='machineCards md-4'>
-//                         {machines.map(item =>(
-
-//                             <Machine key={item.mid} details={{name: `Machine ${item.mid}`, operating:false}}/>
-
-//                         ))}
-
-//                     </Row>
-//                 </Collapse>
-//     </div>
-
-
-
 
