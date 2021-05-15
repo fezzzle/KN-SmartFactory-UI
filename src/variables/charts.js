@@ -69,7 +69,27 @@ let chart1_2_options = {
     ],
   },
 };
+let halfDonutOptions = {
+  maintainAspectRatio: false,
+  legend: {
+    display: false,
+  },
+  tooltips: {
+    backgroundColor: "#f5f5f5",
+    titleFontColor: "#333",
+    bodyFontColor: "#666",
+    bodySpacing: 4,
+    xPadding: 12,
+    mode: "nearest",
+    intersect: 0,
+    position: "nearest",
+  },
+  responsive: true,
+  circumference: Math.PI,
+  rotation: Math.PI,
 
+
+}
 // #########################################
 // // // used inside src/views/Dashboard.js
 // #########################################
@@ -250,6 +270,42 @@ let chartExample2 = {
   },
   options: chart1_2_options,
 };
+// first donut chart
+let donutExample  = {
+  data: (canvas) => {
+    let ctx = canvas.getContext("2d");
+
+    let gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke.addColorStop(1, "rgba(29,140,248,0.2)");
+    // gradientStroke.addColorStop(0.4, "rgba(29,140,248,0.0)");
+    // gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
+
+    return {
+      labels: ["Use Time"],
+      datasets: [
+        {
+          label: "Data",
+          fill: true,
+          backgroundColor: [gradientStroke, ],
+          borderColor: "#1f8ef1",
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: "#1f8ef1",
+          pointBorderColor: "rgba(255,255,255,0)",
+          pointHoverBackgroundColor: "#1f8ef1",
+          pointBorderWidth: 20,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 15,
+          pointRadius: 4,
+          data: [75, 25],
+        },
+      ],
+    };
+  },
+  options: halfDonutOptions,
+};
 
 // #########################################
 // // // used inside src/views/Dashboard.js
@@ -420,6 +476,7 @@ const chartExample4 = {
 };
 
 module.exports = {
+  donutExample,
   chartExample1, // in src/views/Dashboard.js
   chartExample2, // in src/views/Dashboard.js
   chartExample3, // in src/views/Dashboard.js
