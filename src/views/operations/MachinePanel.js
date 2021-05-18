@@ -29,7 +29,11 @@ export default class MachinePanel extends React.Component {
               cities: response.data.cities,
               isLoading: true
             });
-          }).catch(error => this.setState({ error, isLoading: false }));
+          }).catch(error => {
+            this.setState({ error, isLoading: false })
+            alert('Could not connect to Server. Make sure Mockoon server is on if you are using it')
+            
+            });
     };
 
     render(){

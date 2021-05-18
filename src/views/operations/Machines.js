@@ -8,7 +8,8 @@ class Machine extends React.Component {
       super(props);
       this.state = {
         operating: props.details.operating,
-        mid: props.details.mid
+        mid: props.details.mid,
+        problem: props.details.problem,
       };
       this.changeStatus = this.changeStatus.bind(this);
     }
@@ -20,19 +21,15 @@ class Machine extends React.Component {
       return (
         <div>
 
-<Card style={{width: '12rem', fontSize: '0.8rem', backgroundColor: this.state.operating === true? "#1b7517" : "#a84632" }}>
+<Card border={(this.state.operating && this.state.problem)? "danger" : ''} style={{width: '12rem', fontSize: '0.8rem', backgroundColor: this.state.operating === true? "#1b7517" : "#616662" }}>
   {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
   <Card.Body>
     <Card.Title>Machine {this.state.mid}</Card.Title>   
     <Card.Text>
     <span className='status' >Status: {this.state.operating? 'ON':'OFF'}</span>  <br></br>
-      {/* <ul>
-        <li>Detail 1</li>
-        <li>Detail 2</li>
-        <li>Detail 3</li>
-      </ul> */}
+    <span className='status' >Problem: {this.state.problem? 'Yes':'Clear'}</span>  <br></br>
     </Card.Text>
-    <Button color = 'primary' onClick={ () => this.changeStatus()}>{!this.state.operating? 'Turn On':'Turn Off'}</Button>
+    {/* <Button color = 'primary' onClick={ () => this.changeStatus()}>{!this.state.operating? 'Turn On':'Turn Off'}</Button> */}
 
   </Card.Body>
 
