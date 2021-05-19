@@ -11,6 +11,7 @@ const layerStyles = {
   top: 0,
   width: "100%",
   height: "100%",
+  // backgroundColor: "red"
 };
 
 function getItemStyles(initialOffset, currentOffset, isSnapToGrid) {

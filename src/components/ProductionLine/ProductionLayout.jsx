@@ -4,26 +4,34 @@ import { useDrop } from "react-dnd";
 import { ItemTypes } from "./ItemTypes";
 import { DraggableBox, SelectDraggableBox } from "./DraggableBox";
 import { snapToGrid as doSnapToGrid } from "./snapToGrid";
+import { Container, Row, Col } from "reactstrap";
 
 // Kui tekib küsimus mis see on, siis vaata originaalset koodi
 import update from "immutability-helper";
 
-const styles = {
-  width: 1200,
+const draggableStyles = {
+  marginTop: "6em",
+  width: 1000,
   height: 800,
   border: "1px solid black",
   position: "relative",
   backgorundColor: "white",
   backgroundImage:
-    "repeating-linear-gradient(0deg, transparent, transparent calc(16px - 1px), #000 calc(16px - 1px), #000 16px), repeating-linear-gradient(-90deg, white, white calc(16px - 1px), #000 calc(16px - 1px), #000 16px)"
+    "repeating-linear-gradient(0deg, transparent, transparent calc(16px - 1px), #000 calc(16px - 1px), #000 16px), repeating-linear-gradient(-90deg, white, white calc(16px - 1px), #000 calc(16px - 1px), #000 16px)",
 };
 
+const selectDraggableStyles = {
+  marginTop: "6em",
+  width: 1200,
+  height: 350,
+  border: "1px solid black",
+};
 
 export const ProductionLayout = ({ snapToGrid }) => {
   const [selectableBoxes, setSelectableBoxes] = useState([
     { id: 55390, top: 0, left: 0, title: "Machine 1", type: "machine_1" },
     { id: 4389590, top: 0, left: 160, title: "Machine 3", type: "machine_3" },
-    { id: 438953, top: 0, left: 320, title: "Machine 4", type: "machine_4" },
+    { id: 438953, top: 0, left: 1000, title: "Machine 4", type: "machine_4" },
     { id: 43631, top: 0, left: 480, title: "Conveyor 1", type: "conveyor_1" },
     { id: 8657912, top: 0, left: 640, title: "Conveyor 2", type: "conveyor_2" },
     { id: 4908308, top: 0, left: 800, title: "Conveyor 3", type: "conveyor_3" },
@@ -104,23 +112,18 @@ export const ProductionLayout = ({ snapToGrid }) => {
   );
   return (
     <>
-      <div ref={drop} style={styles}>
+      <div ref={drop} style={draggableStyles}>
         {containerState.map((item, index) => {
           return <DraggableBox item={item} key={index} />;
         })}
       </div>
-      <div
-        style={{
-          width: 1200,
-          height: 350,
-          border: "1px solid black",
-          marginTop: "1rem",
-        }}
-      >
-        {selectableBoxes.map((item, index) => {
-          return <SelectDraggableBox item={item} key={index} />;
-        })}
-      </div>
+      <Row>
+        <Col style={selectDraggableStyles}>
+          {selectableBoxes.map((item, index) => {
+            return <SelectDraggableBox item={item} key={index} />;
+          })}
+        </Col>
+      </Row>
     </>
   );
 };

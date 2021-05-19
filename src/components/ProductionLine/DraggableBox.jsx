@@ -19,6 +19,14 @@ function getStyles(left, top, isDragging) {
     float: "left",
   };
 }
+function isDraggingStyle(isDragging) {
+  return {
+    opacity: isDragging ? 0 : 1,
+    // height: isDragging ? 0 : "",
+    height: "8em",
+    width: "8em"
+  }
+}
 
 export const DraggableBox = memo(function DraggableBox({ item }) {
   const { id, title, left, top, type } = item;
@@ -79,12 +87,15 @@ export const SelectDraggableBox = memo(function SelectDraggableBox({ item }) {
   }, []);
 
   return (
-    <div
-      ref={drag}
-      style={getStyles(left, top, isDragging)}
-      role="DraggableBox"
-    >
+    // <div
+    //   ref={drag}
+    //   style={isDraggingStyle(isDragging)}
+    //   // style={{height: "8em", width: "8em"}}
+    //   role="DraggableBox"
+    // >
+    <>
       <Box title={title} preview={preview} />
-    </div>
+      </>
+    // </div>
   );
 });

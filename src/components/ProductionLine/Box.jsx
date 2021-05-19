@@ -1,10 +1,17 @@
 import { memo } from "react";
 
+// const styles = {
+//   height: "calc(8rem - 2px)",
+//   width: "calc(8em - 2px)",
+//   border: "1px solid black",
+//   padding: "0.5rem 1rem",
+//   cursor: "move",
+// };
 const styles = {
-  height: "calc(8rem - 2px)",
-  width: "calc(8em - 2px)",
+  height: "8em",
+  width: "8em",
   border: "1px solid black",
-  padding: "0.5rem 1rem",
+  // padding: "0.5rem 1rem",
   cursor: "move",
 };
 

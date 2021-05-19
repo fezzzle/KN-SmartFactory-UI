@@ -127,7 +127,8 @@ function Admin(props) {
               </Switch>
               {
                 // we don't want the Footer to be rendered on map page
-                location.pathname === "/admin/map" ? null : <Footer fluid />
+                location.pathname === "/admin/map" ? null : <Footer fluid />,
+                location.pathname === "/admin/production_line" ? null : <Footer fluid />
               }
             </div>
           </div>
