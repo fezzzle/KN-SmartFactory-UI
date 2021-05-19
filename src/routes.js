@@ -18,6 +18,7 @@
 import Dashboard from "views/Dashboard.js";
 import Icons from "views/Icons.js";
 import Map from "views/Map.js";
+import ProductionLine from "views/ProductionLine.js";
 import Notifications from "views/Notifications.js";
 import Rtl from "views/Rtl.js";
 import TableList from "views/TableList.js";
@@ -47,6 +48,14 @@ var routes = [
     rtlName: "خرائط",
     icon: "tim-icons icon-pin",
     component: Map,
+    layout: "/admin",
+  },
+  {
+    path: "/production_line",
+    name: "Production line",
+    rtlName: "خط الإنتاج",
+    icon: "tim-icons icon-components",
+    component: ProductionLine,
     layout: "/admin",
   },
   {
