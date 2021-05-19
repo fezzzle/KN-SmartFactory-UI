@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { Container } from "./Container";
+import { ProductionLayout } from "./ProductionLayout";
 import { CustomDragLayer } from "./CustomDragLayer";
 
 
@@ -19,7 +19,7 @@ const ProductionLineContainer = () => {
   return (
     <div>
       {/* <Bin snapToGrid={snapToGridAfterDrop} /> */}
-      <Container snapToGrid={snapToGridAfterDrop} />
+      <ProductionLayout snapToGrid={snapToGridAfterDrop} />
       <CustomDragLayer /> 
       {/* <CustomDragLayer /> */}
       {/* <p>

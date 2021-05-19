@@ -13,12 +13,13 @@ const styles = {
   height: 800,
   border: "1px solid black",
   position: "relative",
+  backgorundColor: "white",
   backgroundImage:
-    "repeating-linear-gradient(0deg, transparent, transparent calc(16px - 1px), #ddd calc(16px - 1px), #ddd 16px), repeating-linear-gradient(-90deg, transparent, transparent calc(16px - 1px), #ddd calc(16px - 1px), #ddd 16px)"
+    "repeating-linear-gradient(0deg, transparent, transparent calc(16px - 1px), #000 calc(16px - 1px), #000 16px), repeating-linear-gradient(-90deg, white, white calc(16px - 1px), #000 calc(16px - 1px), #000 16px)"
 };
 
 
-export const Container = ({ snapToGrid }) => {
+export const ProductionLayout = ({ snapToGrid }) => {
   const [selectableBoxes, setSelectableBoxes] = useState([
     { id: 55390, top: 0, left: 0, title: "Machine 1", type: "machine_1" },
     { id: 4389590, top: 0, left: 160, title: "Machine 3", type: "machine_3" },
