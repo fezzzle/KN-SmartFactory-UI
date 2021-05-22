@@ -42,7 +42,6 @@ export const posts = () => (dispatch) => {
 };
 
 export const fetchFactoryData = () => async dispatch => {
-  console.log('I AM HERE')
   factoryDataService
     .getAll()
     .then((result) =>

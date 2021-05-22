@@ -1,6 +1,6 @@
 // import ProductionLineProvider from "../components/ProductionLine/ProductionLineProvider";
 // import "./ProductionLine.css";
-import React, {useEffect} from 'react'
+import React, {useEffect, useMemo} from 'react'
 import { fetchFactoryData } from "../store/actions/index";
 import { useTable } from "react-table";
 import { useSelector, useDispatch } from "react-redux";
@@ -60,13 +60,15 @@ function ReactTable({ columns, data }) {
 const ProductionLineView = () => {
   const dispatch = useDispatch();
   const factoryData = useSelector(state => state.factory);
+  // console.log('factoryData:', factoryData[0]["factory_location"]["location_city"])
 
   useEffect(() => {
-    dispatch(fetchFactoryData(factoryData))
-  }, [])
+    dispatch(fetchFactoryData())
+  }, [dispatch])
 
 
-  console.log("factoryData IS:", factoryData)
+  const data = useMemo(() => factoryData, [factoryData])
+  console.log('data:', data)
 
 
   const logValue = (value) => {
@@ -78,7 +80,7 @@ const ProductionLineView = () => {
         columns: [
           {
             Header: "Factory name",
-            accessor: "factoryName",
+            accessor: "factory_location.name",
           },
           {
             Header: "Alerts",
@@ -86,11 +88,11 @@ const ProductionLineView = () => {
           },
           {
             Header: "Location",
-            accessor: "factoryLocation",
+            accessor: "factory_location.location_city",
           },
           {
             Header: "lines",
-            accessor: "lines",
+            accessor: "production_line.length",
           },
           {
             Header: "things",
@@ -142,7 +144,7 @@ const ProductionLineView = () => {
 
   return (
     <div className="content">
-      <ReactTable columns={columns} data={factoryData} />
+      <ReactTable columns={columns} data={data} />
     </div>
   );
 };
