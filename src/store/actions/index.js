@@ -1,5 +1,11 @@
-import { INCREMENT, DECREMENT, SIGN_IN, POSTS } from "./types";
-import FactoryDataService from "../../services/factoryDataService";
+import {
+  RECEIVE_FACTORY_DATA,
+  INCREMENT,
+  DECREMENT,
+  SIGN_IN,
+  POSTS,
+} from "./types";
+import factoryDataService from "../../services/factoryDataService";
 
 export const increment = (number) => {
   return {
@@ -22,7 +28,8 @@ export const logged = () => {
 };
 
 export const posts = () => (dispatch) => {
-  FactoryDataService.getAll()
+  factoryDataService
+    .getAll()
     .then((posts) =>
       dispatch({
         type: POSTS,
@@ -32,4 +39,19 @@ export const posts = () => (dispatch) => {
     .catch((e) => {
       console.log(e);
     });
+};
+
+export const fetchFactoryData = () => async dispatch => {
+  factoryDataService
+    .getAll()
+    .then((result) =>
+      dispatch({ 
+        type: RECEIVE_FACTORY_DATA, 
+        payload: result.data 
+      })
+      )
+    .catch((e) => {
+      console.log(e);
+    });
+  ;
 };

@@ -30,7 +30,6 @@ function isDraggingStyle(isDragging) {
 
 export const DraggableBox = memo(function DraggableBox({ item }) {
   const { id, title, left, top, type } = item;
-  console.log(type)
 
   const [{ isDragging }, drag, preview] = useDrag(
     () => ({

@@ -1,39 +1,20 @@
 // import ProductionLineProvider from "../components/ProductionLine/ProductionLineProvider";
 // import "./ProductionLine.css";
-import apiDataService from "../services/factoryDataService";
+import React from 'react'
+import { fetchFactoryData } from "../store/actions/index";
 import { useTable } from "react-table";
-import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Card,
-  CardHeader,
   CardBody,
-  CardTitle,
   Table,
-  Row,
-  Col,
   Button,
 } from "reactstrap";
 
-const data = [
-  {
-    factoryName: "Bike Factory",
-    factoryLocation: "Tallinn",
-    lines: 2,
-    things: 40,
-    devices: 70,
-    status: "WORKING",
-  },
-  {
-    factoryName: "Food Factory",
-    factoryLocation: "Tartu",
-    lines: 3,
-    things: 15,
-    devices: 30,
-    status: "OFFLINE",
-  },
-];
+const data = [{tere: "tere"}]
 
-console.log(apiDataService.getAll().then((res) => console.log(res.data)));
+
+// console.log(apiDataService.getAll().then((res) => console.log(res.data)));
 
 function ReactTable({ columns, data }) {
   const { getTableProps, headerGroups, rows, prepareRow } = useTable({
@@ -45,7 +26,7 @@ function ReactTable({ columns, data }) {
   return (
     <Card>
       <CardBody>
-        <Button className="float-right" href="/#" color="primary">
+        <Button className="float-right mr-4" href="/#" color="primary">
           Add new factory
         </Button>
         <Table {...getTableProps()}>
@@ -81,8 +62,11 @@ function ReactTable({ columns, data }) {
 }
 
 const ProductionLineView = () => {
+  const factoryData = useSelector((state) => state.factory);
+  console.log('factoryData:', factoryData)
+  const dispatch = useDispatch();
+
   const logValue = (value) => {
-    console.log(value);
   };
   const columns = React.useMemo(
     () => [
@@ -92,6 +76,10 @@ const ProductionLineView = () => {
           {
             Header: "Factory name",
             accessor: "factoryName",
+          },
+          {
+            Header: "Alerts",
+            accessor: "alerts",
           },
           {
             Header: "Location",
@@ -121,9 +109,17 @@ const ProductionLineView = () => {
                 <button
                   className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
                   type="button"
-                  onClick={logValue}
+                  onClick={() => dispatch(fetchFactoryData())}
                 >
                   <i className="tim-icons icon-pencil"></i>
+                </button>
+                <button
+                  // color="primary"
+                  className="btn-icon btn-link like btn btn-info btn-sm"
+                  type="button"
+                  onClick={logValue}
+                >
+                  <i className="tim-icons icon-square-pin"></i>
                 </button>
                 <button
                   className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
@@ -137,49 +133,6 @@ const ProductionLineView = () => {
           },
         ],
       },
-      // {
-      //   Header: "Hello",
-      //   columns: [
-      //     {
-      //       Header: "lines",
-      //       accessor: "lines",
-      //     },
-      //     {
-      //       Header: "things",
-      //       accessor: "things",
-      //     },
-      //     {
-      //       Header: "devices",
-      //       accessor: "devices",
-      //     },
-      //     {
-      //       Header: "Status",
-      //       accessor: "status",
-      //     },
-      //     {
-      //       Header: "Actions",
-      //       accessor: "actions",
-      //       Cell: () => (
-      //         <>
-      //           <button
-      //             className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
-      //             type="button"
-      //             onClick={logValue}
-      //           >
-      //             <i className="tim-icons icon-pencil"></i>
-      //           </button>
-      //           <button
-      //             className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
-      //             type="button"
-      //             onClick={logValue}
-      //           >
-      //             <i className="tim-icons icon-simple-remove"></i>
-      //           </button>
-      //         </>
-      //       ),
-      //     },
-      //   ],
-      // },
     ],
     []
   );
