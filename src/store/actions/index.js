@@ -1,5 +1,5 @@
 import { INCREMENT, DECREMENT, SIGN_IN, POSTS } from "./types";
-import FactoryDataService from "../../services/FactoryDataService";
+import FactoryDataService from "../../services/factoryDataService";
 
 export const increment = (number) => {
   return {

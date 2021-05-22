@@ -1,8 +1,8 @@
-import axios from "axios";
+import axios from 'axios'
 
 export default axios.create({
-  baseURL: "https://jsonplaceholder.typicode.com/",
+  baseURL: 'https://json-server-testing-v1.herokuapp.com/factory_api/',
   headers: {
-    "Content-type": "application/json",
+    'Content-type': 'application/json',
   },
-});
+})

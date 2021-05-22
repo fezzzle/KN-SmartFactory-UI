@@ -1,39 +1,33 @@
-import http from "./http-common";
+import http from './http-common'
 
-const getAll = () => {
-  return http.get("/posts?_limit=5");
-};
+class apiDataService {
+  getAll() {
+    return http.get('/')
+  }
 
-// const get = (id) => {
-//   return http.get(`/employees/${id}`);
-// };
+  get(id) {
+    return http.get(`/people/${id}`)
+  }
 
-// const create = (data) => {
-//   return http.post("/employees", data);
-// };
+  create(data) {
+    return http.post('/people', data)
+  }
 
-// const update = (id, data) => {
-//   return http.put(`/employees/${id}`, data);
-// };
+  update(id, data) {
+    return http.put(`/people/${id}`, data)
+  }
 
-// const remove = (id) => {
-//   return http.delete(`/employees/${id}`);
-// };
+  delete(id) {
+    return http.delete(`/people/${id}`)
+  }
 
-// const removeAll = () => {
-//   return http.delete(`/employees`);
-// };
+  deleteAll() {
+    return http.delete('/people')
+  }
 
-// const findByTitle = (title) => {
-//   return http.get(`/employees?title=${title}`);
-// };
+  findByfirstname(firstname) {
+    return http.get(`/people?firstname=${firstname}`)
+  }
+}
 
-export default {
-  getAll,
-  // get,
-  // create,
-  // update,
-  // remove,
-  // removeAll,
-  // findByTitle,
-};
+export default new apiDataService()
