@@ -1,6 +1,6 @@
 // import ProductionLineProvider from "../components/ProductionLine/ProductionLineProvider";
 // import "./ProductionLine.css";
-import React from 'react'
+import React, {useEffect} from 'react'
 import { fetchFactoryData } from "../store/actions/index";
 import { useTable } from "react-table";
 import { useSelector, useDispatch } from "react-redux";
@@ -11,10 +11,6 @@ import {
   Button,
 } from "reactstrap";
 
-const data = [{tere: "tere"}]
-
-
-// console.log(apiDataService.getAll().then((res) => console.log(res.data)));
 
 function ReactTable({ columns, data }) {
   const { getTableProps, headerGroups, rows, prepareRow } = useTable({
@@ -62,9 +58,16 @@ function ReactTable({ columns, data }) {
 }
 
 const ProductionLineView = () => {
-  const factoryData = useSelector((state) => state.factory);
-  console.log('factoryData:', factoryData)
   const dispatch = useDispatch();
+  const factoryData = useSelector(state => state.factory);
+
+  useEffect(() => {
+    dispatch(fetchFactoryData(factoryData))
+  }, [])
+
+
+  console.log("factoryData IS:", factoryData)
+
 
   const logValue = (value) => {
   };
@@ -109,7 +112,7 @@ const ProductionLineView = () => {
                 <button
                   className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
                   type="button"
-                  onClick={() => dispatch(fetchFactoryData())}
+                  onClick={logValue}
                 >
                   <i className="tim-icons icon-pencil"></i>
                 </button>
@@ -139,7 +142,7 @@ const ProductionLineView = () => {
 
   return (
     <div className="content">
-      <ReactTable columns={columns} data={data} />
+      <ReactTable columns={columns} data={factoryData} />
     </div>
   );
 };
