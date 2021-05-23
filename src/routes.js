@@ -24,16 +24,31 @@ import Rtl from "views/Rtl.js";
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import UserProfile from "views/UserProfile.js";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
-const AddNewCompany = () => {
+function RouteWithSubRoutes(route) {
   return (
-    <>
-    <h1>ADD NEW COMPANY</h1>
-    </>
-  )
+    <Route
+      path={route.path}
+      exact={route.exact}
+      render={(props) => <route.component {...props} routes={route.routes} />}
+    />
+  );
+}
+
+export function RenderRoutes({ routes }) {
+  return (
+    <Switch>
+      {routes.map((route, i) => {
+        return <RouteWithSubRoutes key={route.key} {...route} />;
+      })}
+      <Route component={() => <h1>Not Found!</h1>} />
+    </Switch>
+  );
 }
 
 var routes = [
+  { path: "/", name: "ROOT", exact: true, component: Dashboard },
   {
     path: "/dashboard",
     name: "Dashboard",
@@ -59,11 +74,25 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/production_line",
-    name: "Production line",
+    path: "/factories",
+    name: "FACTORIES",
     rtlName: "خط الإنتاج",
     icon: "tim-icons icon-components",
-    component: ProductionLine,
+    component: RenderRoutes, // here's the update
+    routes: [
+      {
+        path: "/factories",
+        name: "FACTORIES_ROOT",
+        exact: true,
+        component: ProductionLine,
+      },
+      {
+        path: "/factories/add_factory",
+        name: "FACTORIES_ADD_FACTORY",
+        exact: true,
+        component: () => <h1>ADD A FACTORY</h1>,
+      },
+    ],
     layout: "/admin",
   },
   {
@@ -108,3 +137,4 @@ var routes = [
   // },
 ];
 export default routes;
+// export default ROUTES;

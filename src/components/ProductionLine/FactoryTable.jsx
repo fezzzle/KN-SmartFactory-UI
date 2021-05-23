@@ -12,7 +12,7 @@ const FactoryTable = ({ columns, data }) => {
   return (
     <Card>
       <CardBody>
-        <Button className="float-right mr-4" color="primary">
+        <Button className="float-right mr-4" color="primary" tag={RRNavLink} to="/factories/add_factory">
           Add new factory
         </Button>
         <Table {...getTableProps()}>
