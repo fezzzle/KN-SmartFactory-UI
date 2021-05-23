@@ -1,10 +1,10 @@
 // import ProductionLineProvider from "../components/ProductionLine/ProductionLineProvider";
 // import "./ProductionLine.css";
 
-import FactoryTableContainer from "../components/ProductionLine/FactoryTableContainer"
+import FactoryTableContainer from "../components/Factory/FactoryTableContainer"
 
 
-const ProductionLineView = () => {
+const Factory = () => {
   return (
     <div className="content">
       <FactoryTableContainer />
@@ -12,7 +12,7 @@ const ProductionLineView = () => {
   );
 };
 
-export default ProductionLineView;
+export default Factory;
 
 // const ProductionLineView = () => {
 //   return (

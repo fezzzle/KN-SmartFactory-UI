@@ -18,7 +18,7 @@
 import Dashboard from "views/Dashboard.js";
 import Icons from "views/Icons.js";
 import Map from "views/Map.js";
-import ProductionLine from "views/ProductionLine.js";
+import Factory from "views/Factory.js";
 import Notifications from "views/Notifications.js";
 import Rtl from "views/Rtl.js";
 import TableList from "views/TableList.js";
@@ -84,7 +84,7 @@ var routes = [
         path: "/factories",
         name: "FACTORIES_ROOT",
         exact: true,
-        component: ProductionLine,
+        component: Factory,
       },
       {
         path: "/factories/add_factory",
