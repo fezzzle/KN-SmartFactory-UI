@@ -19,13 +19,15 @@ import Dashboard from "views/Dashboard.js";
 import Icons from "views/Icons.js";
 import Map from "views/Map.js";
 import Factory from "views/Factory";
-import { FactoryAddPage } from "components/Factory"
+import FactoryAddPage from "./components/Factory/FactoryAddPage"
 import Notifications from "views/Notifications.js";
 import Rtl from "views/Rtl.js";
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import UserProfile from "views/UserProfile.js";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+
+console.log("FactoryAddPage IS", FactoryAddPage)
 
 function RouteWithSubRoutes(route) {
   return (
@@ -91,7 +93,7 @@ var routes = [
         path: "/factories/add_factory",
         name: "FACTORIES_ADD_FACTORY",
         exact: true,
-        component: () => FactoryAddPage,
+        component: FactoryAddPage,
       },
     ],
     layout: "/admin",

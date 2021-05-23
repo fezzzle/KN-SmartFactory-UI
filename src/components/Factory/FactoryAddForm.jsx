@@ -1,10 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
 import { Button, Input, FormGroup, Label, FormFeedback } from 'reactstrap';
 import * as Yup from 'yup';
 
-import { projectType } from 'projects/propTypes';
 /**
  * Custom form field component to make using Reactstrap and Formik together
  * easier and less verbose.
@@ -28,22 +26,12 @@ const FormField = ({ label, name, touched, errors }) => (
     </FormGroup>
 );
 
-FormField.propTypes = {
-    label: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    touched: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired,
-};
-
-/**
- * Form for editing the actual hours for a project.
- */
 const FactoryAddForm = ({ project, onSubmit }) => (
     <Formik
         initialValues={{
-            actual_design: project.actual_design,
-            actual_development: project.actual_development,
-            actual_testing: project.actual_testing,
+            actual_design: 100,
+            actual_development: 200,
+            actual_testing: 3000,
         }}
         validationSchema={Yup.object().shape({
             actual_design: Yup.number()
@@ -94,10 +82,5 @@ const FactoryAddForm = ({ project, onSubmit }) => (
         )}
     </Formik>
 );
-
-FactoryAddForm.propTypes = {
-    project: projectType.isRequired,
-    onSubmit: PropTypes.func.isRequired,
-};
 
 export default FactoryAddForm;

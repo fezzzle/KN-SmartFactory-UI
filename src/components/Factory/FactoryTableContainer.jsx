@@ -84,7 +84,11 @@ const FactoryTableContainer = () => {
     ],
     []
   );
-  return <FactoryTable columns={columns} data={data} />;
+  return (
+    <div className="content">
+      <FactoryTable columns={columns} data={data} />
+    </div>
+  );
 };
 
 export default FactoryTableContainer;

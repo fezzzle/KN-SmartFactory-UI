@@ -6,9 +6,7 @@ import FactoryTableContainer from "../components/Factory/FactoryTableContainer"
 
 const Factory = () => {
   return (
-    <div className="content">
       <FactoryTableContainer />
-    </div>
   );
 };
 
