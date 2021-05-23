@@ -39,6 +39,7 @@ function Admin(props) {
   const [sidebarOpened, setsidebarOpened] = React.useState(
     document.documentElement.className.indexOf("nav-open") !== -1
   );
+
   React.useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
       document.documentElement.className += " perfect-scrollbar-on";
@@ -60,6 +61,7 @@ function Admin(props) {
       }
     };
   });
+
   React.useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
       let tables = document.querySelectorAll(".table-responsive");
@@ -73,19 +75,22 @@ function Admin(props) {
       mainPanelRef.current.scrollTop = 0;
     }
   }, [location]);
+
   // this function opens and closes the sidebar on small devices
   const toggleSidebar = () => {
     document.documentElement.classList.toggle("nav-open");
     setsidebarOpened(!sidebarOpened);
   };
+
   const getRoutes = (routes) => {
-    return routes.map((prop, key) => {
-      if (prop.layout === "/admin") {
+    return routes.map((route, key) => {
+      console.log('route:', route.layout + route.path)
+      if (route.layout === "/admin") {
         return (
           <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
+            path={route.layout + route.path}
             key={key}
+            component={route.component}
           />
         );
       } else {
@@ -93,6 +98,7 @@ function Admin(props) {
       }
     });
   };
+
   const getBrandText = (path) => {
     for (let i = 0; i < routes.length; i++) {
       if (location.pathname.indexOf(routes[i].layout + routes[i].path) !== -1) {
@@ -101,6 +107,7 @@ function Admin(props) {
     }
     return "Brand";
   };
+
   return (
     <BackgroundColorContext.Consumer>
       {({ color, changeColor }) => (
@@ -127,8 +134,10 @@ function Admin(props) {
               </Switch>
               {
                 // we don't want the Footer to be rendered on map page
-                location.pathname === "/admin/map" ? null : <Footer fluid />,
-                location.pathname === "/admin/production_line" ? null : <Footer fluid />
+                (location.pathname === "/admin/map" ? null : <Footer fluid />,
+                  location.pathname === "/admin/production_line" ? null : (
+                    <Footer fluid />
+                  ))
               }
             </div>
           </div>

@@ -25,6 +25,14 @@ import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import UserProfile from "views/UserProfile.js";
 
+const AddNewCompany = () => {
+  return (
+    <>
+    <h1>ADD NEW COMPANY</h1>
+    </>
+  )
+}
+
 var routes = [
   {
     path: "/dashboard",
