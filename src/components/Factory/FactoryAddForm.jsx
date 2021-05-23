@@ -11,8 +11,7 @@ const FormField = ({ label, name, touched, errors }) => (
     <FormGroup>
         <Label for={name}>{label}</Label>
         <Input
-            type="number"
-            step="0.01"
+            type="text"
             name={name}
             id={name}
             tag={Field}
@@ -29,12 +28,12 @@ const FormField = ({ label, name, touched, errors }) => (
 const FactoryAddForm = ({ project, onSubmit }) => (
     <Formik
         initialValues={{
-            actual_design: 100,
-            actual_development: 200,
-            actual_testing: 3000,
+            factory_name: "Some candy factory",
+            factory_location: "Valga",
+            local_time: Date.now()
         }}
         validationSchema={Yup.object().shape({
-            actual_design: Yup.number()
+            actual_design: Yup.string()
                 .min(0)
                 .required()
                 .label('Actual design hours'),
@@ -52,20 +51,20 @@ const FactoryAddForm = ({ project, onSubmit }) => (
         {({ touched, errors, isSubmitting }) => (
             <Form>
                 <FormField
-                    name="actual_design"
-                    label="Actual design hours"
+                    name="Factory name"
+                    label="Factory name"
                     touched={touched}
                     errors={errors}
                 />
                 <FormField
-                    name="actual_development"
+                    name="Factory location"
                     label="Actual development hours"
                     touched={touched}
                     errors={errors}
                 />
                 <FormField
-                    name="actual_testing"
-                    label="Actual testing hours"
+                    name="Local time"
+                    label="Local time"
                     touched={touched}
                     errors={errors}
                 />
