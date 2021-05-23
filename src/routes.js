@@ -18,7 +18,8 @@
 import Dashboard from "views/Dashboard.js";
 import Icons from "views/Icons.js";
 import Map from "views/Map.js";
-import Factory from "views/Factory.js";
+import Factory from "views/Factory";
+import { FactoryAddPage } from "components/Factory"
 import Notifications from "views/Notifications.js";
 import Rtl from "views/Rtl.js";
 import TableList from "views/TableList.js";
@@ -48,7 +49,7 @@ export function RenderRoutes({ routes }) {
 }
 
 var routes = [
-  { path: "/", name: "ROOT", exact: true, component: Dashboard },
+  { path: "/", name: "Home", exact: true, icon: "tim-icons icon-world", component: Dashboard },
   {
     path: "/dashboard",
     name: "Dashboard",
@@ -90,7 +91,7 @@ var routes = [
         path: "/factories/add_factory",
         name: "FACTORIES_ADD_FACTORY",
         exact: true,
-        component: () => <h1>ADD A FACTORY</h1>,
+        component: () => FactoryAddPage,
       },
     ],
     layout: "/admin",
