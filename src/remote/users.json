@@ -122,6 +122,34 @@
                         ],
                         "enabled": true,
                         "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "",
+                        "method": "get",
+                        "endpoint": "business-unit",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n    \"BUs\": [\n    {\n    \"buID\": 1,\n    \"name\": \"Logistic\",\n    \"city\": \"Tallinn\",\n    \"activated\": true\n    },\n    {\n    \"buID\": 2,\n    \"name\": \"Custom Clearance\",\n    \"city\": \"Tallinn\",\n    \"activated\": true\n    },\n    {\n    \"buID\": 3,\n    \"name\": \"Delivery\",\n    \"city\": \"Narva\",\n    \"activated\": true\n    },\n    {\n    \"buID\": 4,\n    \"name\": \"Maintenance\",\n    \"city\": \"Tartu\",\n    \"activated\": true\n    },\n    \n    {\n    \"buID\": 5,\n    \"name\": \"Special Cargo\",\n    \"city\": \"Paldiski\",\n    \"activated\": true\n    },\n    {\n    \"buID\": 6,\n    \"name\": \"Perishable Goods\",\n    \"city\": \"Paldiski\",\n    \"activated\": true\n    },\n    {\n    \"buID\": 7,\n    \"name\": \"Live Stocks\",\n    \"city\": \"Tartu\",\n    \"activated\": true\n    }\n    \n    ]\n  \n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [
+                                    {
+                                        "key": "",
+                                        "value": ""
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
                     }
                 ],
                 "proxyMode": false,
