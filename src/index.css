@@ -1,0 +1,21 @@
+.admin-top{
+    margin-top: 30px;
+    color: white;
+    
+  }
+.table-justification{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 160px;
+    margin-right: 110px;
+    margin-top: 40px;
+
+
+}
+.modal{
+  position: relative;
+  z-index: 999;
+  backdrop-filter: blur(8px);
+
+}
