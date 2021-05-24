@@ -16,11 +16,24 @@ class BootstrapModal extends React.Component {
       startDate: 1,
       setStartDate: 1,
       roles: [],
+      firstName:'',
+      lastName:'',
+      city:'',
+      company: '',
+      role: ''
     };
     this.getRoles = this.getRoles.bind(this);
     this.componentDidMount=this.componentDidMount.bind(this);
     this.changeDate = this.changeDate.bind(this);
+    this.onChange=this.onChange.bind(this);
   }
+
+  onChange(e){
+    e.preventDefault();
+    let newState={...this.state};
+    newState[e.target.name]=e.target.value;
+    this.setState(newState);
+}
 
   async componentDidMount(){
     await this.getRoles();
@@ -73,9 +86,17 @@ class BootstrapModal extends React.Component {
             <Modal.Title>New User</Modal.Title>
           </Modal.Header>
           <Modal.Body>
+            <FormGroup >
+              <label>First Name</label>
+              <Input type="text" name="firstName" value={this.state.firstName} onChange={this.onChange}/>
+            </FormGroup>
             <FormGroup>
-              <label>Name</label>
-              <Input type="text" />
+              <label>Last Name</label>
+              <Input type="text" name="lastName" value={this.state.lastName} onChange={this.onChange}/>
+            </FormGroup>
+            <FormGroup>
+              <label>Company Name</label>
+              <Input type="text" name="company" value={this.state.company} onChange={this.onChange}/>
             </FormGroup>
 
             <FormGroup style={{ width: "100%" }}>
@@ -85,7 +106,7 @@ class BootstrapModal extends React.Component {
                 className="select-padding"
                 aria-label="Default select example"
               >
-                <option selected>select role</option>
+                <option selected>Select Role</option>
                 { this.state.roles.map((role => <option key = {role.roleID} value={role.roleID}> {role.name} </option>))}
                 {/* <option value="1">Company Admin</option>
                 <option value="2">Manufacturing Operations Manager</option>
@@ -96,9 +117,10 @@ class BootstrapModal extends React.Component {
               </select>
             </FormGroup>
 
-
+               
             <FormGroup style={{ width: "100%" }}>
               <label>Deadline</label>
+              <br></br>
               {/* <DatePicker selected={startDate} onChange={date => setStartDate(date)} /> */}
               {/* <Input  onClick={() => this.showCalender()} /> */}
               <DatePicker className="date-fix" onClick={() => this.changeDate()}/>
