@@ -88,7 +88,7 @@ getUsers = async ()=>{
                           <td> {user.firstName} {user.lastName} </td>
                           <td> {user.role} </td>
                           <td> {user.company} </td>
-                          <td> 12/3/22 </td> 
+                          <td> {user.deadline} </td> 
                           <td> {user.activated?'Active':'Not Active'}</td> 
                          <td>
                         <button className="btn btn-primary" > {user.activated? 'Deactivate': 'Activate'}</button>
@@ -96,16 +96,7 @@ getUsers = async ()=>{
 
                       </tr>
                        ))}
-                    <tr>
-                      <td>Test User</td>
-                      <td>Manufacturing Manager</td>
-                      <td>Kuehne Nagel</td>
-                      <td>12/3/22</td>
-                      <td>Active</td>
-                      <td>
-                        <button className="btn btn-primary"> Activate</button>
-                      </td>
-                    </tr>
+
                   </tbody>
                 </Table>
               </CardBody>

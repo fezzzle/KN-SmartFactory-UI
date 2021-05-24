@@ -18,6 +18,7 @@ class BusinessUnitAdmin extends Component {
     this.state = {
 
       BusinessUnits: [],
+      isLoading: false,
     };
 
     this.getBusinessUnits = this.getBusinessUnits.bind(this);
@@ -41,6 +42,7 @@ getBusinessUnits = async ()=>{
         this.setState({
           ...this.state,
           BusinessUnits: response.data.BUs,
+          isLoading: true
         });
 
         console.log(this.state);
@@ -54,6 +56,8 @@ getBusinessUnits = async ()=>{
 
 
   render() {
+
+
     return (
       <div className="content">
         <Row>
