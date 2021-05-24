@@ -13,7 +13,7 @@ class BootstrapModal extends React.Component {
       showHide: false,
       modalIsOpen: true,
       startDate: 1,
-      setStartDate: 31
+      setStartDate: 1
     };
   }
 
@@ -28,8 +28,12 @@ class BootstrapModal extends React.Component {
     }));
   };
 
+  changeDate () {
+    this.setState({ startDate : this.setState(new Date())});
+  }
+
   render() {
-    const [startDate, setStartDate] = this.setState(new Date());
+    // const [startDate, setStartDate] = this.setState(new Date());
   
     return (
       <div>
@@ -65,10 +69,14 @@ class BootstrapModal extends React.Component {
             </FormGroup>
 
 
-            <FormGroup>
+            <FormGroup style={{ width: "100%" }}>
               <label>Deadline</label>
-              <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
-              {/* <Input  onClick={() => this.showCalender()} /> */}
+              <br/>
+
+              {/* <DatePicker selected={startDate} onChange={date => setStartDate(date)} /> */}
+
+              <DatePicker className="date-fix" onClick={() => this.changeDate()}/>
+            
             </FormGroup>
           </Modal.Body>
 
