@@ -73,6 +73,7 @@ getUsers = async ()=>{
                     <tr>
                       <th>Name</th>
                       <th>Role</th>
+                      <th>Company</th>
                       <th>Deadline</th>
                       <th>Status</th>
                       <th>Activate/Deactivate</th>
@@ -95,6 +96,7 @@ getUsers = async ()=>{
                     <tr>
                       <td>Test User</td>
                       <td>Manufacturing Manager</td>
+                      <td>Kuehne Nagel</td>
                       <td>12/3/22</td>
                       <td>Active</td>
                       <td>

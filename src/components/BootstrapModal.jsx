@@ -99,6 +99,7 @@ class BootstrapModal extends React.Component {
               <Input type="text" name="company" value={this.state.company} onChange={this.onChange}/>
             </FormGroup>
 
+
             <FormGroup style={{ width: "100%" }}>
               <label className="label-fix">Role</label>
               <br />
