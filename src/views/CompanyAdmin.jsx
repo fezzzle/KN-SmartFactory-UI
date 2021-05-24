@@ -85,6 +85,7 @@ getUsers = async ()=>{
                       <tr key = {user.userID}>
                           <td> {user.firstName} {user.lastName} </td>
                           <td> {user.role} </td>
+                          <td> {user.company} </td>
                           <td> 12/3/22 </td> 
                           <td> {user.activated?'Active':'Not Active'}</td> 
                          <td>
