@@ -41,8 +41,8 @@ class CompanyAdmin extends Component {
                   </thead>
                   <tbody>
                     <tr>
+                      <td>Mamta</td>
                       <td>Manufacturing Manager</td>
-                      <td>Kuehne Nagel</td>
                       <td>12/3/22</td>
                       <td>
                         <button className="btn btn-primary"> Activate</button>

@@ -1,19 +1,26 @@
-import React from "react";
 import { Button, Modal } from "react-bootstrap";
-import Form from "../components/form"
+import React from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { FormGroup, Input } from "reactstrap";
+
 
 class BootstrapModal extends React.Component {
+  
   constructor() {
     super();
     this.state = {
       showHide: false,
       modalIsOpen: true,
+      startDate: 1,
+      setStartDate: 31
     };
   }
 
   handleModalShowHide() {
     this.setState({ showHide: !this.state.showHide });
-  }
+  };
+
 
   toggleModal = () => {
     this.setState((prevState) => ({
@@ -22,6 +29,8 @@ class BootstrapModal extends React.Component {
   };
 
   render() {
+    const [startDate, setStartDate] = this.setState(new Date());
+  
     return (
       <div>
         <Button variant="primary" onClick={() => this.handleModalShowHide()}>
@@ -33,10 +42,35 @@ class BootstrapModal extends React.Component {
             <Modal.Title>New User</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-              <Form/>
+            <FormGroup>
+              <label>Name</label>
+              <Input type="text" />
+            </FormGroup>
+
+            <FormGroup>
+              <label className="label-fix">Role</label>
+              <br />
+              <select
+                className="select-padding"
+                aria-label="Default select example"
+              >
+                <option selected>select role</option>
+                <option value="1">Company Admin</option>
+                <option value="2">Manufacturing Operations Manager</option>
+                <option value="3">Factory Manager</option>
+                <option value="4">Maintenance Technician</option>
+                <option value="5">Device Operator</option>
+                <option value="6">Factory Operator</option>
+              </select>
+            </FormGroup>
+
+
+            <FormGroup>
+              <label>Deadline</label>
+              <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
+              {/* <Input  onClick={() => this.showCalender()} /> */}
+            </FormGroup>
           </Modal.Body>
-
-
 
 
           <Modal.Footer>

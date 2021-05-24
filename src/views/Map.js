@@ -16,7 +16,7 @@
 
 */
 import { useState } from "react";
-import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
+import { Card, CardBody, Row, Col } from "reactstrap";
 import "./Map.css";
 import {
   MapContainer,
@@ -28,7 +28,7 @@ import {
 import { Icon } from "leaflet";
 import * as cityData from "../cityData.json";
 import factoryPic from "../assets/img/factory.svg";
-import findMePic from "../assets/img/location.svg";
+// import findMePic from "../assets/img/location.svg";
 
 function Map() {
   const [activeCity, setActiveCity] = useState(null);
@@ -113,7 +113,7 @@ function Map() {
                     </Popup>
                   )}
                   <button className="find" onClick={changePos}>
-                    <img src={findMePic} />
+                    {/* <img src={findMePic} /> */}
                   </button>
                 </MapContainer>
               </CardBody>
