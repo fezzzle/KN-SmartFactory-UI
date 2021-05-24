@@ -1,0 +1,293 @@
+{
+    "source": "mockoon:1.14.1",
+    "data": [
+        {
+            "type": "environment",
+            "item": {
+                "uuid": "",
+                "lastMigration": 15,
+                "name": "Demo API",
+                "endpointPrefix": "",
+                "latency": 0,
+                "port": 3000,
+                "routes": [
+                    {
+                        "uuid": "",
+                        "documentation": "Generate random body (JSON, text, CSV, etc) with templating",
+                        "method": "get",
+                        "endpoint": "machines",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "[\n  {{#repeat (queryParam 'total' '5')}}\n  {\n    \"id\": {{@index}},\n    \"factory_id\": \"{{faker 'random.uuid'}}\",\n    \"factory_location\": {\n        \"local_time\": \"{{faker 'time.recent' 'abbr'}}\",\n        \"location_city\": \"{{faker 'address.city'}}\",\n        \"lat\": \"{{faker 'address.latitude'}}\",\n        \"long\": \"{{faker 'address.longitude'}}\"\n    },\n    \"machines\": [\n      {{#repeat (faker 'random.number' 5)}}\n      {\n        \"id\": \"{{faker 'random.uuid'}}\",\n        \"name\": \"{{faker 'lorem.word'}}\",\n        \"sensors\": [\n          {{#repeat (faker 'random.number' 5)}}\n          {\n              \"id\": \"{{faker 'random.uuid'}}\",\n              \"name\": \"{{faker 'random.word'}} {{faker 'random.word'}}\",\n              \"temp\": \"{{faker 'random.number' min=0 max=200}}\",\n              \"service_req\": \"{{faker 'random.boolean'}}\",\n              \"last_update\": \"{{faker 'time.recent' unix}}\"\n          }\n          {{/repeat}}\n        ]\n      }\n      {{/repeat}}\n    ]\n  }\n  {{/repeat}}\n]",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Creates 10 random users, or the amount specified in the 'total' query param",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false,
+                        "sequentialResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Use multiple responses with rules",
+                        "method": "post",
+                        "endpoint": "content/:param1",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"Rules example\": \"Default response. Served if route param 'param1' is not present.\"\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Default response",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            },
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"Rules example\": \"Content XYZ. Served if route param 'param1' equals 'xyz'. (See in 'Rules' tab)\"\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Content XYZ",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [
+                                    {
+                                        "target": "params",
+                                        "modifier": "param1",
+                                        "value": "xyz",
+                                        "isRegex": false
+                                    }
+                                ],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            },
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"Rules example\": \"Content not found. Served if route param 'param1' is not equal to 'xyz'. (See in 'Rules' tab)\"\n}\n",
+                                "latency": 0,
+                                "statusCode": 404,
+                                "label": "Content not found",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [
+                                    {
+                                        "target": "params",
+                                        "modifier": "param1",
+                                        "value": "^(?!.*xyz).*$",
+                                        "isRegex": true
+                                    }
+                                ],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false,
+                        "sequentialResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Serve a file dynamically depending on the path param 'pageName'.",
+                        "method": "get",
+                        "endpoint": "file/:pageName",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "Templating is also supported in file path",
+                                "headers": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "text/html"
+                                    }
+                                ],
+                                "filePath": "./page{{urlParam 'pageName'}}.html",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false,
+                        "sequentialResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Path supports various patterns",
+                        "method": "put",
+                        "endpoint": "path/with/pattern(s)?/*",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "The current path will match the following routes: \nhttp://localhost:3000/path/with/pattern/\nhttp://localhost:3000/path/with/patterns/\nhttp://localhost:3000/path/with/patterns/anything-else\n\nLearn more about Mockoon's routing: https://mockoon.com/docs/latest/routing",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "text/plain"
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false,
+                        "sequentialResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Can Mockoon forward or record entering requests?",
+                        "method": "get",
+                        "endpoint": "forward-and-record",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "Mockoon can also act as a proxy and forward all entering requests that are not caught by declared routes. \nYou can activate this option in the environment settings ('cog' icon in the upper right corner). \nTo learn more: https://mockoon.com/docs/latest/proxy-mode\n\nAs always, all entering requests, and responses from the proxied server will be recorded ('clock' icon in the upper right corner).\nTo learn more: https://mockoon.com/docs/latest/requests-logging",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "text/plain"
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false,
+                        "sequentialResponse": false
+                    }
+                ],
+                "proxyMode": false,
+                "proxyHost": "",
+                "proxyRemovePrefix": false,
+                "https": false,
+                "cors": true,
+                "headers": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "proxyReqHeaders": [
+                    {
+                        "key": "",
+                        "value": ""
+                    }
+                ],
+                "proxyResHeaders": [
+                    {
+                        "key": "",
+                        "value": ""
+                    }
+                ]
+            }
+        },
+        {
+            "type": "environment",
+            "item": {
+                "uuid": "",
+                "lastMigration": 15,
+                "name": "SmartFactories",
+                "endpointPrefix": "smart-factory",
+                "latency": 0,
+                "port": 5000,
+                "routes": [
+                    {
+                        "uuid": "",
+                        "documentation": "",
+                        "method": "get",
+                        "endpoint": "machines",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n    \"cities\": [\n      {\n        \"name\": \"Tallinn\",\n        \"id\": 1,\n        \"machines\": [\n          {\n            \"mid\": 101,\n            \"operating\": false,\n            \"problem\": true\n          },\n          {\n            \"mid\": 102,\n            \"operating\": true,\n            \"problem\": false\n          },\n          {\n            \"mid\": 103,\n            \"operating\": true,\n            \"problem\": true\n            \n          },\n           {\n            \"mid\": 104,\n            \"operating\": false,\n            \"problem\": true\n          },\n          {\n            \"mid\": 105,\n            \"operating\": false,\n            \"problem\": false\n          },\n          {\n            \"mid\": 106,\n            \"operating\": true,\n            \"problem\": true\n          },\n          {\n            \"mid\": 107,\n            \"operating\": true,\n            \"problem\": false\n          },\n          {\n            \"mid\": 108,\n            \"operating\": true,\n            \"problem\": false\n          }\n\n        ]\n      },\n      {\n        \"name\": \"Tartu\",\n        \"id\": 2,\n        \"machines\": [\n          {\n            \"mid\": 201,\n            \"operating\": true,\n            \"problem\": false\n          },\n          {\n            \"mid\": 202,\n            \"operating\": false,\n            \"problem\": false\n          },\n          {\n            \"mid\": 203,\n            \"operating\": true,\n            \"problem\": false\n          },\n           {\n            \"mid\": 204,\n            \"operating\": true,\n            \"problem\": false\n          }\n\n        ]\n      },\n      {\n        \"name\": \"Narva\",\n        \"id\": 3,\n        \"machines\": [\n          {\n            \"mid\": 301,\n            \"operating\": true,\n            \"problem\": false\n          },\n          {\n            \"mid\": 302,\n            \"operating\": true,\n            \"problem\": false\n          },\n          {\n            \"mid\": 303,\n            \"operating\": true,\n            \"problem\": false\n          }\n\n        ]\n      },\n      {\n        \"name\": \"Pärnu\",\n        \"id\": 4,\n        \"machines\": [\n          {\n            \"mid\": 401,\n            \"operating\": true,\n            \"problem\": false\n          },\n          {\n            \"mid\": 402,\n            \"operating\": false,\n            \"problem\": false\n          },\n          {\n            \"mid\": 403,\n            \"operating\": true,\n            \"problem\": false\n          }\n\n        ]\n      },\n      {\n        \"name\": \"Maardu\",\n        \"id\": 5,\n        \"machines\": [\n          {\n            \"mid\": 501,\n            \"operating\": true,\n            \"problem\": false\n          },\n          {\n            \"mid\": 502,\n            \"operating\": false,\n            \"problem\": false\n          },\n          {\n            \"mid\": 503,\n            \"operating\": true,\n            \"problem\": false\n          }\n\n        ]\n      }\n     \n    ]\n  }\n  ",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [
+                                    {
+                                        "key": "",
+                                        "value": ""
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false,
+                        "sequentialResponse": false
+                    }
+                ],
+                "proxyMode": false,
+                "proxyHost": "",
+                "https": false,
+                "cors": true,
+                "headers": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Access-Control-Allow-Origin",
+                        "value": "*"
+                    },
+                    {
+                        "key": "Access-Control-Allow-Methods",
+                        "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+                    },
+                    {
+                        "key": "Access-Control-Allow-Headers",
+                        "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+                    }
+                ],
+                "proxyReqHeaders": [
+                    {
+                        "key": "",
+                        "value": ""
+                    }
+                ],
+                "proxyResHeaders": [
+                    {
+                        "key": "",
+                        "value": ""
+                    }
+                ],
+                "proxyRemovePrefix": false
+            }
+        }
+    ]
+}
