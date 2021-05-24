@@ -50,6 +50,10 @@ class BootstrapModal extends React.Component {
               <label>Name</label>
               <Input type="text" />
             </FormGroup>
+            <FormGroup>
+              <label>Company Name</label>
+              <Input type="text" />
+            </FormGroup>
 
             <FormGroup>
               <label className="label-fix">Role</label>

@@ -35,6 +35,7 @@ class CompanyAdmin extends Component {
                     <tr>
                       <th>Name</th>
                       <th>Role</th>
+                      <th>Company</th>
                       <th>Deadline</th>
                       <th>Activate/Deactivate</th>
                     </tr>
@@ -43,6 +44,7 @@ class CompanyAdmin extends Component {
                     <tr>
                       <td>Mamta</td>
                       <td>Manufacturing Manager</td>
+                      <td>Kuehne Nagel</td>
                       <td>12/3/22</td>
                       <td>
                         <button className="btn btn-primary"> Activate</button>
