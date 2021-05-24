@@ -19,7 +19,7 @@ import Dashboard from "views/Dashboard.js";
 import Icons from "views/Icons.js";
 import Map from "views/Map.js";
 import Factory from "views/Factory";
-import FactoryAddPage from "./components/Factory/FactoryAddPage"
+import { FactoryAddPage, ThingAddFormContainer} from "./components/Factory/"
 import Notifications from "views/Notifications.js";
 import Rtl from "views/Rtl.js";
 import TableList from "views/TableList.js";
@@ -49,6 +49,11 @@ export function RenderRoutes({ routes }) {
     </Switch>
   );
 }
+// return (
+//   <div classname="content">
+//     <RouteWithSubRoutes key={route.key} {...route} />;
+//   </div>
+// )
 
 var routes = [
   { path: "/", name: "Home", exact: true, icon: "tim-icons icon-world", component: Dashboard },
@@ -99,7 +104,7 @@ var routes = [
         path: "/factories/add_factory/add_thing",
         name: "FACTORIES_ADD_THING",
         exact: true,
-        component: FactoryAddPage,
+        component: ThingAddFormContainer,
       },
     ],
     layout: "/admin",

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 // import { useParams, useHistory } from "react-router-dom";
 import { Card, CardBody, Button, CardTitle } from "reactstrap";
 import ProductionLineAddForm from "./ProductionLineAddForm";
+import { NavLink as RRNavLink } from "react-router-dom";
 
 import FactoryAddForm from "./FactoryAddForm";
 
@@ -10,7 +11,10 @@ const FactoryAddPage = () => {
   console.log("productionLine:", productionLine);
   const addNewProdctionLine = (data) => {
     console.log("addNewProdctionLine data: ", data);
-    setAddProductionLine((prevArray) => [...prevArray, {line: "Production line", UIElementOpen: true}]);
+    setAddProductionLine((prevArray) => [
+      ...prevArray,
+      { line: "Production line", UIElementOpen: true },
+    ]);
   };
 
   return (
@@ -42,14 +46,13 @@ const FactoryAddPage = () => {
               <Button
                 className="float-left mr-2"
                 color="primary"
+                tag={RRNavLink}
+                to="/factories/add_factory/add_thing"
               >
-                  Add a thing to prodution line
+                Save and add a thing to prodution line
               </Button>
-              <Button
-                className="float-left mr-2"
-                color="primary"
-              >
-                Save Line and close
+              <Button className="float-left mr-2" color="primary">
+                Save production line and close
               </Button>
             </CardBody>
           </Card>

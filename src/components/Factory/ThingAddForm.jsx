@@ -28,32 +28,61 @@ const FormField = ({ label, name, touched, errors }) => (
 const FactoryAddForm = ({ project, onSubmit }) => (
     <Formik
         initialValues={{
-            factory_name: "Some candy factory",
-            factory_location: "Valga"
+            name: "Some candy factory",
+            description: "Some description of thing",
+            production_location: 1,
+            device_group: "10",
+            devices: "Some devices shown somehow"
         }}
         validationSchema={Yup.object().shape({
             factory_name: Yup.string()
                 .min(0)
                 .required()
-                .label('Factory name'),
+                .label('Thing name'),
             factory_location: Yup.string()
                 .min(0)
                 .required()
-                .label('Factory Location'),
+                .label('Thing description'),
+            local_time: Yup.number()
+                .min(0)
+                .required()
+                .label('Location on a production line'),
+            factory_location: Yup.string()
+                .min(0)
+                .required()
+                .label('Devices'),
         })}
         onSubmit={onSubmit}
     >
         {({ touched, errors, isSubmitting }) => (
             <Form>
                 <FormField
-                    name="factory_name"
-                    label="Factory name"
+                    name="name"
+                    label="Thing name"
                     touched={touched}
                     errors={errors}
                 />
                 <FormField
-                    name="factory_location"
-                    label="Factory Location"
+                    name="description"
+                    label="Thing description"
+                    touched={touched}
+                    errors={errors}
+                />
+                <FormField
+                    name="production_location"
+                    label="Location on a production line"
+                    touched={touched}
+                    errors={errors}
+                />
+                <FormField
+                    name="device_group"
+                    label="Thing device group"
+                    touched={touched}
+                    errors={errors}
+                />
+                <FormField
+                    name="devices"
+                    label="Things devices"
                     touched={touched}
                     errors={errors}
                 />
