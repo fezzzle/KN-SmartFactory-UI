@@ -12,7 +12,6 @@ const FactoryTableContainer = () => {
   }, [dispatch]);
 
   const data = useMemo(() => factoryData, [factoryData]);
-  console.log("data:", data);
 
   const logValue = (value) => {};
 

@@ -27,7 +27,6 @@ import Typography from "views/Typography.js";
 import UserProfile from "views/UserProfile.js";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
-console.log("FactoryAddPage IS", FactoryAddPage)
 
 function RouteWithSubRoutes(route) {
   return (

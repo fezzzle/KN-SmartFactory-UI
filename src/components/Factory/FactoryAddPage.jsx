@@ -8,7 +8,9 @@ import FactoryAddForm from "./FactoryAddForm";
 
 const FactoryAddPage = () => {
   const [productionLine, setAddProductionLine] = useState([]);
+
   console.log("productionLine:", productionLine);
+  
   const addNewProdctionLine = (data) => {
     console.log("addNewProdctionLine data: ", data);
     setAddProductionLine((prevArray) => [
@@ -24,7 +26,7 @@ const FactoryAddPage = () => {
           <FactoryAddForm />
           <Button
             className="float-left mr-2"
-            color="primary"
+            color="info"
             onClick={addNewProdctionLine}
           >
             Add a production line
@@ -45,7 +47,7 @@ const FactoryAddPage = () => {
               <ProductionLineAddForm name={line} />
               <Button
                 className="float-left mr-2"
-                color="primary"
+                color="info"
                 tag={RRNavLink}
                 to="/factories/add_factory/add_thing"
               >
