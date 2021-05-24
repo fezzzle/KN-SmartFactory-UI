@@ -95,6 +95,12 @@ var routes = [
         exact: true,
         component: FactoryAddPage,
       },
+      {
+        path: "/factories/add_factory/add_thing",
+        name: "FACTORIES_ADD_THING",
+        exact: true,
+        component: FactoryAddPage,
+      },
     ],
     layout: "/admin",
   },

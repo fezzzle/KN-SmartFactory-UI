@@ -25,46 +25,35 @@ const FormField = ({ label, name, touched, errors }) => (
     </FormGroup>
 );
 
-const FactoryAddForm = ({ project, onSubmit }) => (
+const ProductionLineAddForm = ({ project, onSubmit }) => (
     <Formik
         initialValues={{
-            factory_name: "Some candy factory",
-            factory_location: "Valga",
-            local_time: Date.now()
+            production_line_number: "1",
+            production_line_name: "Some application for line",
         }}
         validationSchema={Yup.object().shape({
-            factory_name: Yup.string()
+            production_line_number: Yup.string()
                 .min(0)
                 .required()
-                .label('Factory name'),
-            factory_location: Yup.string()
+                .label('Production Line Number'),
+            production_line_name: Yup.string()
                 .min(0)
                 .required()
-                .label('Factory Location'),
-            local_time: Yup.number()
-                .min(0)
-                .required()
-                .label('Local time'),
+                .label('Production line name')
         })}
         onSubmit={onSubmit}
     >
         {({ touched, errors, isSubmitting }) => (
             <Form>
                 <FormField
-                    name="factory_name"
-                    label="Factory name"
+                    name="production_line_number"
+                    label="Production Line Number"
                     touched={touched}
                     errors={errors}
                 />
                 <FormField
-                    name="factory_location"
-                    label="Factory Location"
-                    touched={touched}
-                    errors={errors}
-                />
-                <FormField
-                    name="local_time"
-                    label="Local time"
+                    name="production_line_name"
+                    label="Production line name"
                     touched={touched}
                     errors={errors}
                 />
@@ -82,4 +71,4 @@ const FactoryAddForm = ({ project, onSubmit }) => (
     </Formik>
 );
 
-export default FactoryAddForm;
+export default ProductionLineAddForm;
