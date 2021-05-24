@@ -37,6 +37,7 @@ class BootstrapModal extends React.Component {
     }));
   };
 
+<<<<<<< HEAD
   getRoles = async ()=>{
 
     axios.get('http://localhost:7100/smart-factory/roles').then(response => {
@@ -53,6 +54,11 @@ class BootstrapModal extends React.Component {
         
         });
 };
+=======
+  changeDate () {
+    this.setState({ startDate : this.setState(new Date())});
+  }
+>>>>>>> e1bd355aa6643c17119f1e7816bf621adcbe2db8
 
   render() {
     // const [startDate, setStartDate] = this.setState(new Date());
@@ -92,10 +98,19 @@ class BootstrapModal extends React.Component {
             </FormGroup>
 
 
-            <FormGroup>
+            <FormGroup style={{ width: "100%" }}>
               <label>Deadline</label>
+<<<<<<< HEAD
               {/* <DatePicker selected={startDate} onChange={date => setStartDate(date)} /> */}
               {/* <Input  onClick={() => this.showCalender()} /> */}
+=======
+              <br/>
+
+              {/* <DatePicker selected={startDate} onChange={date => setStartDate(date)} /> */}
+
+              <DatePicker className="date-fix" onClick={() => this.changeDate()}/>
+            
+>>>>>>> e1bd355aa6643c17119f1e7816bf621adcbe2db8
             </FormGroup>
           </Modal.Body>
 
