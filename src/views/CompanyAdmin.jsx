@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import BootstrapModal from "../components/BootstrapModal";
+import BusinessUnitModal from "../components/BusinessUnitModal";
 import {
   Row,
   Col,
@@ -67,6 +68,7 @@ getUsers = async ()=>{
                   <BootstrapModal />
                 </div>
               </CardHeader>
+
               <CardBody>
                 <Table className="tablesorter" responsive>
                   <thead>

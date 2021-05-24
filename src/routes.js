@@ -20,6 +20,7 @@ import Map from "views/Map.js";
 import Notifications from "views/Notifications.js";
 import TableList from "views/TableList.js";
 import CompanyAdmin from "views/CompanyAdmin";
+import BusinessUnitAdmin from "views/BusinessUnitAdmin";
 import UserProfile from "views/UserProfile.js";
 
 var routes = [
@@ -69,6 +70,14 @@ var routes = [
     rtlName: "قائمة الجدول",
     icon: "tim-icons icon-puzzle-10",
     component: CompanyAdmin,
+    layout: "/admin" ,
+  },
+  {
+    path: "/business-unit",
+    name: "Business Unit Admin",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-puzzle-10",
+    component: BusinessUnitAdmin,
     layout: "/admin" ,
   },
 ];
