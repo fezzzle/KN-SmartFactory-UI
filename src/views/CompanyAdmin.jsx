@@ -25,6 +25,7 @@ class CompanyAdmin extends Component {
             <Card>
               <CardHeader>
                 <div className="d-flex justify-content-between">
+                
                   <CardTitle tag="h4">ROLE ADMINISTRATION</CardTitle>
                   <BootstrapModal />
                 </div>
