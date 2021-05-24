@@ -1,4 +1,6 @@
 import {
+  ADD_FACTORY_DATA,
+  UPDATE_FACTORY_DATA,
   RECEIVE_FACTORY_DATA,
   INCREMENT,
   DECREMENT,
@@ -55,3 +57,10 @@ export const fetchFactoryData = () => async dispatch => {
     });
   ;
 };
+
+export const addFactoryData = (data) => dispatch => {
+  dispatch({
+    type: ADD_FACTORY_DATA,
+    payload: data
+  })
+}
