@@ -3,6 +3,7 @@ import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FormGroup, Input } from "reactstrap";
+import axios from 'axios';
 
 
 class BootstrapModal extends React.Component {
@@ -13,9 +14,17 @@ class BootstrapModal extends React.Component {
       showHide: false,
       modalIsOpen: true,
       startDate: 1,
-      setStartDate: 31
+      setStartDate: 31,
+      roles: [],
     };
+    this.getRoles = this.getRoles.bind(this);
+    this.componentDidMount=this.componentDidMount.bind(this);
   }
+
+  async componentDidMount(){
+    await this.getRoles();
+   
+}
 
   handleModalShowHide() {
     this.setState({ showHide: !this.state.showHide });
@@ -28,8 +37,25 @@ class BootstrapModal extends React.Component {
     }));
   };
 
+  getRoles = async ()=>{
+
+    axios.get('http://localhost:7100/smart-factory/roles').then(response => {
+        this.setState({
+          ...this.state,
+          roles: response.data.roles,
+        });
+
+        console.log(this.state);
+
+        
+      }).catch(error => {
+        alert('Could not connect to Server. Make sure Mockoon server is on if you are using it')
+        
+        });
+};
+
   render() {
-    const [startDate, setStartDate] = this.setState(new Date());
+    // const [startDate, setStartDate] = this.setState(new Date());
   
     return (
       <div>
@@ -55,19 +81,20 @@ class BootstrapModal extends React.Component {
                 aria-label="Default select example"
               >
                 <option selected>select role</option>
-                <option value="1">Company Admin</option>
+                { this.state.roles.map((role => <option key = {role.roleID} value={role.roleID}> {role.name} </option>))}
+                {/* <option value="1">Company Admin</option>
                 <option value="2">Manufacturing Operations Manager</option>
                 <option value="3">Factory Manager</option>
                 <option value="4">Maintenance Technician</option>
                 <option value="5">Device Operator</option>
-                <option value="6">Factory Operator</option>
+                <option value="6">Factory Operator</option> */}
               </select>
             </FormGroup>
 
 
             <FormGroup>
               <label>Deadline</label>
-              <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
+              {/* <DatePicker selected={startDate} onChange={date => setStartDate(date)} /> */}
               {/* <Input  onClick={() => this.showCalender()} /> */}
             </FormGroup>
           </Modal.Body>

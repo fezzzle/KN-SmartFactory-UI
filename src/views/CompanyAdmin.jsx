@@ -9,12 +9,50 @@ import {
   CardBody,
   CardTitle,
 } from "reactstrap";
+import axios from 'axios';
 
 class CompanyAdmin extends Component {
-  state = {
-    role: { name: "" },
-    company: { name: "" },
-  };
+
+  constructor(){
+    super();
+    this.state = {
+
+      users: [],
+      role: { name: "" },
+      company: { name: "" },
+    };
+
+    this.getUsers = this.getUsers.bind(this);
+    this.changeStatus = this.changeStatus.bind(this);
+    this.componentDidMount=this.componentDidMount.bind(this);
+
+  }
+
+  async componentDidMount(){
+    await this.getUsers();
+   
+}
+
+changeStatus = (user) => {
+  this.setState(user => ({activated: !user.activated}))
+}
+
+getUsers = async ()=>{
+
+  axios.get('http://localhost:7100/smart-factory/users').then(response => {
+      this.setState({
+        ...this.state,
+        users: response.data.users,
+      });
+      console.log(this.state.users)
+
+      
+    }).catch(error => {
+      alert('Could not connect to Server. Make sure Mockoon server is on if you are using it')
+      
+      });
+};
+
 
   render() {
     return (
@@ -36,14 +74,29 @@ class CompanyAdmin extends Component {
                       <th>Name</th>
                       <th>Role</th>
                       <th>Deadline</th>
+                      <th>Status</th>
                       <th>Activate/Deactivate</th>
                     </tr>
                   </thead>
                   <tbody>
+
+                    {this.state.users.map((user => 
+                      <tr key = {user.userID}>
+                          <td> {user.firstName} {user.lastName} </td>
+                          <td> {user.role} </td>
+                          <td> 12/3/22 </td> 
+                          <td> {user.activated?'Active':'Not Active'}</td> 
+                         <td>
+                        <button className="btn btn-primary" > {user.activated? 'Deactivate': 'Activate'}</button>
+                      </td>
+
+                      </tr>
+                       ))}
                     <tr>
-                      <td>Mamta</td>
+                      <td>Test User</td>
                       <td>Manufacturing Manager</td>
                       <td>12/3/22</td>
+                      <td>Active</td>
                       <td>
                         <button className="btn btn-primary"> Activate</button>
                       </td>

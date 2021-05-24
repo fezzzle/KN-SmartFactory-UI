@@ -1,0 +1,164 @@
+{
+    "source": "mockoon:1.11.0",
+    "data": [
+        {
+            "type": "environment",
+            "item": {
+                "uuid": "",
+                "lastMigration": 13,
+                "name": "SmartFactories",
+                "endpointPrefix": "smart-factory",
+                "latency": 0,
+                "port": 7100,
+                "routes": [
+                    {
+                        "uuid": "",
+                        "documentation": "",
+                        "method": "get",
+                        "endpoint": "machines",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n    \"cities\": [\n      {\n        \"name\": \"Tallinn\",\n        \"id\": 1,\n        \"machines\": [\n          {\n            \"mid\": 101,\n            \"operating\": false,\n            \"problem\": true\n          },\n          {\n            \"mid\": 102,\n            \"operating\": true,\n            \"problem\": false\n          },\n          {\n            \"mid\": 103,\n            \"operating\": true,\n            \"problem\": true\n            \n          },\n           {\n            \"mid\": 104,\n            \"operating\": false,\n            \"problem\": true\n          },\n          {\n            \"mid\": 105,\n            \"operating\": false,\n            \"problem\": false\n          },\n          {\n            \"mid\": 106,\n            \"operating\": true,\n            \"problem\": true\n          },\n          {\n            \"mid\": 107,\n            \"operating\": true,\n            \"problem\": false\n          },\n          {\n            \"mid\": 108,\n            \"operating\": true,\n            \"problem\": false\n          }\n\n        ]\n      },\n      {\n        \"name\": \"Tartu\",\n        \"id\": 2,\n        \"machines\": [\n          {\n            \"mid\": 201,\n            \"operating\": true,\n            \"problem\": false\n          },\n          {\n            \"mid\": 202,\n            \"operating\": false,\n            \"problem\": false\n          },\n          {\n            \"mid\": 203,\n            \"operating\": true,\n            \"problem\": false\n          },\n           {\n            \"mid\": 204,\n            \"operating\": true,\n            \"problem\": false\n          }\n\n        ]\n      },\n      {\n        \"name\": \"Narva\",\n        \"id\": 3,\n        \"machines\": [\n          {\n            \"mid\": 301,\n            \"operating\": true,\n            \"problem\": false\n          },\n          {\n            \"mid\": 302,\n            \"operating\": true,\n            \"problem\": false\n          },\n          {\n            \"mid\": 303,\n            \"operating\": true,\n            \"problem\": false\n          }\n\n        ]\n      },\n      {\n        \"name\": \"Pärnu\",\n        \"id\": 4,\n        \"machines\": [\n          {\n            \"mid\": 401,\n            \"operating\": true,\n            \"problem\": false\n          },\n          {\n            \"mid\": 402,\n            \"operating\": false,\n            \"problem\": false\n          },\n          {\n            \"mid\": 403,\n            \"operating\": true,\n            \"problem\": false\n          }\n\n        ]\n      },\n      {\n        \"name\": \"Maardu\",\n        \"id\": 5,\n        \"machines\": [\n          {\n            \"mid\": 501,\n            \"operating\": true,\n            \"problem\": false\n          },\n          {\n            \"mid\": 502,\n            \"operating\": false,\n            \"problem\": false\n          },\n          {\n            \"mid\": 503,\n            \"operating\": true,\n            \"problem\": false\n          }\n\n        ]\n      }\n     \n    ]\n  }\n  ",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [
+                                    {
+                                        "key": "",
+                                        "value": ""
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "",
+                        "method": "get",
+                        "endpoint": "users",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"users\": [\n    {\n  \n      \"userID\": 1,\n      \"firstName\": \"Kuehne\",\n      \"lastName\": \"Nagel\",\n      \"role\": \"Manufacturing Manager\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": true\n  \n    },\n    \n    {\n      \"userID\": 2,\n      \"firstName\": \"Sergey\",\n      \"lastName\": \"Lazarev\",\n      \"role\": \"Product manager\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": false\n  \n    },\n    \n     {\n       \"userID\": 3,\n      \"firstName\": \"Verka\",\n      \"lastName\": \"Serduchka\",\n      \"role\": \"Product Manager\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": true\n  \n    },\n    \n     {\n       \n      \"userID\": 4,\n      \"firstName\": \"Alexander\",\n      \"lastName\": \"Rybak\",\n      \"role\": \"Technician\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": false\n  \n    },\n    \n     {\n       \n      \"userID\": 5,\n      \"firstName\": \"Jamala\",\n      \"lastName\": \"Jamala\",\n      \"role\": \"Technician\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": false\n  \n    },\n    { \"userID\": 6,\n      \"firstName\": \"Mamta\",\n      \"lastName\": \"Khaur\",\n      \"role\": \"Technician\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": true\n      \n    },\n     { \"userID\": 7,\n      \"firstName\": \"Conchita\",\n      \"lastName\": \"Wurst\",\n      \"role\": \"Technician\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": true\n      \n    }\n  ]\n  \n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [
+                                    {
+                                        "key": "",
+                                        "value": ""
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "",
+                        "method": "get",
+                        "endpoint": "roles",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n    \"roles\": [\n    {\n    \"roleID\": 1,\n    \"name\": \"Company Admin\"\n    },\n    {\n    \"roleID\": 2,\n    \"name\": \"Manufacturing Operations Manager\"\n    },\n    {\n    \"roleID\": 3,\n    \"name\": \"Factory Manager\"\n    },\n    {\n    \"roleID\": 4,\n    \"name\": \"Maintenance Technician\"\n    },\n    \n    {\n    \"roleID\": 5,\n    \"name\": \"Device Operator\"\n    },\n    {\n    \"roleID\": 6,\n    \"name\": \"Factory Operator\"\n    },\n    {\n    \"roleID\": 7,\n    \"name\": \"Technician\"\n    }\n    \n    ]\n  \n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [
+                                    {
+                                        "key": "",
+                                        "value": ""
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "",
+                        "method": "get",
+                        "endpoint": "",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [
+                                    {
+                                        "key": "",
+                                        "value": ""
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    }
+                ],
+                "proxyMode": false,
+                "proxyHost": "",
+                "https": false,
+                "cors": true,
+                "headers": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Access-Control-Allow-Origin",
+                        "value": "*"
+                    },
+                    {
+                        "key": "Access-Control-Allow-Methods",
+                        "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+                    },
+                    {
+                        "key": "Access-Control-Allow-Headers",
+                        "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+                    }
+                ],
+                "proxyReqHeaders": [
+                    {
+                        "key": "",
+                        "value": ""
+                    }
+                ],
+                "proxyResHeaders": [
+                    {
+                        "key": "",
+                        "value": ""
+                    }
+                ]
+            }
+        }
+    ]
+}
