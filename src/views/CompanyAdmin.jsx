@@ -19,13 +19,12 @@ class CompanyAdmin extends Component {
   render() {
     return (
       <div className="content">
-
         <Row>
           <Col md="12">
             <Card>
               <CardHeader>
                 <div className="d-flex justify-content-between">
-                
+
                   <CardTitle tag="h4">ROLE ADMINISTRATION</CardTitle>
                   <BootstrapModal />
                 </div>

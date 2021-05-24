@@ -32,10 +32,6 @@ class BootstrapModal extends React.Component {
           <Modal.Header closeButton onClick={() => this.handleModalShowHide()}>
             <Modal.Title>New User</Modal.Title>
           </Modal.Header>
-
-
-
-
           <Modal.Body>
               <Form/>
           </Modal.Body>
