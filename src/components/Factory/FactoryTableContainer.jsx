@@ -29,12 +29,20 @@ const FactoryTableContainer = () => {
             accessor: "alerts",
           },
           {
+            Header: "Country",
+            accessor: "factory_location.country",
+          },
+          {
             Header: "Location",
-            accessor: "factory_location.location_city",
+            accessor: "factory_location.city",
           },
           {
             Header: "lines",
             accessor: "production_line.length",
+            // Cell: props => {
+            //   console.log("props are:", props)
+            //   return props.value === null ? 0 : props.value
+            // },
           },
           {
             Header: "things",

@@ -2,32 +2,32 @@ import http from './http-common'
 
 class apiDataService {
   getAll() {
-    return http.get('/')
+    return http.get('/factory_api')
   }
 
   get(id) {
-    return http.get(`/people/${id}`)
+    return http.get(`/factory_api/${id}`)
   }
 
   create(data) {
-    return http.post('/people', data)
+    return http.post('/factory_api', data)
   }
 
   update(id, data) {
-    return http.put(`/people/${id}`, data)
+    return http.put(`/factory_api/${id}`, data)
   }
 
   delete(id) {
-    return http.delete(`/people/${id}`)
+    return http.delete(`/factory_api/${id}`)
   }
 
   deleteAll() {
-    return http.delete('/people')
+    return http.delete('/factory_api')
   }
 
-  findByfirstname(firstname) {
-    return http.get(`/people?firstname=${firstname}`)
-  }
+  // findByfirstname(firstname) {
+  //   return http.get(`/people?firstname=${firstname}`)
+  // }
 }
 
 export default new apiDataService()

@@ -47,20 +47,28 @@ export const fetchFactoryData = () => async dispatch => {
   factoryDataService
     .getAll()
     .then((result) =>
-      dispatch({ 
-        type: RECEIVE_FACTORY_DATA, 
-        payload: result.data 
+      dispatch({
+        type: RECEIVE_FACTORY_DATA,
+        payload: result.data
       })
-      )
-    .catch((e) => {
-      console.log(e);
+    )
+    .catch((error) => {
+      console.error(error);
     });
   ;
 };
 
-export const addFactoryData = (data) => dispatch => {
-  dispatch({
-    type: ADD_FACTORY_DATA,
-    payload: data
-  })
+export const addFactoryData = (data) => async dispatch => {
+  factoryDataService
+    .create(data)
+    .then((result) => {
+      console.log("result from post is: ", result)
+      dispatch({
+        type: ADD_FACTORY_DATA,
+        payload: result
+      })
+    })
+    .catch((error) => {
+      console.error(error)
+    })
 }

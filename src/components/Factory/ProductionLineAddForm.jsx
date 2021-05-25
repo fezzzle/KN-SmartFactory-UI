@@ -57,15 +57,15 @@ const ProductionLineAddForm = ({ project, onSubmit }) => (
                     touched={touched}
                     errors={errors}
                 />
-                {/* <Button
-                    id="editProjectFormSubmitButton"
+                <Button
+                    id="addProductionFormSubmitButton"
                     type="submit"
                     color="primary"
                     disabled={isSubmitting}
                     touched={touched}
                 >
-                    UPDATE
-                </Button> */}
+                    Save a production line
+                </Button>
             </Form>
         )}
     </Formik>

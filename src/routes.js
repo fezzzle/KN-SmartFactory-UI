@@ -41,8 +41,8 @@ function RouteWithSubRoutes(route) {
 export function RenderRoutes({ routes }) {
   return (
     <Switch>
-      {routes.map((route, i) => {
-        return <RouteWithSubRoutes key={route.key} {...route} />;
+      {routes.map((route, key) => {
+        return <RouteWithSubRoutes key={key} {...route} />;
       })}
       <Route component={() => <h1>Not Found!</h1>} />
     </Switch>
