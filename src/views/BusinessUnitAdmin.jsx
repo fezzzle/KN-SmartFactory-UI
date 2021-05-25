@@ -45,8 +45,6 @@ getBusinessUnits = async ()=>{
           isLoading: true
         });
 
-        console.log(this.state);
-
         
       }).catch(error => {
         alert('Could not connect to Server. Make sure Mockoon server is on if you are using it')
@@ -90,7 +88,7 @@ getBusinessUnits = async ()=>{
                           <td> {bu.city} </td>
                           <td> {bu.activated?'Active':'Not Active'}</td> 
                          <td>
-                        <button className="btn btn-primary" > {bu.activated? 'Deactivate': 'Activate'}</button>
+                        <button className="btn btn-primary" onClick = {() => this.changeStatus } > {bu.activated? 'Deactivate': 'Activate'}</button>
                       </td>
                       <td>
                         <button className="btn btn-danger" > Delete </button>
