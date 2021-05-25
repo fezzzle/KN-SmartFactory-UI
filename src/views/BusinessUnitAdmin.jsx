@@ -23,18 +23,42 @@ class BusinessUnitAdmin extends Component {
 
     this.getBusinessUnits = this.getBusinessUnits.bind(this);
     this.changeStatus = this.changeStatus.bind(this);
+    this.deleteUnit = this.deleteUnit.bind(this);
     this.componentDidMount=this.componentDidMount.bind(this);
 
   }
 
-  async componentDidMount(){
-    await this.getBusinessUnits();
-   
-}
+  
 
-changeStatus = () => {
-  this.setState(prevState => ({activated: !prevState.activated}))
-}
+    async componentDidMount(){
+        await this.getBusinessUnits();
+    }
+
+    async componentDidUpdate() {
+        console.log("component was updated")
+        //call to the api update database
+    }
+
+    
+
+    changeStatus = (comp) => {
+
+        let newState = {...this.state}
+        const a = newState.BusinessUnits.find( (o) => { return o.buID === comp.buID});
+        a.activated = !a.activated;
+        this.setState(newState)
+
+
+    }
+
+    deleteUnit = (comp) => {
+
+        let newState = {...this.state}
+        newState.BusinessUnits = newState.BusinessUnits.filter( o => o.buID != comp.buID)
+        this.setState(newState)
+
+
+    }
 
 getBusinessUnits = async ()=>{
 
@@ -88,10 +112,10 @@ getBusinessUnits = async ()=>{
                           <td> {bu.city} </td>
                           <td> {bu.activated?'Active':'Not Active'}</td> 
                          <td>
-                        <button className="btn btn-primary" onClick = {() => this.changeStatus } > {bu.activated? 'Deactivate': 'Activate'}</button>
+                        <button style ={{width: '10rem'}} className="btn btn-primary" onClick = {() => this.changeStatus(bu) } > {bu.activated? 'Deactivate': 'Activate'}</button>
                       </td>
                       <td>
-                        <button className="btn btn-danger" > Delete </button>
+                        <button className="btn btn-danger" onClick = {() => this.deleteUnit(bu) } > Delete </button>
                       </td>
 
                       </tr>
