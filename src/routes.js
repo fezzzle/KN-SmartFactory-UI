@@ -65,7 +65,7 @@ var routes = [
   },
   {
     path: "/admin-panel",
-    name: "Admin Panel Test",
+    name: "Admin Panel",
     rtlName: "قائمة الجدول",
     icon: "tim-icons icon-badge",
     component: AdminPanel,

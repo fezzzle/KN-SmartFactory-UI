@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import BusinessUnitModal from "./BusinessUnitModal";
+import BusinessUnitDetail from "./BusinessUnitDetail"
 import {
   Row,
   Col,
@@ -101,6 +102,8 @@ getBusinessUnits = async ()=>{
                       <th>Status</th>
                       <th>Activate/Deactivate</th>
                       <th>Delete</th>
+                      <th>Edit</th>
+
 
                     </tr>
                   </thead>
@@ -115,8 +118,12 @@ getBusinessUnits = async ()=>{
                         <button style ={{width: '10rem'}} className="btn btn-primary" onClick = {() => this.changeStatus(bu) } > {bu.activated? 'Deactivate': 'Activate'}</button>
                       </td>
                       <td>
+                        <BusinessUnitDetail details = {bu} />
+                      </td>
+                      <td>
                         <button className="btn btn-danger" onClick = {() => this.deleteUnit(bu) } > Delete </button>
                       </td>
+
 
                       </tr>
                        ))}

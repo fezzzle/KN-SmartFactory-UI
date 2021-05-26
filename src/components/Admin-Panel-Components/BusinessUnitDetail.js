@@ -2,19 +2,17 @@ import { Button, Modal } from "react-bootstrap";
 import React from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { FormGroup, Input } from "reactstrap";
-import axios from 'axios';
 
 
-class BusinessUnitModal extends React.Component {
+export default class BusinessUnitDetailModal extends React.Component {
   
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       showHide: false,
       modalIsOpen: true,
-      bu: [],
-      name: '',
-      city:'',
+      name: props.details.name,
+      city:props.details.city,
       company: '',
       role: ''
     };
@@ -23,6 +21,7 @@ class BusinessUnitModal extends React.Component {
   }
 
   onChange(e){
+    console.log(e)
     e.preventDefault();
     let newState={...this.state};
     newState[e.target.name]=e.target.value;
@@ -55,21 +54,21 @@ class BusinessUnitModal extends React.Component {
     return (
       <div>
         <Button variant="primary" onClick={() => this.handleModalShowHide()}>
-          Create New Business Unit
+          Edit
         </Button>
 
         <Modal show={this.state.showHide} className="modal">
           <Modal.Header closeButton onClick={() => this.handleModalShowHide()}>
-            <Modal.Title>New Business Unit</Modal.Title>
+            <Modal.Title className="modal-title">{this.state.name} </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <FormGroup >
               <label>Name</label>
-              <Input type="text" name="name" value={this.state.name} onChange={this.onChange}/>
+              <Input type="text" name="firstName" value={this.state.name} onChange={this.onChange}/>
             </FormGroup>
             <FormGroup>
               <label>City</label>
-              <Input type="text" name="city" value={this.state.city} onChange={this.onChange}/>
+              <Input type="text" name="lastName" value={this.state.city} onChange={this.onChange}/>
             </FormGroup>
           </Modal.Body>
 
@@ -94,4 +93,4 @@ class BusinessUnitModal extends React.Component {
   }
 }
 
-export default BusinessUnitModal;
+

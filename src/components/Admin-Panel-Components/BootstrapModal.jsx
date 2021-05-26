@@ -31,6 +31,8 @@ class BootstrapModal extends React.Component {
     let newState = { ...this.state };
     newState[e.target.name] = e.target.value;
     this.setState(newState);
+    console.log(e.target.value)
+    console.log(newState)
   }
 
   async componentDidMount() {

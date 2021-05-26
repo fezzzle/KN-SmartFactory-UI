@@ -1,6 +1,7 @@
 import React from 'react';
 import BusinessUnitAdmin from '../components/Admin-Panel-Components/BusinessUnitAdmin'
 import CompanyAdmin from '../components/Admin-Panel-Components/CompanyAdmin'
+import '../assets/css/admin-panel.css'
 
 export default class AdminPanel extends React.Component {
     constructor(props) {
