@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import BusinessUnitModal from "./BusinessUnitModal";
-import BusinessUnitDetail from "./BusinessUnitDetail"
+import BusinessUnitEdit from "./BusinessUnitEdit"
+import BusinessUnitDetail from './BusinessUnitDetail'
 import {
   Row,
   Col,
@@ -9,8 +10,11 @@ import {
   CardHeader,
   CardBody,
   CardTitle,
+  NavLink
 } from "reactstrap";
 import axios from 'axios';
+import { Link, Route,Switch } from 'react-router-dom';
+
 
 class BusinessUnitAdmin extends Component {
 
@@ -83,6 +87,12 @@ getBusinessUnits = async ()=>{
 
     return (
       <div className="content">
+
+        <Switch>
+          <Route path="/products/:buID" component={BusinessUnitDetail}/>
+          {/* <Route path="/*" component={NotFound}/>  */}
+        </Switch>
+
         <Row>
           <Col md="12">
             <Card>
@@ -111,14 +121,14 @@ getBusinessUnits = async ()=>{
 
                     {this.state.BusinessUnits.map((bu => 
                       <tr key = {bu.buID}>
-                          <td> {bu.name}</td>
+                          <td>  <Link to = "#"> {bu.name}</Link></td>
                           <td> {bu.city} </td>
                           <td> {bu.activated?'Active':'Not Active'}</td> 
                          <td>
                         <button style ={{width: '10rem'}} className="btn btn-primary" onClick = {() => this.changeStatus(bu) } > {bu.activated? 'Deactivate': 'Activate'}</button>
                       </td>
                       <td>
-                        <BusinessUnitDetail details = {bu} />
+                        <BusinessUnitEdit key = {bu.buID} details = {bu} />
                       </td>
                       <td>
                         <button className="btn btn-danger" onClick = {() => this.deleteUnit(bu) } > Delete </button>

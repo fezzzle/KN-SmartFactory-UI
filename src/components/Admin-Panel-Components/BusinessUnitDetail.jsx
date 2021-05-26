@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FormGroup, Input } from "reactstrap";
 
 
-export default class BusinessUnitDetailModal extends React.Component {
+export default class BusinessUnitEditModal extends React.Component {
   
   constructor(props) {
     super(props);
