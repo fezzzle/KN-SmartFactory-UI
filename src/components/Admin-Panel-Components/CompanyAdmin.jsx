@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import BootstrapModal from "../components/BootstrapModal";
+import BootstrapModal from "./BootstrapModal";
 // import BusinessUnitModal from "../components/BusinessUnitModal";
 import {
   Row,

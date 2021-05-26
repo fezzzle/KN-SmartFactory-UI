@@ -75,7 +75,7 @@ class BusinessUnitModal extends React.Component {
           </Modal.Body>
 
 
-          <Modal.Footer>
+          <Modal.Footer className='modal-footer'>
             <Button
               variant="secondary"
               onClick={() => this.handleModalShowHide()}

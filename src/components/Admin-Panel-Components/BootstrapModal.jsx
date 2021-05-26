@@ -156,7 +156,7 @@ class BootstrapModal extends React.Component {
 
 
 
-          <Modal.Footer>
+          <Modal.Footer className='modal-footer'>
             <Button
               variant="secondary"
               onClick={() => this.handleModalShowHide()}

@@ -19,9 +19,8 @@ import Dashboard from "views/Dashboard.js";
 import Map from "views/Map.js";
 import Notifications from "views/Notifications.js";
 import TableList from "views/TableList.js";
-import CompanyAdmin from "views/CompanyAdmin";
-import BusinessUnitAdmin from "views/BusinessUnitAdmin";
 import UserProfile from "views/UserProfile.js";
+import AdminPanel from "views/AdminPanel"
 
 var routes = [
   {
@@ -65,19 +64,11 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/admin",
-    name: "Company Admin",
+    path: "/admin-panel",
+    name: "Admin Panel Test",
     rtlName: "قائمة الجدول",
-    icon: "tim-icons icon-puzzle-10",
-    component: CompanyAdmin,
-    layout: "/admin" ,
-  },
-  {
-    path: "/business-unit",
-    name: "Business Unit Admin",
-    rtlName: "قائمة الجدول",
-    icon: "tim-icons icon-puzzle-10",
-    component: BusinessUnitAdmin,
+    icon: "tim-icons icon-badge",
+    component: AdminPanel,
     layout: "/admin" ,
   },
 ];

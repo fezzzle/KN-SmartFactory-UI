@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import BusinessUnitModal from "../components/BusinessUnitModal";
+import BusinessUnitModal from "./BusinessUnitModal";
 import {
   Row,
   Col,
