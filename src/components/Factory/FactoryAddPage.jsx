@@ -10,40 +10,28 @@ import { addFactoryData } from "../../store/actions/";
 
 const FactoryAddPage = () => {
   const dispatch = useDispatch();
+  const [temporaryProductionLine, setTemporaryProductionLine] = useState([]);
   const temporaryFactorySave = useRef();
-  const temporaryProductionLine = useRef([]);
+  const temporaryFactoryAndProductionLineSave = useRef();
   const [addProductionButtonState, setAddProductionButtonState] =
-  useState(true);
-  
-  console.log('temporaryFactorySave:', temporaryFactorySave)
-  console.log("temporaryProductionLine:", temporaryProductionLine);
+    useState(true);
 
-  // const logOutTemporary = () => {
-  //   console.log("INSIDE LOGOUTTEMPORARY: ", temporaryFactorySave)
-  // }
-
-  const addProductionLine = (values) => {
-    console.log('addProductionLine values:', values)
-    // let data = {
-    //   production_line: [
-    //     { 
-    //       name: values.name, 
-    //       line_number: values.line_number 
-    //     }
-    //   ],
-    // };
-
-    // console.log('temporaryProductionLine:', temporaryProductionLine)
-    // temporaryProductionLine.current.push('new array') ;
-    // console.log(
-    //   "temporaryProductionLine.current:",
-    //   temporaryProductionLine.current
-    // );
+  const addTemporaryProductionLine = (values) => {
+    let data = {
+      name: values.name,
+      line_number: values.line_number,
+    };
+    setTemporaryProductionLine([data]);
+    if (data.name !== undefined || data.line_number !== undefined) {
+      addProductionLineToFactory(data);
+    }
   };
 
-  const addProductionLineToFactory = () => {
-    // addNewProdctionLine();
-    console.log("temporaryFactorySave.current:", temporaryFactorySave.current);
+  const addProductionLineToFactory = (data) => {
+    temporaryFactoryAndProductionLineSave.current =
+      temporaryFactorySave.current;
+    temporaryFactoryAndProductionLineSave.current.production_line.push(data);
+    dispatch(addFactoryData(temporaryFactoryAndProductionLineSave.current));
   };
 
   const storeTemporaryFactoryData = (values) => {
@@ -88,23 +76,25 @@ const FactoryAddPage = () => {
           <Button
             className="float-left mr-2"
             color="info"
-            onClick={addProductionLine}
+            onClick={addTemporaryProductionLine}
             disabled={addProductionButtonState}
           >
             Add a production line
           </Button>
         </CardBody>
       </Card>
-      {temporaryProductionLine.current((line, key) => {
+      {temporaryProductionLine.map((line, key) => {
         return (
           <Card key={key}>
             <CardBody>
               <ProductionLineAddForm
                 onSubmit={(values, formikHelpers) => {
-                  console.log('values:', values)
                   try {
-                    console.log('not yet')
-                    // addProductionLine(values);
+                    console.log(
+                      "values from productionLineAddForm are: ",
+                      values
+                    );
+                    addTemporaryProductionLine(values);
                   } catch (errors) {
                     return Object.entries(errors).forEach(([field, error]) => {
                       formikHelpers.setFieldError(field, error[0]);
