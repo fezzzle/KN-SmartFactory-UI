@@ -1,5 +1,6 @@
 import {
   ADD_FACTORY_DATA,
+  REMOVE_FACTORY_DATA,
   UPDATE_FACTORY_DATA,
   RECEIVE_FACTORY_DATA,
   INCREMENT,
@@ -62,13 +63,20 @@ export const addFactoryData = (data) => async dispatch => {
   factoryDataService
     .create(data)
     .then((result) => {
-      console.log("result from post is: ", result)
       dispatch({
         type: ADD_FACTORY_DATA,
         payload: result
       })
     })
-    .catch((error) => {
-      console.error(error)
-    })
+    .catch((error) => console.error(error))
+}
+
+export const removeFactoryData = (id) => async dispatch => {
+  dispatch({
+    type: REMOVE_FACTORY_DATA,
+    payload: id
+  })
+  factoryDataService
+    .delete(id)
+    .catch(error => console.error(error))
 }

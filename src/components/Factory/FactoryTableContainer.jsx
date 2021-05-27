@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import FactoryTable from "./FactoryTable";
-import { fetchFactoryData } from "../../store/actions/index";
+import { fetchFactoryData, removeFactoryData } from "../../store/actions/index";
+
 import { useSelector, useDispatch } from "react-redux";
 
 const FactoryTableContainer = () => {
@@ -13,13 +14,21 @@ const FactoryTableContainer = () => {
 
   const data = useMemo(() => factoryData, [factoryData]);
 
-  const logValue = (value) => {};
+
+  const removeFromTable = (props) => {
+    console.log("REMOVE FROM TABLE:", props.row.id)
+    dispatch(removeFactoryData(props.row.original.id))
+  };
 
   const columns = React.useMemo(
     () => [
       {
         Header: "List of factories",
         columns: [
+          {
+            Header: "Factory ID",
+            accessor: "id",
+          },
           {
             Header: "Factory name",
             accessor: "factory_location.name",
@@ -59,32 +68,33 @@ const FactoryTableContainer = () => {
           {
             Header: "Actions",
             accessor: "actions",
-            Cell: () => (
-              <>
-                <button
-                  className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
-                  type="button"
-                  onClick={logValue}
-                >
-                  <i className="tim-icons icon-pencil"></i>
-                </button>
-                <button
-                  // color="primary"
-                  className="btn-icon btn-link like btn btn-info btn-sm"
-                  type="button"
-                  onClick={logValue}
-                >
-                  <i className="tim-icons icon-square-pin"></i>
-                </button>
-                <button
-                  className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
-                  type="button"
-                  onClick={logValue}
-                >
-                  <i className="tim-icons icon-simple-remove"></i>
-                </button>
-              </>
-            ),
+            Cell: (props) => {
+              return (
+                <>
+                  <button
+                    className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
+                    type="button"
+                    // onClick={() => logValue(props)}
+                  >
+                    <i className="tim-icons icon-pencil"></i>
+                  </button>
+                  <button
+                    // color="primary"
+                    className="btn-icon btn-link like btn btn-info btn-sm"
+                    type="button"
+                  >
+                    <i className="tim-icons icon-square-pin"></i>
+                  </button>
+                  <button
+                    className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
+                    type="button"
+                    onClick={() => removeFromTable(props)}
+                  >
+                    <i className="tim-icons icon-simple-remove"></i>
+                  </button>
+                </>
+              );
+            },
           },
         ],
       },

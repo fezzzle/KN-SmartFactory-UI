@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 // import { useParams, useHistory } from "react-router-dom";
 import { Card, CardBody, Button } from "reactstrap";
 import ProductionLineAddForm from "./ProductionLineAddForm";
-import { NavLink as RRNavLink } from "react-router-dom";
+import { NavLink as RRNavLink, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import FactoryAddForm from "./FactoryAddForm";
@@ -10,15 +10,20 @@ import { addFactoryData } from "../../store/actions";
 
 const FactoryAddFormContainer = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const temporaryFactorySave = useRef();
   const temporaryFactoryAndProductionLineSave = useRef();
   const [temporaryProductionLine, setTemporaryProductionLine] = useState([]);
   const [addProductionButtonState, setAddProductionButtonState] =
-  useState(true);
+    useState(true);
   const [canAddAThingState, setCanAddAThingState] = useState(true);
   const [canCloseWithoutSaving, setCanCloseWithoutSaving] = useState(false);
-  
-  console.log('temporaryFactoryAndProductionLineSave.current:', temporaryFactoryAndProductionLineSave.current)
+
+  console.log("temporaryFactorySave:", temporaryFactorySave.current);
+  console.log(
+    "temporaryFactoryAndProductionLineSave.current:",
+    temporaryFactoryAndProductionLineSave.current
+  );
 
   const addTemporaryProductionLine = (values) => {
     let data = {
@@ -115,7 +120,12 @@ const FactoryAddFormContainer = () => {
                 color="info"
                 tag={RRNavLink}
                 disabled={canAddAThingState}
-                to="/factories/add_factory/add_thing"
+                to={{
+                  pathname: "/factories/add_factory/add_thing",
+                  state: {
+                    id: temporaryFactoryAndProductionLineSave.current,
+                  },
+                }}
               >
                 Add a thing
               </Button>

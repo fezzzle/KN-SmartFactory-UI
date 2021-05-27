@@ -1,12 +1,15 @@
 import { useState, useRef } from 'react'
 import ThingAddForm from "./ThingAddForm";
 import { Card, CardBody, Button } from "reactstrap";
-import { NavLink as RRNavLink } from "react-router-dom";
+import { NavLink as RRNavLink, useHistory } from "react-router-dom";
 import DeviceAddForm from "./DeviceAddForm";
 
 const ThingAddFormContainer = () => {
 
+  const history = useHistory();
+  console.log('history is:', history)
   const temporaryThingSave = useRef()
+  const temporaryThingAndDeviceSave = useRef()
   const [temporaryDevice, setTemporaryDevice] = useState([])
   const [isSavedButtonState, setIsSavedButtonState] = useState(false)
   const [addDeviceButtonState, setAddDeviceButtonState] = useState(true)
@@ -24,7 +27,7 @@ const ThingAddFormContainer = () => {
       description: values.description,
       production_location: values.production_location,
       device_group: values.device_group,
-      device: values.device
+      device: []
     };
     temporaryThingSave.current = data
     console.log('temporaryThingSave.current:', temporaryThingSave.current)
@@ -37,6 +40,15 @@ const ThingAddFormContainer = () => {
       setIsSavedButtonState(true)
     }
   };
+
+  const addDeviceToThing = (data) => {
+    temporaryThingAndDeviceSave.current = temporaryThingSave.current;
+    temporaryThingAndDeviceSave.current.device.push(data);
+    console.log('temporaryThingAndDeviceSave INSIDE addDeviceToThing:', temporaryThingAndDeviceSave.current)
+    
+    // dispatch(addFactoryData(temporaryFactoryAndProductionLineSave.current));
+    // setCanCloseWithoutSaving(true);
+  }
 
   const addTemporaryDevice = (values) => {
     console.log('hello')
@@ -51,7 +63,7 @@ const ThingAddFormContainer = () => {
     console.log("data is:", data)
     setTemporaryDevice([data])
     if (data.name !== undefined || data.SERIAL_NUMBER !== undefined) {
-      // addDeviceToThing(data);
+      addDeviceToThing(data);
       setIsSavedButtonState(true)
     }
   }
