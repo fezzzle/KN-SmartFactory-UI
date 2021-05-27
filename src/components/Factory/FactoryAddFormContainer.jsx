@@ -10,8 +10,8 @@ import { addFactoryData } from "../../store/actions";
 
 const FactoryAddFormContainer = () => {
   const dispatch = useDispatch();
-  const [temporaryProductionLine, setTemporaryProductionLine] = useState([]);
   const temporaryFactorySave = useRef();
+  const [temporaryProductionLine, setTemporaryProductionLine] = useState([]);
   const temporaryFactoryAndProductionLineSave = useRef();
   const [addProductionButtonState, setAddProductionButtonState] =
   useState(true);

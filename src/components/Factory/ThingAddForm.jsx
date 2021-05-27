@@ -32,7 +32,7 @@ const FactoryAddForm = ({ project, onSubmit }) => (
             description: "Something about the conveyor",
             production_location: 1,
             device_group: "10",
-            devices: "DEVICES, and more DEVICES"
+            device: "DEVICES, and more DEVICES"
         }}
         validationSchema={Yup.object().shape({
             name: Yup.string()
@@ -51,7 +51,7 @@ const FactoryAddForm = ({ project, onSubmit }) => (
                 .min(0)
                 .required()
                 .label('Devices group'),
-            devices: Yup.string()
+            device: Yup.string()
                 .min(0)
                 .required()
                 .label('Devices'),
@@ -85,8 +85,8 @@ const FactoryAddForm = ({ project, onSubmit }) => (
                     errors={errors}
                 />
                 <FormField
-                    name="devices"
-                    label="Things devices"
+                    name="device"
+                    label="Things device"
                     touched={touched}
                     errors={errors}
                 />
