@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 // import { useParams, useHistory } from "react-router-dom";
 import { Card, CardBody, Button } from "reactstrap";
 import ProductionLineAddForm from "./ProductionLineAddForm";
@@ -6,26 +6,37 @@ import { NavLink as RRNavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import FactoryAddForm from "./FactoryAddForm";
-import { addFactoryData } from "../../store/actions/";
+import { addFactoryData } from "../../store/actions";
 
-const FactoryAddPage = () => {
+const FactoryAddFormContainer = () => {
   const dispatch = useDispatch();
   const [temporaryProductionLine, setTemporaryProductionLine] = useState([]);
   const temporaryFactorySave = useRef();
   const temporaryFactoryAndProductionLineSave = useRef();
   const [addProductionButtonState, setAddProductionButtonState] =
-    useState(true);
+  useState(true);
+  const [isSavedButtonState, setIsSavedButtonState] = useState(true)
+  console.log('isSavedButtonState:', isSavedButtonState)
+  console.log('temporaryProductionLine:', temporaryProductionLine)
+  console.log('temporaryFactorySave.current:', temporaryFactorySave.current)
 
   const addTemporaryProductionLine = (values) => {
+    setIsSavedButtonState(true)
     let data = {
       name: values.name,
       line_number: values.line_number,
     };
     setTemporaryProductionLine([data]);
+    console.log('isSavedButtonState inside addTemporaryProductionLine:', isSavedButtonState)
     if (data.name !== undefined || data.line_number !== undefined) {
       addProductionLineToFactory(data);
+      setIsSavedButtonState(false)
     }
   };
+
+  const removeTemporaryProductionLine = () => {
+    setTemporaryProductionLine([])
+  }
 
   const addProductionLineToFactory = (data) => {
     temporaryFactoryAndProductionLineSave.current =
@@ -52,20 +63,20 @@ const FactoryAddPage = () => {
     storeTemporaryFactoryData(values);
     if (temporaryFactorySave.current !== undefined) {
       setAddProductionButtonState(!addProductionButtonState);
+      setIsSavedButtonState(true)
     }
-    // setTemporaryFactorySave(data)
-    // dispatch(addFactoryData(response));
   };
 
-  const formikOnSubmitDataAddFactory = async (values, formikHelpers) => {
+  const formikOnSubmitDataAddFactory = (values, formikHelpers) => {
     try {
-      await addFactory(values);
+      formikHelpers.setSubmitting(true);
+      addFactory(values);
     } catch (errors) {
       return Object.entries(errors).forEach(([field, error]) => {
         formikHelpers.setFieldError(field, error[0]);
       });
     }
-    formikHelpers.setSubmitting(false);
+    // formikHelpers.setSubmitting(false);
   };
 
   return (
@@ -83,24 +94,21 @@ const FactoryAddPage = () => {
           </Button>
         </CardBody>
       </Card>
-      {temporaryProductionLine.map((line, key) => {
+      {temporaryProductionLine.map((_, key) => {
         return (
           <Card key={key}>
             <CardBody>
               <ProductionLineAddForm
                 onSubmit={(values, formikHelpers) => {
                   try {
-                    console.log(
-                      "values from productionLineAddForm are: ",
-                      values
-                    );
+                    formikHelpers.setSubmitting(true);
                     addTemporaryProductionLine(values);
                   } catch (errors) {
                     return Object.entries(errors).forEach(([field, error]) => {
                       formikHelpers.setFieldError(field, error[0]);
                     });
                   }
-                  formikHelpers.setSubmitting(false);
+                  // formikHelpers.setSubmitting(false);
                 }}
               />
               {/* <ProductionLineAddForm name={line} /> */}
@@ -108,16 +116,17 @@ const FactoryAddPage = () => {
                 className="float-left mr-2"
                 color="info"
                 tag={RRNavLink}
+                disabled={isSavedButtonState}
                 to="/factories/add_factory/add_thing"
               >
-                Save production line and add a thing
+                Add a thing
               </Button>
               <Button
                 className="float-left mr-2"
                 color="primary"
-                onClick={addProductionLineToFactory}
+                onClick={removeTemporaryProductionLine}
               >
-                Save production line and close
+                Close without saving
               </Button>
             </CardBody>
           </Card>
@@ -127,4 +136,4 @@ const FactoryAddPage = () => {
   );
 };
 
-export default FactoryAddPage;
+export default FactoryAddFormContainer;

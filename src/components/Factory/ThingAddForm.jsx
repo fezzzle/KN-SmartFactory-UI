@@ -28,26 +28,30 @@ const FormField = ({ label, name, touched, errors }) => (
 const FactoryAddForm = ({ project, onSubmit }) => (
     <Formik
         initialValues={{
-            name: "Some candy factory",
-            description: "Some description of thing",
+            name: "Conveyor",
+            description: "Something about the conveyor",
             production_location: 1,
             device_group: "10",
-            devices: "Some devices shown somehow"
+            devices: "DEVICES, and more DEVICES"
         }}
         validationSchema={Yup.object().shape({
-            factory_name: Yup.string()
+            name: Yup.string()
                 .min(0)
                 .required()
                 .label('Thing name'),
-            factory_location: Yup.string()
+            description: Yup.string()
                 .min(0)
                 .required()
                 .label('Thing description'),
-            local_time: Yup.number()
+            production_location: Yup.string()
                 .min(0)
                 .required()
                 .label('Location on a production line'),
-            factory_location: Yup.string()
+            device_group: Yup.number()
+                .min(0)
+                .required()
+                .label('Devices group'),
+            devices: Yup.string()
                 .min(0)
                 .required()
                 .label('Devices'),
@@ -86,15 +90,15 @@ const FactoryAddForm = ({ project, onSubmit }) => (
                     touched={touched}
                     errors={errors}
                 />
-                {/* <Button
+                <Button
                     id="editProjectFormSubmitButton"
                     type="submit"
                     color="primary"
                     disabled={isSubmitting}
                     touched={touched}
                 >
-                    UPDATE
-                </Button> */}
+                    Save a thing
+                </Button>
             </Form>
         )}
     </Formik>
