@@ -11,41 +11,40 @@ import { addFactoryData } from "../../store/actions";
 const FactoryAddFormContainer = () => {
   const dispatch = useDispatch();
   const temporaryFactorySave = useRef();
-  const [temporaryProductionLine, setTemporaryProductionLine] = useState([]);
   const temporaryFactoryAndProductionLineSave = useRef();
+  const [temporaryProductionLine, setTemporaryProductionLine] = useState([]);
   const [addProductionButtonState, setAddProductionButtonState] =
   useState(true);
-  const [isSavedButtonState, setIsSavedButtonState] = useState(true)
-  console.log('isSavedButtonState:', isSavedButtonState)
-  console.log('temporaryProductionLine:', temporaryProductionLine)
-  console.log('temporaryFactorySave.current:', temporaryFactorySave.current)
+  const [canAddAThingState, setCanAddAThingState] = useState(true);
+  const [canCloseWithoutSaving, setCanCloseWithoutSaving] = useState(false);
+  
+  console.log('temporaryFactoryAndProductionLineSave.current:', temporaryFactoryAndProductionLineSave.current)
 
   const addTemporaryProductionLine = (values) => {
-    setIsSavedButtonState(true)
     let data = {
       name: values.name,
       line_number: values.line_number,
     };
     setTemporaryProductionLine([data]);
-    console.log('isSavedButtonState inside addTemporaryProductionLine:', isSavedButtonState)
     if (data.name !== undefined || data.line_number !== undefined) {
       addProductionLineToFactory(data);
-      setIsSavedButtonState(false)
+      setCanAddAThingState(false);
     }
   };
 
   const removeTemporaryProductionLine = () => {
-    setTemporaryProductionLine([])
-  }
+    setTemporaryProductionLine([]);
+  };
 
   const addProductionLineToFactory = (data) => {
     temporaryFactoryAndProductionLineSave.current =
       temporaryFactorySave.current;
     temporaryFactoryAndProductionLineSave.current.production_line.push(data);
     dispatch(addFactoryData(temporaryFactoryAndProductionLineSave.current));
+    setCanCloseWithoutSaving(true);
   };
 
-  const storeTemporaryFactoryData = (values) => {
+  const temporaryFactoryData = (values) => {
     let data = {
       id: Math.random().toString(36).substr(2, 9),
       time_added: Date.now(),
@@ -60,30 +59,29 @@ const FactoryAddFormContainer = () => {
   };
 
   const addFactory = (values) => {
-    storeTemporaryFactoryData(values);
+    temporaryFactoryData(values);
     if (temporaryFactorySave.current !== undefined) {
       setAddProductionButtonState(!addProductionButtonState);
-      setIsSavedButtonState(true)
     }
-  };
-
-  const formikOnSubmitDataAddFactory = (values, formikHelpers) => {
-    try {
-      formikHelpers.setSubmitting(true);
-      addFactory(values);
-    } catch (errors) {
-      return Object.entries(errors).forEach(([field, error]) => {
-        formikHelpers.setFieldError(field, error[0]);
-      });
-    }
-    // formikHelpers.setSubmitting(false);
   };
 
   return (
     <div className="content">
       <Card>
         <CardBody>
-          <FactoryAddForm onSubmit={formikOnSubmitDataAddFactory} />
+          <FactoryAddForm
+            onSubmit={(values, formikHelpers) => {
+              try {
+                formikHelpers.setSubmitting(true);
+                addFactory(values);
+              } catch (errors) {
+                return Object.entries(errors).forEach(([field, error]) => {
+                  formikHelpers.setFieldError(field, error[0]);
+                });
+              }
+              // formikHelpers.setSubmitting(false);
+            }}
+          />
           <Button
             className="float-left mr-2"
             color="info"
@@ -116,7 +114,7 @@ const FactoryAddFormContainer = () => {
                 className="float-left mr-2"
                 color="info"
                 tag={RRNavLink}
-                disabled={isSavedButtonState}
+                disabled={canAddAThingState}
                 to="/factories/add_factory/add_thing"
               >
                 Add a thing
@@ -125,6 +123,7 @@ const FactoryAddFormContainer = () => {
                 className="float-left mr-2"
                 color="primary"
                 onClick={removeTemporaryProductionLine}
+                disabled={canCloseWithoutSaving}
               >
                 Close without saving
               </Button>

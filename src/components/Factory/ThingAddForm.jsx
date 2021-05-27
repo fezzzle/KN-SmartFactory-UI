@@ -43,7 +43,7 @@ const FactoryAddForm = ({ project, onSubmit }) => (
                 .min(0)
                 .required()
                 .label('Thing description'),
-            production_location: Yup.string()
+            production_location: Yup.number()
                 .min(0)
                 .required()
                 .label('Location on a production line'),

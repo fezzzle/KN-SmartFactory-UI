@@ -8,7 +8,7 @@ const ThingAddFormContainer = () => {
 
   const temporaryThingSave = useRef()
   const [temporaryDevice, setTemporaryDevice] = useState([])
-  const [isSavedButtonState, setIsSavedButtonState] = useState(true)
+  const [isSavedButtonState, setIsSavedButtonState] = useState(false)
   const [addDeviceButtonState, setAddDeviceButtonState] = useState(true)
   console.log('temporaryThingSave.current:', temporaryThingSave.current)
   console.log('temporaryDevice:', temporaryDevice)
@@ -22,7 +22,7 @@ const ThingAddFormContainer = () => {
       uuid: Math.random().toString(36).substr(2, 9),
       name: values.name,
       description: values.description,
-      production_loction: values.production_loction,
+      production_location: values.production_location,
       device_group: values.device_group,
       device: values.device
     };
@@ -40,7 +40,6 @@ const ThingAddFormContainer = () => {
 
   const addTemporaryDevice = (values) => {
     console.log('hello')
-    setIsSavedButtonState(true)
     let data = {
       SERIAL_NUMBER: values.SERIAL_NUMBER,
       name: values.name,
@@ -52,8 +51,8 @@ const ThingAddFormContainer = () => {
     console.log("data is:", data)
     setTemporaryDevice([data])
     if (data.name !== undefined || data.SERIAL_NUMBER !== undefined) {
-      // addProductionLineToFactory(data);
-      setIsSavedButtonState(false)
+      // addDeviceToThing(data);
+      setIsSavedButtonState(true)
     }
   }
 
@@ -79,7 +78,7 @@ const ThingAddFormContainer = () => {
           <Button className="float-left mr-2" color="info" onClick={addTemporaryDevice} disabled={addDeviceButtonState}>
             Add a new device to a Thing
           </Button>
-          <Button className="float-left mb-2" color="warning">
+          <Button className="float-left mb-2" color="warning" disabled={isSavedButtonState}>
             Go back without saving
           </Button>
         </CardBody>
@@ -107,7 +106,7 @@ const ThingAddFormContainer = () => {
                 color="warning"
                 onClick={removeTemporaryDevice}
               >
-                Close without saving
+                Remove device and don't save
               </Button>
             </CardBody>
           </Card>
