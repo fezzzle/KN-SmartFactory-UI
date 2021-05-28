@@ -6,13 +6,9 @@ import DeviceAddForm from "./DeviceAddForm";
 import { useDispatch } from "react-redux";
 import { updateFactoryData } from "../../store/actions";
 
-import store from "../../store/store"
 
 const ThingAddFormContainer = () => {
   const dispatch = useDispatch();
-  // const unsubscribe = store.subscribe(() =>
-  // console.log('State after dispatch: ', store.getState())
-// )
 
   const history = useHistory();
   const temporaryThingSave = useRef()
@@ -20,8 +16,7 @@ const ThingAddFormContainer = () => {
   const [temporaryDevice, setTemporaryDevice] = useState([])
   const [isSavedButtonState, setIsSavedButtonState] = useState(false)
   const [addDeviceButtonState, setAddDeviceButtonState] = useState(true)
-  // console.log('temporaryThingSave.current:', temporaryThingSave.current)
-  // console.log('temporaryDevice:', temporaryDevice)
+  const [canCloseWithoutSaving, setCanCloseWithoutSaving] = useState(false)
 
   const removeTemporaryDevice = () => {
     setTemporaryDevice([])
@@ -53,7 +48,7 @@ const ThingAddFormContainer = () => {
     temporaryThingAndDeviceSave.current.device.push(data);
 
     mergeProductionLineAndThing(temporaryThingAndDeviceSave.current)
-    // setCanCloseWithoutSaving(true);
+    setCanCloseWithoutSaving(true);
   }
 
   const mergeProductionLineAndThing = (data) => {
@@ -127,6 +122,7 @@ const ThingAddFormContainer = () => {
                 className="float-left mr-2"
                 color="warning"
                 onClick={removeTemporaryDevice}
+                disabled={canCloseWithoutSaving}
               >
                 Remove device and don't save
               </Button>
