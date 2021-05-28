@@ -17,7 +17,6 @@ class CompanyAdmin extends Component {
   constructor(){
     super();
     this.state = {
-
       users: [],
       role: { name: "" },
       company: { name: "" },
