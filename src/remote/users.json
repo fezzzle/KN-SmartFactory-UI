@@ -47,7 +47,7 @@
                         "responses": [
                             {
                                 "uuid": "",
-                                "body": "{\n  \"users\": [\n    {\n  \n      \"userID\": 1,\n      \"firstName\": \"Kuehne\",\n      \"lastName\": \"Nagel\",\n      \"role\": \"Manufacturing Manager\",\n      \"company\": \"Kuehne Nagel\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": true\n  \n    },\n    \n    {\n      \"userID\": 2,\n      \"firstName\": \"Sergey\",\n      \"lastName\": \"Lazarev\",\n      \"role\": \"Product manager\",\n      \"company\": \"Kuehne Nagel\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": false\n  \n    },\n    \n     {\n       \"userID\": 3,\n      \"firstName\": \"Verka\",\n      \"lastName\": \"Serduchka\",\n      \"role\": \"Product Manager\",\n      \"company\": \"Kuehne Nagel\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": true\n  \n    },\n    \n     {\n       \n      \"userID\": 4,\n      \"firstName\": \"Alexander\",\n      \"lastName\": \"Rybak\",\n      \"role\": \"Technician\",\n      \"company\": \"Kuehne Nagel\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": false\n  \n    },\n    \n     {\n       \n      \"userID\": 5,\n      \"firstName\": \"Jamala\",\n      \"lastName\": \"Jamala\",\n      \"role\": \"Technician\",\n      \"company\": \"Chevron\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": false\n  \n    },\n    { \"userID\": 6,\n      \"firstName\": \"Mamta\",\n      \"lastName\": \"Khaur\",\n      \"role\": \"Technician\",\n      \"company\": \"Kuehne Nagel\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": true\n      \n    },\n     { \"userID\": 7,\n      \"firstName\": \"Conchita\",\n      \"lastName\": \"Wurst\",\n      \"role\": \"Technician\",\n      \"company\": \"Nokia\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": true\n      \n    }\n  ]\n  \n}",
+                                "body": "{\n  \"users\": [\n    {\n  \n      \"userID\": 1,\n      \"firstName\": \"Kuehne\",\n      \"lastName\": \"Nagel\",\n      \"role\": \"Manufacturing Manager\",\n      \"company\": \"Kuehne Nagel\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": true\n  \n    },\n    \n    {\n      \"userID\": 2,\n      \"firstName\": \"Sergey\",\n      \"lastName\": \"Lazarev\",\n      \"role\": \"Product manager\",\n      \"company\": \"Kuehne Nagel\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": false\n  \n    },\n    \n     {\n       \"userID\": 3,\n      \"firstName\": \"Verka\",\n      \"lastName\": \"Serduchka\",\n      \"role\": \"Product Manager\",\n      \"company\": \"Kuehne Nagel\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": true\n  \n    },\n    \n     {\n       \n      \"userID\": 4,\n      \"firstName\": \"Alexander\",\n      \"lastName\": \"Rybak\",\n      \"role\": \"Technician\",\n      \"company\": \"Kuehne Nagel\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": false\n  \n    },\n    \n     {\n       \n      \"userID\": 5,\n      \"firstName\": \"Jamala\",\n      \"lastName\": \"Jamala\",\n      \"role\": \"Technician\",\n      \"company\": \"Chevron\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": false\n  \n    },\n    { \"userID\": 6,\n      \"firstName\": \"Mamta\",\n      \"lastName\": \"Khaur\",\n      \"role\": \"Technician\",\n      \"company\": \"Kuehne Nagel\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": true\n      \n    },\n     { \"userID\": 8,\n      \"firstName\": \"Alexandra\",\n      \"lastName\": \"Wurst\",\n      \"role\": \"Technician\",\n      \"company\": \"Nokia\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": true\n      \n    },\n     { \"userID\": 9,\n      \"firstName\": \"Oleksandra\",\n      \"lastName\": \"Techenka\",\n      \"role\": \"Technician\",\n      \"company\": \"Nokia\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": true\n      \n    },\n     { \"userID\": 10,\n      \"firstName\": \"Siro\",\n      \"lastName\": \"Martini\",\n      \"role\": \"Technician\",\n      \"company\": \"DHL\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": true\n      \n    },\n     { \"userID\": 11,\n      \"firstName\": \"Estela\",\n      \"lastName\": \"Benita\",\n      \"role\": \"Technician\",\n      \"company\": \"Nokia\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": true\n      \n    },\n     { \"userID\": 12,\n      \"firstName\": \"Astrid\",\n      \"lastName\": \"Johnson\",\n      \"role\": \"Intern\",\n      \"company\": \"Kuehne Nagel\",\n      \"deadline\": \"2021-10-24T09:56:52+0000\",\n      \"activated\": true\n      \n    }\n  ]\n  \n}",
                                 "latency": 0,
                                 "statusCode": 200,
                                 "label": "",
@@ -131,7 +131,63 @@
                         "responses": [
                             {
                                 "uuid": "",
-                                "body": "{\n    \"BUs\": [\n    {\n    \"buID\": 1,\n    \"name\": \"Logistic\",\n    \"city\": \"Tallinn\",\n    \"activated\": true\n    },\n    {\n    \"buID\": 2,\n    \"name\": \"Custom Clearance\",\n    \"city\": \"Tallinn\",\n    \"activated\": true\n    },\n    {\n    \"buID\": 3,\n    \"name\": \"Delivery\",\n    \"city\": \"Narva\",\n    \"activated\": true\n    },\n    {\n    \"buID\": 4,\n    \"name\": \"Maintenance\",\n    \"city\": \"Tartu\",\n    \"activated\": true\n    },\n    \n    {\n    \"buID\": 5,\n    \"name\": \"Special Cargo\",\n    \"city\": \"Paldiski\",\n    \"activated\": true\n    },\n    {\n    \"buID\": 6,\n    \"name\": \"Perishable Goods\",\n    \"city\": \"Paldiski\",\n    \"activated\": true\n    },\n    {\n    \"buID\": 7,\n    \"name\": \"Live Stocks\",\n    \"city\": \"Tartu\",\n    \"activated\": true\n    }\n    \n    ]\n  \n}",
+                                "body": "{\n    \"BUs\": [\n    {\n    \"buID\": 1,\n    \"name\": \"Logistic\",\n    \"city\": \"Tallinn\",\n    \"activated\": true,\n    \"members\": [{\n      \"userID\": 1,\n      \"firstName\": \"Kuehne\",\n      \"lastName\": \"Nagel\",\n      \"role\": \"Manufacturing Manager\",\n      \"company\": \"Kuehne Nagel\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": true\n    },\n        {\n      \"userID\": 2,\n      \"firstName\": \"Sergey\",\n      \"lastName\": \"Lazarev\",\n      \"role\": \"Product manager\",\n      \"company\": \"Kuehne Nagel\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": false\n  \n    },\n    \n     {\n       \"userID\": 3,\n      \"firstName\": \"Verka\",\n      \"lastName\": \"Serduchka\",\n      \"role\": \"Product Manager\",\n      \"company\": \"Kuehne Nagel\",\n      \"deadline\": \"2021-12-24T09:56:52+0000\",\n      \"activated\": true\n  \n    }\n      \n      ]\n    },\n    {\n    \"buID\": 2,\n    \"name\": \"Custom Clearance\",\n    \"city\": \"Tallinn\",\n    \"activated\": true\n    },\n    {\n    \"buID\": 3,\n    \"name\": \"Delivery\",\n    \"city\": \"Narva\",\n    \"activated\": true\n    },\n    {\n    \"buID\": 4,\n    \"name\": \"Maintenance\",\n    \"city\": \"Tartu\",\n    \"activated\": true\n    },\n    \n    {\n    \"buID\": 5,\n    \"name\": \"Special Cargo\",\n    \"city\": \"Paldiski\",\n    \"activated\": true\n    },\n    {\n    \"buID\": 6,\n    \"name\": \"Perishable Goods\",\n    \"city\": \"Paldiski\",\n    \"activated\": true\n    },\n    {\n    \"buID\": 7,\n    \"name\": \"Live Stocks\",\n    \"city\": \"Tartu\",\n    \"activated\": true\n    },\n    {\n    \"buID\": 8,\n    \"name\": \"Live Stocks\",\n    \"city\": \"Parnu\",\n    \"activated\": true\n    },\n    {\n    \"buID\": 9,\n    \"name\": \"Live Stocks\",\n    \"city\": \"Saku\",\n    \"activated\": true\n    },\n    {\n    \"buID\": 10,\n    \"name\": \"Live Stocks\",\n    \"city\": \"Mardu\",\n    \"activated\": true\n    },\n    {\n    \"buID\": 11,\n    \"name\": \"Live Stocks\",\n    \"city\": \"Vōru\",\n    \"activated\": true\n    },\n    {\n    \"buID\": 12,\n    \"name\": \"Live Stocks\",\n    \"city\": \"Kurresaare\",\n    \"activated\": true\n    }\n    \n    ]\n  \n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [
+                                    {
+                                        "key": "",
+                                        "value": ""
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "",
+                        "method": "post",
+                        "endpoint": "business-unit",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [
+                                    {
+                                        "key": "",
+                                        "value": ""
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "",
+                        "method": "get",
+                        "endpoint": "business-unit/:buID",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{}",
                                 "latency": 0,
                                 "statusCode": 200,
                                 "label": "",
