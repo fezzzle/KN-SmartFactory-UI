@@ -53,9 +53,17 @@ export default class BusinessUnitEdit extends React.Component {
   
     return (
       <div>
-        <Button variant="primary" onClick={() => this.handleModalShowHide()}>
+
+                <button
+                    className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
+                    type="button"
+                    onClick={() => this.handleModalShowHide()}
+                  >
+                    <i className="tim-icons icon-pencil"></i>
+                  </button>
+        {/* <Button variant="primary" onClick={() => this.handleModalShowHide()}>
           Edit
-        </Button>
+        </Button> */}
 
         <Modal show={this.state.showHide} className="modal">
           <Modal.Header closeButton onClick={() => this.handleModalShowHide()}>

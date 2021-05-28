@@ -16,8 +16,27 @@ export default class AdminPanel extends React.Component {
         return (
         <div className="content">
 
+
+
+     <div class="row">
+         <div class="col">
             <CompanyAdmin />
-            <BusinessUnitAdmin />
+
+         </div>
+
+    </div>
+    <div class="row">
+         <div class="col-12 col-md-8">
+
+         <BusinessUnitAdmin />
+            
+         </div>
+
+    </div>
+
+            
+          
+
 
 
 

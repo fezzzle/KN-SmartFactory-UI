@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardBody,
   CardTitle,
-  NavLink
+  ButtonGroup,
 } from "reactstrap";
 import axios from 'axios';
 import { Link, Route,Switch } from 'react-router-dom';
@@ -111,8 +111,7 @@ getBusinessUnits = async ()=>{
                       <th>City</th>
                       <th>Status</th>
                       <th>Activate/Deactivate</th>
-                      <th>Delete</th>
-                      <th>Edit</th>
+                      <th>Edit-View-Delete</th>
 
 
                     </tr>
@@ -121,19 +120,26 @@ getBusinessUnits = async ()=>{
 
                     {this.state.BusinessUnits.map((bu => 
                       <tr key = {bu.buID}>
-                          <td>  <Link to = "#"> {bu.name}</Link></td>
+                          <td>  {bu.name}</td>
                           <td> {bu.city} </td>
                           <td> {bu.activated?'Active':'Not Active'}</td> 
                          <td>
                         <button style ={{width: '10rem'}} className="btn btn-primary" onClick = {() => this.changeStatus(bu) } > {bu.activated? 'Deactivate': 'Activate'}</button>
                       </td>
                       <td>
-                        <BusinessUnitEdit key = {bu.buID} details = {bu} />
-                      </td>
-                      <td>
-                        <button className="btn btn-danger" onClick = {() => this.deleteUnit(bu) } > Delete </button>
-                      </td>
+                        <ButtonGroup>
+                        <BusinessUnitEdit key = {bu.buID} details = {bu}/>
+                        <button
+                    className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
+                    type="button" onClick = {() => this.deleteUnit(bu) }>
+                                        
+                            <i className="tim-icons icon-simple-remove"></i>
+                      </button>
 
+                        </ButtonGroup>
+
+                      </td>
+                     
 
                       </tr>
                        ))}
