@@ -33,7 +33,7 @@ import {
 
 var ps;
 
-function Sidebar(props) {
+function UserSidebar(props) {
   const location = useLocation();
   const sidebarRef = React.useRef(null);
   // verifies if routeName is the one active (in browser input)
@@ -154,12 +154,12 @@ function Sidebar(props) {
   );
 }
 
-Sidebar.defaultProps = {
+UserSidebar.defaultProps = {
   rtlActive: false,
   routes: [{}],
 };
 
-Sidebar.propTypes = {
+UserSidebar.propTypes = {
   // if true, then instead of the routes[i].name, routes[i].rtlName will be rendered
   // insde the links of this component
   rtlActive: PropTypes.bool,
@@ -178,4 +178,4 @@ Sidebar.propTypes = {
   }),
 };
 
-export default Sidebar;
+export default UserSidebar;

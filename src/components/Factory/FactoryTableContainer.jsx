@@ -1,6 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import FactoryTable from "./FactoryTable";
 import { fetchFactoryData, removeFactoryData } from "../../store/actions/index";
+import { NavLink as RRNavLink } from "react-router-dom";
+
+import { Card, CardBody, Table, Button } from "reactstrap";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -16,6 +19,10 @@ const FactoryTableContainer = () => {
 
   const removeFromTable = (props) => {
     dispatch(removeFactoryData(props.row.original.id));
+  };
+
+  const logValue = (value) => {
+    console.log(value);
   };
 
   const columns = React.useMemo(
@@ -67,8 +74,8 @@ const FactoryTableContainer = () => {
               const deviceArray = things.map((thing) =>
                 thing.map((device) => device.device)
               );
-              const flatArr = deviceArray.flat().flat();
-              return flatArr.length;
+              const devices = deviceArray.flat().flat();
+              return devices.length;
             },
           },
           {
@@ -81,13 +88,17 @@ const FactoryTableContainer = () => {
             Cell: (props) => {
               return (
                 <>
-                  <button
+                  <Button
                     className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
                     type="button"
-                    // onClick={() => logValue(props)}
+                    onClick={() => logValue(props)}
+                    tag={RRNavLink}
+                    to={{
+                      pathname: `/factories/${props.row.original.id}`,
+                    }}
                   >
                     <i className="tim-icons icon-pencil"></i>
-                  </button>
+                  </Button>
                   <button
                     // color="primary"
                     className="btn-icon btn-link like btn btn-info btn-sm"
