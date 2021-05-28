@@ -1,7 +1,7 @@
 import { Button, Modal } from "react-bootstrap";
 import React from "react";
 import "react-datepicker/dist/react-datepicker.css";
-import { FormGroup, Input } from "reactstrap";
+import { FormGroup, Input, Form, Label } from "reactstrap";
 import axios from 'axios';
 
 
@@ -13,6 +13,7 @@ class BusinessUnitModal extends React.Component {
       showHide: false,
       modalIsOpen: true,
       bu: [],
+      users: [],
       name: '',
       city:'',
       company: '',
@@ -20,6 +21,25 @@ class BusinessUnitModal extends React.Component {
     };
     this.componentDidMount=this.componentDidMount.bind(this);
     this.onChange=this.onChange.bind(this);
+    this.handleSubmit=this.handleSubmit.bind(this);
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(this.state)
+    console.log("miao")
+
+    // axios.post("http://localhost:7100/smart-factory/users",{
+    //   firstName :this.state.firstName,
+    //   lastName: this.state.lastName,
+    //   company: this.state.company,
+    //   role: this.state.role,
+    //   deadline: this.state.startDate
+    // })
+    // .then(res=>{
+    //   console.log(res.data)
+
+    // })
   }
 
   onChange(e){
@@ -30,6 +50,7 @@ class BusinessUnitModal extends React.Component {
 }
 
   async componentDidMount(){
+    await this.getUsers();
    
 }
 
@@ -48,6 +69,22 @@ class BusinessUnitModal extends React.Component {
     }));
   };
 
+  getUsers = async () => {
+    axios
+      .get("http://localhost:7100/smart-factory/users")
+      .then((response) => {
+        this.setState({
+          ...this.state,
+          users: response.data.users,
+        });
+      })
+      .catch((error) => {
+        alert(
+          "Could not connect to Server. Make sure Mockoon server is on if you are using it"
+        );
+      });
+  };
+
 
 
   render() {
@@ -63,6 +100,7 @@ class BusinessUnitModal extends React.Component {
             <Modal.Title>New Business Unit</Modal.Title>
           </Modal.Header>
           <Modal.Body>
+          <Form onSubmit={this.handleSubmit} >
             <FormGroup >
               <label>Name</label>
               <Input type="text" name="name" value={this.state.name} onChange={this.onChange}/>
@@ -71,6 +109,28 @@ class BusinessUnitModal extends React.Component {
               <label>City</label>
               <Input type="text" name="city" value={this.state.city} onChange={this.onChange}/>
             </FormGroup>
+            <FormGroup>
+            <Label for="select" className="label-fix">
+                  Employee(s)
+                </Label>
+                <br />
+                <Input
+                  type="select"
+                  name="select"
+                  id="select"
+                  className="select-padding"
+                  aria-label="Default select example"
+                >
+            <option selected>Select Role</option>
+                  {this.state.users.map((user) => (
+                    <option key={user.userID} value={user.userID}>
+                      {user.firstName} {user.lastName}
+                    </option>
+                     ))}
+
+                     </Input>
+            </FormGroup>
+            </Form>
           </Modal.Body>
 
 
@@ -83,6 +143,7 @@ class BusinessUnitModal extends React.Component {
             </Button>
             <Button
               variant="primary"
+              type="submit"
               onClick={() => this.handleModalShowHide()}
             >
               Save Changes
