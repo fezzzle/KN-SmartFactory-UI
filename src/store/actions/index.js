@@ -65,7 +65,7 @@ export const addFactoryData = (data) => async dispatch => {
     .then((result) => {
       dispatch({
         type: ADD_FACTORY_DATA,
-        payload: result
+        payload: result.data
       })
     })
     .catch((error) => console.error(error))
@@ -79,4 +79,14 @@ export const removeFactoryData = (id) => async dispatch => {
   factoryDataService
     .delete(id)
     .catch(error => console.error(error))
+}
+
+export const updateFactoryData = (data) => async dispatch => {
+  factoryDataService
+    .update(data.id, data)
+    .catch(error => console.error(error))
+  dispatch({
+    type: UPDATE_FACTORY_DATA,
+    payload: data
+  })
 }

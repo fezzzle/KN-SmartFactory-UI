@@ -8,6 +8,8 @@ const factoryReducer = (state = [], action) => {
       return [...state, {...action.payload}]
     case REMOVE_FACTORY_DATA:
       return state.filter(item => item.id !== action.payload)
+    case UPDATE_FACTORY_DATA:
+      return [...state.map(item => item.id === action.payload.id ? item = action.payload : item)]
     default:
       return state;
   }

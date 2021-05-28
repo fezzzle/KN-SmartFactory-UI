@@ -8,9 +8,14 @@ import { useDispatch } from "react-redux";
 import FactoryAddForm from "./FactoryAddForm";
 import { addFactoryData } from "../../store/actions";
 
+import store from "../../store/store"
+const unsubscribe = store.subscribe(() =>
+  console.log('State after dispatch: ', store.getState())
+)
+
+
 const FactoryAddFormContainer = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const temporaryFactorySave = useRef();
   const temporaryFactoryAndProductionLineSave = useRef();
   const [temporaryProductionLine, setTemporaryProductionLine] = useState([]);
@@ -19,16 +24,17 @@ const FactoryAddFormContainer = () => {
   const [canAddAThingState, setCanAddAThingState] = useState(true);
   const [canCloseWithoutSaving, setCanCloseWithoutSaving] = useState(false);
 
-  console.log("temporaryFactorySave:", temporaryFactorySave.current);
-  console.log(
-    "temporaryFactoryAndProductionLineSave.current:",
-    temporaryFactoryAndProductionLineSave.current
-  );
+  // console.log("temporaryFactorySave:", temporaryFactorySave.current);
+  // console.log(
+  //   "temporaryFactoryAndProductionLineSave.current:",
+  //   temporaryFactoryAndProductionLineSave.current
+  // );
 
   const addTemporaryProductionLine = (values) => {
     let data = {
       name: values.name,
       line_number: values.line_number,
+      thing: []
     };
     setTemporaryProductionLine([data]);
     if (data.name !== undefined || data.line_number !== undefined) {
@@ -122,9 +128,7 @@ const FactoryAddFormContainer = () => {
                 disabled={canAddAThingState}
                 to={{
                   pathname: "/factories/add_factory/add_thing",
-                  state: {
-                    id: temporaryFactoryAndProductionLineSave.current,
-                  },
+                  state: temporaryFactoryAndProductionLineSave.current
                 }}
               >
                 Add a thing

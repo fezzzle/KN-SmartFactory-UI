@@ -3,18 +3,25 @@ import ThingAddForm from "./ThingAddForm";
 import { Card, CardBody, Button } from "reactstrap";
 import { NavLink as RRNavLink, useHistory } from "react-router-dom";
 import DeviceAddForm from "./DeviceAddForm";
+import { useDispatch } from "react-redux";
+import { updateFactoryData } from "../../store/actions";
+
+import store from "../../store/store"
 
 const ThingAddFormContainer = () => {
+  const dispatch = useDispatch();
+  // const unsubscribe = store.subscribe(() =>
+  // console.log('State after dispatch: ', store.getState())
+// )
 
   const history = useHistory();
-  console.log('history is:', history)
   const temporaryThingSave = useRef()
   const temporaryThingAndDeviceSave = useRef()
   const [temporaryDevice, setTemporaryDevice] = useState([])
   const [isSavedButtonState, setIsSavedButtonState] = useState(false)
   const [addDeviceButtonState, setAddDeviceButtonState] = useState(true)
-  console.log('temporaryThingSave.current:', temporaryThingSave.current)
-  console.log('temporaryDevice:', temporaryDevice)
+  // console.log('temporaryThingSave.current:', temporaryThingSave.current)
+  // console.log('temporaryDevice:', temporaryDevice)
 
   const removeTemporaryDevice = () => {
     setTemporaryDevice([])
@@ -30,7 +37,7 @@ const ThingAddFormContainer = () => {
       device: []
     };
     temporaryThingSave.current = data
-    console.log('temporaryThingSave.current:', temporaryThingSave.current)
+    // console.log('temporaryThingSave.current:', temporaryThingSave.current)
   };
 
   const addDevice = (values) => {
@@ -44,14 +51,18 @@ const ThingAddFormContainer = () => {
   const addDeviceToThing = (data) => {
     temporaryThingAndDeviceSave.current = temporaryThingSave.current;
     temporaryThingAndDeviceSave.current.device.push(data);
-    console.log('temporaryThingAndDeviceSave INSIDE addDeviceToThing:', temporaryThingAndDeviceSave.current)
-    
-    // dispatch(addFactoryData(temporaryFactoryAndProductionLineSave.current));
+
+    mergeProductionLineAndThing(temporaryThingAndDeviceSave.current)
     // setCanCloseWithoutSaving(true);
   }
 
+  const mergeProductionLineAndThing = (data) => {
+    const productionLine = history.location.state
+    productionLine.production_line[0].thing.push(data)
+    dispatch(updateFactoryData(productionLine));
+  }
+
   const addTemporaryDevice = (values) => {
-    console.log('hello')
     let data = {
       SERIAL_NUMBER: values.SERIAL_NUMBER,
       name: values.name,
@@ -60,7 +71,6 @@ const ThingAddFormContainer = () => {
       status: values.status,
       alerts_messages: values.alerts_messages
     }
-    console.log("data is:", data)
     setTemporaryDevice([data])
     if (data.name !== undefined || data.SERIAL_NUMBER !== undefined) {
       addDeviceToThing(data);

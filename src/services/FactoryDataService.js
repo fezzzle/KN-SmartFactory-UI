@@ -17,6 +17,10 @@ class apiDataService {
     return http.put(`/factory_api/${id}`, data)
   }
 
+  patch(id, data) {
+    return http.patch(`/factory_api/${id}`, data)
+  }
+
   delete(id) {
     return http.delete(`/factory_api/${id}`)
   }
