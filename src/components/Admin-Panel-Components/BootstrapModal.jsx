@@ -12,18 +12,19 @@ class BootstrapModal extends React.Component {
       showHide: false,
       modalIsOpen: true,
       startDate: new Date(),
-      selectNewDate : new Date(),
       roles: [],
       firstName: "",
       lastName: "",
       city: "",
       company: "",
       role: "",
+      url : ""
     };
     this.getRoles = this.getRoles.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.changeDate = this.changeDate.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   onChange(e) {
@@ -41,12 +42,28 @@ class BootstrapModal extends React.Component {
 
   handleModalShowHide() {
     this.setState({ showHide: !this.state.showHide });
+    console.log(this.state)
   }
 
   changeDate(date) {
     this.setState({ startDate: date });
   }
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(this.state)
 
+    // axios.post("http://localhost:7100/smart-factory/users",{
+    //   firstName :this.state.firstName,
+    //   lastName: this.state.lastName,
+    //   company: this.state.company,
+    //   role: this.state.role,
+    //   deadline: this.state.startDate
+    // })
+    // .then(res=>{
+    //   console.log(res.data)
+
+    // })
+  }
   toggleModal = () => {
     this.setState((prevState) => ({
       modalIsOpen: !prevState.modalIsOpen,
@@ -83,7 +100,7 @@ class BootstrapModal extends React.Component {
             <Modal.Title>New User</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form>
+            <Form onSubmit={this.handleSubmit} >
               <FormGroup>
                 <Label for="firstName">First Name</Label>
                 <Input
@@ -134,8 +151,7 @@ class BootstrapModal extends React.Component {
                   <option selected>Select Role</option>
                   {this.state.roles.map((role) => (
                     <option key={role.roleID} value={role.roleID}>
-                      {" "}
-                      {role.name}{" "}
+                      {role.name}
                     </option>
                   ))}
                
@@ -167,6 +183,7 @@ class BootstrapModal extends React.Component {
             </Button>
             <Button
               variant="primary"
+              type="submit"
               onClick={() => this.handleModalShowHide()}
             >
               Save Changes
