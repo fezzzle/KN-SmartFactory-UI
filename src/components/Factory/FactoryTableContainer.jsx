@@ -14,10 +14,8 @@ const FactoryTableContainer = () => {
 
   const data = useMemo(() => factoryData, [factoryData]);
 
-
   const removeFromTable = (props) => {
-    console.log("REMOVE FROM TABLE:", props.row.id)
-    dispatch(removeFactoryData(props.row.original.id))
+    dispatch(removeFactoryData(props.row.original.id));
   };
 
   const columns = React.useMemo(
@@ -48,18 +46,30 @@ const FactoryTableContainer = () => {
           {
             Header: "lines",
             accessor: "production_line.length",
-            // Cell: props => {
-            //   console.log("props are:", props)
-            //   return props.value === null ? 0 : props.value
-            // },
           },
           {
             Header: "things",
-            accessor: "things",
+            accessor: (data) => {
+              const thingsLengthArray = data.production_line.map(
+                (item) => item.thing.length
+              );
+              const total = thingsLengthArray.reduce(
+                (acc, cur) => acc + cur,
+                0
+              );
+              return total;
+            },
           },
           {
             Header: "devices",
-            accessor: "devices",
+            accessor: (data) => {
+              const things = data.production_line.map((line) => line.thing);
+              const deviceArray = things.map((thing) =>
+                thing.map((device) => device.device)
+              );
+              const flatArr = deviceArray.flat().flat();
+              return flatArr.length;
+            },
           },
           {
             Header: "Status",

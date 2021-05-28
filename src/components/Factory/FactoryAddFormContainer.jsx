@@ -6,7 +6,7 @@ import { NavLink as RRNavLink, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import FactoryAddForm from "./FactoryAddForm";
-import { addFactoryData } from "../../store/actions";
+import { addFactoryData, updateFactoryData } from "../../store/actions";
 
 import store from "../../store/store"
 const unsubscribe = store.subscribe(() =>
@@ -51,7 +51,7 @@ const FactoryAddFormContainer = () => {
     temporaryFactoryAndProductionLineSave.current =
       temporaryFactorySave.current;
     temporaryFactoryAndProductionLineSave.current.production_line.push(data);
-    dispatch(addFactoryData(temporaryFactoryAndProductionLineSave.current));
+    dispatch(updateFactoryData(temporaryFactoryAndProductionLineSave.current));
     setCanCloseWithoutSaving(true);
   };
 
@@ -73,6 +73,7 @@ const FactoryAddFormContainer = () => {
     temporaryFactoryData(values);
     if (temporaryFactorySave.current !== undefined) {
       setAddProductionButtonState(!addProductionButtonState);
+      dispatch(addFactoryData(temporaryFactorySave.current))
     }
   };
 

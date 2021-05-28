@@ -17,7 +17,8 @@ const ThingAddFormContainer = () => {
   const [isSavedButtonState, setIsSavedButtonState] = useState(false)
   const [addDeviceButtonState, setAddDeviceButtonState] = useState(true)
   const [canCloseWithoutSaving, setCanCloseWithoutSaving] = useState(false)
-
+  console.log('temporaryThingAndDeviceSave:', temporaryThingAndDeviceSave)
+  
   const removeTemporaryDevice = () => {
     setTemporaryDevice([])
   }

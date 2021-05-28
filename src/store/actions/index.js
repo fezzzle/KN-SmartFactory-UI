@@ -63,6 +63,7 @@ export const addFactoryData = (data) => async dispatch => {
   factoryDataService
     .create(data)
     .then((result) => {
+      console.log("in adding factory data!", result)
       dispatch({
         type: ADD_FACTORY_DATA,
         payload: result.data
