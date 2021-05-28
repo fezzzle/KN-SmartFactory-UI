@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import BusinessUnitModal from "./BusinessUnitModal";
 import BusinessUnitEdit from "./BusinessUnitEdit"
 import BusinessUnitDetail from './BusinessUnitDetail'
+import { BusinessUnitProvider } from '../../contexts/BusinessUnitContext'
 import {
   Row,
   Col,
@@ -14,6 +15,8 @@ import {
 } from "reactstrap";
 import axios from 'axios';
 import { Link, Route,Switch } from 'react-router-dom';
+
+import { AdminContext } from "../../views/AdminPanel";
 
 
 class BusinessUnitAdmin extends Component {
@@ -28,6 +31,7 @@ class BusinessUnitAdmin extends Component {
 
     this.getBusinessUnits = this.getBusinessUnits.bind(this);
     this.changeStatus = this.changeStatus.bind(this);
+    this.showBusinessUnit = this.showBusinessUnit.bind(this);
     this.deleteUnit = this.deleteUnit.bind(this);
     this.componentDidMount=this.componentDidMount.bind(this);
 
@@ -39,9 +43,19 @@ class BusinessUnitAdmin extends Component {
         await this.getBusinessUnits();
     }
 
+
     async componentDidUpdate() {
         console.log("component was updated")
         //call to the api update database
+    }
+
+    showBusinessUnit = (bu) => {
+
+      return(
+        <BusinessUnitProvider value = {bu}>
+
+        </BusinessUnitProvider>
+      )
     }
 
     
@@ -79,6 +93,8 @@ getBusinessUnits = async ()=>{
         alert('Could not connect to Server. Make sure Mockoon server is on if you are using it')
         
         });
+
+        
 };
 
 
@@ -119,16 +135,30 @@ getBusinessUnits = async ()=>{
                   <tbody>
 
                     {this.state.BusinessUnits.map((bu => 
+
+                    
                       <tr key = {bu.buID}>
                           <td>  {bu.name}</td>
-                          <td> {bu.city} </td>
+                          <td> 
+                            <span /*add css so the city's name is equal length*/>{bu.city}</span> <button 
+                    className="btn-icon btn-link like btn btn-info btn-sm"
+                    type="button"
+                  >
+                    <i className="tim-icons icon-square-pin"></i>
+                  </button> </td>
                           <td> {bu.activated?'Active':'Not Active'}</td> 
                          <td>
-                        <button style ={{width: '10rem'}} className="btn btn-primary" onClick = {() => this.changeStatus(bu) } > {bu.activated? 'Deactivate': 'Activate'}</button>
-                      </td>
+                        <button /*add css so active not active same length*/ style ={{width: '10rem'}} className="btn btn-primary" onClick = {() => this.changeStatus(bu) } > {bu.activated? 'Deactivate': 'Activate'}</button> 
+                      </td> 
                       <td>
                         <ButtonGroup>
                         <BusinessUnitEdit key = {bu.buID} details = {bu}/>
+                        <button
+                    className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
+                    type="button" onClick = {() => this.showBusinessUnit(bu)} >
+                                        
+                            <i className="tim-icons icon-support-17"></i>
+                      </button>
                         <button
                     className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
                     type="button" onClick = {() => this.deleteUnit(bu) }>
@@ -142,7 +172,9 @@ getBusinessUnits = async ()=>{
                      
 
                       </tr>
-                       ))}
+                     ))}
+
+                       
                   
                   </tbody>
                 </Table>

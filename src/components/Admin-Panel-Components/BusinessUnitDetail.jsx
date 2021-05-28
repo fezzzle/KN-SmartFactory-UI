@@ -1,96 +1,62 @@
-import { Button, Modal } from "react-bootstrap";
-import React from "react";
-import "react-datepicker/dist/react-datepicker.css";
-import { FormGroup, Input } from "reactstrap";
+import React, { Component } from "react";
+import BusinessUnitContext from "../../contexts/BusinessUnitContext"
 
 
-export default class BusinessUnitEditModal extends React.Component {
-  
-  constructor(props) {
+import {
+  Row,
+  Col,
+  Card,
+  CardHeader,
+  CardBody,
+  CardTitle,
+} from "reactstrap";
+import axios from 'axios';
+
+class BusinessUnitDetail extends Component {
+
+  static contextType = BusinessUnitContext
+
+  componentDidUpdate() {
+    const bu = this.contextType
+
+    console.log(bu)
+  }
+
+  constructor(props){
     super(props);
     this.state = {
-      showHide: false,
-      modalIsOpen: true,
-      name: props.details.name,
-      city:props.details.city,
-      company: '',
-      role: ''
+      name: ''
     };
-    this.componentDidMount=this.componentDidMount.bind(this);
-    this.onChange=this.onChange.bind(this);
+
+
   }
-
-  onChange(e){
-    console.log(e)
-    e.preventDefault();
-    let newState={...this.state};
-    newState[e.target.name]=e.target.value;
-    this.setState(newState);
-}
-
-  async componentDidMount(){
-   
-}
-
-  handleModalShowHide() {
-    this.setState({ showHide: !this.state.showHide });
-  };
-
-  changeDate () {
-    this.setState({ startDate : this.setState(new Date())});
-  }
-
-
-  toggleModal = () => {
-    this.setState((prevState) => ({
-      modalIsOpen: !prevState.modalIsOpen,
-    }));
-  };
 
 
 
   render() {
-  
     return (
-      <div>
-        <Button variant="primary" onClick={() => this.handleModalShowHide()}>
-          Edit
-        </Button>
+      <div className="content">
 
-        <Modal show={this.state.showHide} className="modal">
-          <Modal.Header closeButton onClick={() => this.handleModalShowHide()}>
-            <Modal.Title className="modal-title">{this.state.name} </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <FormGroup >
-              <label>Name</label>
-              <Input type="text" name="firstName" value={this.state.name} onChange={this.onChange}/>
-            </FormGroup>
-            <FormGroup>
-              <label>City</label>
-              <Input type="text" name="lastName" value={this.state.city} onChange={this.onChange}/>
-            </FormGroup>
-          </Modal.Body>
+        <Row>
+          <Col md="12">
+            <Card>
+              <CardHeader>
+                <div className="d-flex justify-content-between">
 
+                  <CardTitle tag="h4">Test</CardTitle>
+                </div>
+              </CardHeader>
 
-          <Modal.Footer className='modal-footer'>
-            <Button
-              variant="secondary"
-              onClick={() => this.handleModalShowHide()}
-            >
-              Close
-            </Button>
-            <Button
-              variant="primary"
-              onClick={() => this.handleModalShowHide()}
-            >
-              Save Changes
-            </Button>
-          </Modal.Footer>
-        </Modal>
+              <CardBody>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias aut, repellat ipsum facere voluptate dicta obcaecati deserunt nobis suscipit eaque?
+
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
       </div>
     );
   }
 }
 
-
+export default BusinessUnitDetail;
