@@ -3,7 +3,7 @@ import { Card, CardBody, Table, Button, CardHeader } from "reactstrap";
 
 import { NavLink as RRNavLink } from "react-router-dom";
 
-const FactoryTable = ({ columns, data, factoryName }) => {
+const ProductionLineEditTable = ({ columns, data, factoryName }) => {
   const { getTableProps, headerGroups, rows, prepareRow } = useTable({
     columns,
     data,
@@ -63,4 +63,4 @@ const FactoryTable = ({ columns, data, factoryName }) => {
   );
 };
 
-export default FactoryTable;
+export default ProductionLineEditTable;

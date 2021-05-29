@@ -86,6 +86,7 @@ const FactoryTableContainer = () => {
             Header: "Actions",
             accessor: "actions",
             Cell: (props) => {
+              console.log("props.row.original.factory_location.name", props.row.original.factory_location.name)
               return (
                 <>
                   <Button
@@ -95,6 +96,7 @@ const FactoryTableContainer = () => {
                     tag={RRNavLink}
                     to={{
                       pathname: `/factories/${props.row.original.id}`,
+                      state: {name: props.row.original.factory_location.name}
                     }}
                   >
                     <i className="tim-icons icon-pencil"></i>

@@ -19,7 +19,7 @@ import Dashboard from "views/Dashboard.js";
 import Icons from "views/Icons.js";
 import Map from "views/Map.js";
 import Factory from "views/Factory";
-import { FactoryAddFormContainer, ThingAddFormContainer, FactoryEditContainer } from "./components/Factory/"
+import { FactoryAddFormContainer, ThingAddFormContainer, FactoryEditContainer, ProductionLineEditContainer } from "./components/Factory/"
 import Notifications from "views/Notifications.js";
 import Rtl from "views/Rtl.js";
 import TableList from "views/TableList.js";
@@ -89,25 +89,31 @@ var routes = [
     routes: [
       {
         path: "/factories",
-        name: "FACTORIES_ROOT",
+        name: "ROOT_FACTORIES",
         exact: true,
         component: Factory,
       },
       {
         path: "/factories/add_factory",
-        name: "FACTORIES_ADD_FACTORY",
+        name: "ADD_FACTORY_FACTORIES",
         exact: true,
         component: FactoryAddFormContainer,
       },
       {
         path: "/factories/:id",
-        name: "FACTORIES_EDIT",
+        name: "EDIT_FACTORIES",
         exact: true,
         component: FactoryEditContainer
       },
       {
+        path: "/factories/:id/edit_pline/:id",
+        name: "EDIT_PRODUCTION_LINE_FACTORIES",
+        exact: true,
+        component: ProductionLineEditContainer
+      },
+      {
         path: "/factories/add_factory/add_thing",
-        name: "FACTORIES_ADD_THING",
+        name: "ADD_THING_FACTORIES",
         exact: true,
         component: ThingAddFormContainer,
       },

@@ -15,23 +15,24 @@ import {
 } from "reactstrap";
 import { NavLink as RRNavLink } from "react-router-dom";
 
-import FactoryEditTable from "./FactoryEditTable";
+import ProductionLineEditTable from "./ProductionLineEditTable";
 
-const FactoryEditContainer = (props) => {
-  console.log('props inside FactoryEditContainer:', props)
+const ProductionLineEditContainer = (props) => {
   const dispatch = useDispatch();
   const stateData = useSelector((state) => state.factory);
-  const factoryData = stateData
-  .filter((factory) => String(factory.id) === props.match.params.id)
-  .map((item) => item.production_line)
-  .flat();
-  console.log('factoryData:', factoryData)
+  console.log('stateData:', stateData)
+  console.log("props.match.params.id", props.match.params.id)
+  const thingData = stateData
+    .filter((factory) => String(factory.id) === props.match.params.id)
+    .map((item) => item.production_line)
+    .flat();
+  console.log("factoryData:", thingData);
 
   useEffect(() => {
     dispatch(fetchFactoryData());
   }, [dispatch]);
 
-  const data = useMemo(() => factoryData, [factoryData]);
+  const data = useMemo(() => thingData, [thingData]);
 
   const removeFromTable = (props) => {
     console.log("remove the line");
@@ -88,7 +89,7 @@ const FactoryEditContainer = (props) => {
             Header: "Actions",
             accessor: "actions",
             Cell: (properties) => {
-              console.log('properties are:', properties)
+              console.log("properties are:", properties);
               return (
                 <>
                   <Button
@@ -97,7 +98,7 @@ const FactoryEditContainer = (props) => {
                     onClick={() => logValue(properties)}
                     tag={RRNavLink}
                     to={{
-                      pathname: `${props.location.pathname}/edit_pline/${properties.row.original.id}`
+                      pathname: `${props.location.pathname}/edit_pline/${properties.row.original.id}`,
                     }}
                   >
                     <i className="tim-icons icon-pencil"></i>
@@ -127,9 +128,9 @@ const FactoryEditContainer = (props) => {
   );
   return (
     <div className="content">
-      <FactoryEditTable columns={columns} data={data} factoryName={props.location.state.name}/>
+      <ProductionLineEditTable columns={columns} data={data} />
     </div>
   );
 };
 
-export default FactoryEditContainer;
+export default ProductionLineEditContainer;
