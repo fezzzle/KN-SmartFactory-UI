@@ -18,14 +18,12 @@ import { NavLink as RRNavLink } from "react-router-dom";
 import FactoryEditTable from "./FactoryEditTable";
 
 const FactoryEditContainer = (props) => {
-  console.log('props inside FactoryEditContainer:', props)
   const dispatch = useDispatch();
   const stateData = useSelector((state) => state.factory);
   const factoryData = stateData
-  .filter((factory) => String(factory.id) === props.match.params.id)
-  .map((item) => item.production_line)
-  .flat();
-  console.log('factoryData:', factoryData)
+    .filter((factory) => String(factory.id) === props.match.params.id)
+    .map((item) => item.production_line)
+    .flat();
 
   useEffect(() => {
     dispatch(fetchFactoryData());
@@ -88,7 +86,6 @@ const FactoryEditContainer = (props) => {
             Header: "Actions",
             accessor: "actions",
             Cell: (properties) => {
-              console.log('properties are:', properties)
               return (
                 <>
                   <Button
@@ -99,8 +96,8 @@ const FactoryEditContainer = (props) => {
                     to={{
                       pathname: `${props.location.pathname}/edit_pline/${properties.row.original.id}`,
                       state: {
-                        factoryId: props.match.params.id
-                      }
+                        factoryId: props.match.params.id,
+                      },
                     }}
                   >
                     <i className="tim-icons icon-pencil"></i>
@@ -130,7 +127,11 @@ const FactoryEditContainer = (props) => {
   );
   return (
     <div className="content">
-      <FactoryEditTable columns={columns} data={data} factoryName={props.location.state.name}/>
+      <FactoryEditTable
+        columns={columns}
+        data={data}
+        factoryName={props.location.state.name}
+      />
     </div>
   );
 };

@@ -23,14 +23,6 @@ const ProductionLineEditTable = ({ columns, data, factoryName }) => {
         >
           Add a new production line
         </Button>
-        <Button
-          className="float-right mr-4"
-          color="info"
-          tag={RRNavLink}
-          to={{ pathname: "/factories/" }}
-        >
-          Edit basic factory info
-        </Button>
         <Table {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup) => (

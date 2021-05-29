@@ -18,16 +18,15 @@ import { NavLink as RRNavLink } from "react-router-dom";
 import ProductionLineEditTable from "./ProductionLineEditTable";
 
 const ProductionLineEditContainer = (props) => {
-  const dispatch = useDispatch();
   const stateData = useSelector((state) => state.factory);
   const thingData = stateData
     .filter((factory) => String(factory.id) === props.location.state.factoryId)
-    .map((item) => item.production_line.filter(thing => String(thing.id) === props.match.params.id))
-    .flat()
-
-  useEffect(() => {
-    dispatch(fetchFactoryData());
-  }, [dispatch]);
+    .map((item) =>
+      item.production_line.filter(
+        (thing) => String(thing.id) === props.match.params.id
+      )
+    )
+    .flat();
 
   const data = useMemo(() => thingData, [thingData]);
 
@@ -71,13 +70,13 @@ const ProductionLineEditContainer = (props) => {
           },
           {
             Header: "Device group description",
-            accessor: "deviceGroup.description"
+            accessor: "deviceGroup.description",
           },
           {
             Header: "Actions",
             accessor: "actions",
             Cell: (properties) => {
-              console.log("properties are:", properties);
+              // console.log("properties are:", properties);
               return (
                 <>
                   <Button

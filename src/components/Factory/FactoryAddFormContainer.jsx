@@ -8,10 +8,10 @@ import { useDispatch } from "react-redux";
 import FactoryAddForm from "./FactoryAddForm";
 import { addFactoryData, updateFactoryData } from "../../store/actions";
 
-import store from "../../store/store"
-const unsubscribe = store.subscribe(() =>
-  console.log('State after dispatch: ', store.getState())
-)
+// import store from "../../store/store"
+// const unsubscribe = store.subscribe(() =>
+//   console.log('State after dispatch: ', store.getState())
+// )
 
 
 const FactoryAddFormContainer = () => {
