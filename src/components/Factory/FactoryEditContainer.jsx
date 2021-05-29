@@ -1,8 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo, useEffect } from "react";
 // import { useParams, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchFactoryData, removeFactoryData } from "../../store/actions/index";
 import {
   Card,
   CardBody,
+  Table,
   Button,
   CardImg,
   CardTitle,
@@ -10,30 +13,115 @@ import {
   CardSubtitle,
   CardLink,
 } from "reactstrap";
+import { NavLink as RRNavLink } from "react-router-dom";
 
-const FactoryEditContainer = () => {
+import FactoryEditTable from "./FactoryEditTable";
+
+const FactoryEditContainer = (props) => {
+  const dispatch = useDispatch();
+  const stateData = useSelector((state) => state.factory);
+  const factoryData = stateData
+    .filter((factory) => String(factory.id) === props.match.params.id)
+    .map((item) => item.production_line)
+    .flat();
+
+  useEffect(() => {
+    dispatch(fetchFactoryData());
+  }, [dispatch]);
+
+  const data = useMemo(() => factoryData, [factoryData]);
+
+  const removeFromTable = (props) => {
+    console.log("remove the line");
+    // dispatch(removeFactoryData(props.row.original.id));
+  };
+
+  const logValue = (value) => {
+    console.log(value);
+  };
+
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: "List of Production Lines",
+        columns: [
+          {
+            Header: "Production Line name",
+            accessor: "name",
+          },
+          {
+            Header: "Status",
+            accessor: "status",
+          },
+          {
+            Header: "Alerts",
+            accessor: "alerts",
+          },
+          {
+            Header: "Production line number",
+            accessor: "line_number",
+          },
+          {
+            Header: "Things",
+            accessor: (data) => {
+              return data.thing.length;
+            },
+          },
+          {
+            Header: "Devices",
+            accessor: (data) => {
+              const things = data.thing.map((line) => line.device);
+              console.log('things:', things)
+              const deviceArray = things.map((thing) =>
+                thing.map((device) => device.device)
+              );
+              const devices = deviceArray.flat().flat();
+              return devices.length;
+            },
+          },
+          {
+            Header: "Actions",
+            accessor: "actions",
+            Cell: (props) => {
+              return (
+                <>
+                  <Button
+                    className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
+                    type="button"
+                    onClick={() => logValue(props)}
+                    tag={RRNavLink}
+                    to={{
+                      pathname: `/factories/${props.row.original.id}`,
+                    }}
+                  >
+                    <i className="tim-icons icon-pencil"></i>
+                  </Button>
+                  <button
+                    // color="primary"
+                    className="btn-icon btn-link like btn btn-info btn-sm"
+                    type="button"
+                  >
+                    <i className="tim-icons icon-square-pin"></i>
+                  </button>
+                  <button
+                    className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
+                    type="button"
+                    onClick={() => removeFromTable(props)}
+                  >
+                    <i className="tim-icons icon-simple-remove"></i>
+                  </button>
+                </>
+              );
+            },
+          },
+        ],
+      },
+    ],
+    []
+  );
   return (
     <div className="content">
-      <Card style={{ width: "25rem", height: "30rem" }} className="text-center">
-        <CardBody>
-          <CardText><h2>Factory name: Cola</h2></CardText>
-          <CardText><h2>Production Lines: 3</h2></CardText>
-          <CardText><h2>Things: 10</h2></CardText>
-          <CardText><h2>Devices: 100</h2></CardText>
-        </CardBody>
-        <Card style={{ width: "25rem" }} className="text-center">
-          <CardBody>
-            <CardTitle>Special title treatment</CardTitle>
-            <CardText>
-              With supporting text below as a natural lead-in to additional
-              content.
-            </CardText>
-            <Button href="/#" color="primary">
-                Edit Factory
-            </Button>
-          </CardBody>
-        </Card>
-      </Card>
+      <FactoryEditTable columns={columns} data={data} />
     </div>
   );
 };

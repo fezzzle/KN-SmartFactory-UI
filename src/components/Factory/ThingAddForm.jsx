@@ -25,7 +25,7 @@ const FormField = ({ label, name, touched, errors }) => (
     </FormGroup>
 );
 
-const FactoryAddForm = ({ project, onSubmit }) => (
+const ThingAddForm = ({ project, onSubmit }) => (
     <Formik
         initialValues={{
             name: "Conveyor",
@@ -104,4 +104,4 @@ const FactoryAddForm = ({ project, onSubmit }) => (
     </Formik>
 );
 
-export default FactoryAddForm;
+export default ThingAddForm;

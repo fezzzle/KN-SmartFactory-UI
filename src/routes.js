@@ -94,16 +94,16 @@ var routes = [
         component: Factory,
       },
       {
-        path: "/factories/:id",
-        name: "FACTORIES_EDIT",
-        exact: true,
-        component: FactoryEditContainer
-      },
-      {
         path: "/factories/add_factory",
         name: "FACTORIES_ADD_FACTORY",
         exact: true,
         component: FactoryAddFormContainer,
+      },
+      {
+        path: "/factories/:id",
+        name: "FACTORIES_EDIT",
+        exact: true,
+        component: FactoryEditContainer
       },
       {
         path: "/factories/add_factory/add_thing",

@@ -4,6 +4,7 @@ import { Card, CardBody, Table, Button } from "reactstrap";
 import { NavLink as RRNavLink } from "react-router-dom";
 
 const FactoryTable = ({ columns, data }) => {
+  console.log('data:', data)
   const { getTableProps, headerGroups, rows, prepareRow } = useTable({
     columns,
     data,
@@ -16,9 +17,9 @@ const FactoryTable = ({ columns, data }) => {
           className="float-right mr-4"
           color="info"
           tag={RRNavLink}
-          to={{ pathname: "/factories/add_factory" }}
+          to={{ pathname: "/factories/" }}
         >
-          Add a new factory
+          Add a new production line
         </Button>
         <Table {...getTableProps()}>
           <thead>
