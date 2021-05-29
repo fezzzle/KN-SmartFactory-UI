@@ -97,7 +97,10 @@ const FactoryEditContainer = (props) => {
                     onClick={() => logValue(properties)}
                     tag={RRNavLink}
                     to={{
-                      pathname: `${props.location.pathname}/edit_pline/${properties.row.original.id}`
+                      pathname: `${props.location.pathname}/edit_pline/${properties.row.original.id}`,
+                      state: {
+                        factory_id: props.match.params.id
+                      }
                     }}
                   >
                     <i className="tim-icons icon-pencil"></i>

@@ -32,6 +32,7 @@ const FactoryAddFormContainer = () => {
 
   const addTemporaryProductionLine = (values) => {
     let data = {
+      id: Math.random().toString(36).substr(2, 9),
       name: values.name,
       line_number: values.line_number,
       thing: []

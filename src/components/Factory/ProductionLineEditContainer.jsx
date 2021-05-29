@@ -18,6 +18,7 @@ import { NavLink as RRNavLink } from "react-router-dom";
 import ProductionLineEditTable from "./ProductionLineEditTable";
 
 const ProductionLineEditContainer = (props) => {
+  console.log('props in ProductionLineEditContainer:', props)
   const dispatch = useDispatch();
   const stateData = useSelector((state) => state.factory);
   console.log('stateData:', stateData)
