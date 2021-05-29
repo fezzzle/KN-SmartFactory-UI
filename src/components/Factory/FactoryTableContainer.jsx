@@ -3,7 +3,7 @@ import FactoryTable from "./FactoryTable";
 import { fetchFactoryData, removeFactoryData } from "../../store/actions/index";
 import { NavLink as RRNavLink } from "react-router-dom";
 
-import { Card, CardBody, Table, Button } from "reactstrap";
+import { Button } from "reactstrap";
 
 import { useSelector, useDispatch } from "react-redux";
 

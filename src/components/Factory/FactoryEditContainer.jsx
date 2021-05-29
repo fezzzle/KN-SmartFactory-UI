@@ -2,17 +2,7 @@ import React, { useState, useRef, useMemo, useEffect } from "react";
 // import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchFactoryData, removeFactoryData } from "../../store/actions/index";
-import {
-  Card,
-  CardBody,
-  Table,
-  Button,
-  CardImg,
-  CardTitle,
-  CardText,
-  CardSubtitle,
-  CardLink,
-} from "reactstrap";
+import { Button } from "reactstrap";
 import { NavLink as RRNavLink } from "react-router-dom";
 
 import FactoryEditTable from "./FactoryEditTable";
@@ -25,9 +15,9 @@ const FactoryEditContainer = (props) => {
     .map((item) => item.production_line)
     .flat();
 
-  useEffect(() => {
-    dispatch(fetchFactoryData());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchFactoryData());
+  // }, [dispatch]);
 
   const data = useMemo(() => factoryData, [factoryData]);
 
