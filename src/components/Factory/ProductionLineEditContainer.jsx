@@ -18,16 +18,12 @@ import { NavLink as RRNavLink } from "react-router-dom";
 import ProductionLineEditTable from "./ProductionLineEditTable";
 
 const ProductionLineEditContainer = (props) => {
-  console.log('props in ProductionLineEditContainer:', props)
   const dispatch = useDispatch();
   const stateData = useSelector((state) => state.factory);
-  console.log('stateData:', stateData)
-  console.log("props.match.params.id", props.match.params.id)
   const thingData = stateData
-    .filter((factory) => String(factory.id) === props.match.params.id)
-    .map((item) => item.production_line)
-    .flat();
-  console.log("factoryData:", thingData);
+    .filter((factory) => String(factory.id) === props.location.state.factoryId)
+    .map((item) => item.production_line.filter(thing => String(thing.id) === props.match.params.id))
+    .flat()
 
   useEffect(() => {
     dispatch(fetchFactoryData());
@@ -47,44 +43,35 @@ const ProductionLineEditContainer = (props) => {
   const columns = React.useMemo(
     () => [
       {
-        Header: "List of Production Lines",
+        Header: "List of Things and devices",
         columns: [
           {
-            Header: "Production id",
-            accessor: "id",
+            Header: "Thing id",
+            accessor: "uuid",
           },
           {
-            Header: "Production Line name",
+            Header: "Thing name",
             accessor: "name",
           },
           {
-            Header: "Status",
-            accessor: "status",
+            Header: "Thing description",
+            accessor: "description",
           },
           {
-            Header: "Alerts",
-            accessor: "alerts",
+            Header: "Production line location",
+            accessor: "production_location",
           },
           {
-            Header: "Production line number",
-            accessor: "line_number",
+            Header: "Thing state",
+            accessor: "state",
           },
           {
-            Header: "Things",
-            accessor: (data) => {
-              return data.thing.length;
-            },
+            Header: "Thing device group",
+            accessor: "deviceGroup.thing",
           },
           {
-            Header: "Devices",
-            accessor: (data) => {
-              const things = data.thing.map((line) => line.device);
-              const deviceArray = things.map((thing) =>
-                thing.map((device) => device.device)
-              );
-              const devices = deviceArray.flat().flat();
-              return devices.length;
-            },
+            Header: "Device group description",
+            accessor: "deviceGroup.description"
           },
           {
             Header: "Actions",
@@ -129,7 +116,7 @@ const ProductionLineEditContainer = (props) => {
   );
   return (
     <div className="content">
-      <ProductionLineEditTable columns={columns} data={data} />
+      <ProductionLineEditTable columns={columns} data={data[0].thing} />
     </div>
   );
 };

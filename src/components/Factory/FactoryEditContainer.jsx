@@ -99,7 +99,7 @@ const FactoryEditContainer = (props) => {
                     to={{
                       pathname: `${props.location.pathname}/edit_pline/${properties.row.original.id}`,
                       state: {
-                        factory_id: props.match.params.id
+                        factoryId: props.match.params.id
                       }
                     }}
                   >
