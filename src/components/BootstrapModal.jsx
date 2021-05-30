@@ -5,20 +5,22 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FormGroup, Form, Input, Label } from "reactstrap";
 import axios from "axios";
 
+// const apiEndpoint = "https://jsonplaceholder.typicode.com/posts";
+
+const apiEndpoint = "http://localhost:7100/smart-factory/newuser";
+
 class BootstrapModal extends React.Component {
   constructor() {
     super();
     this.state = {
       showHide: false,
       modalIsOpen: true,
-      startDate: new Date(),
       roles: [],
       firstName: "",
       lastName: "",
-      city: "",
       company: "",
-      role: "",
-      url : ""
+      selectedRole: "",
+      startDate: new Date(),
     };
     this.getRoles = this.getRoles.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
@@ -40,28 +42,34 @@ class BootstrapModal extends React.Component {
 
   handleModalShowHide() {
     this.setState({ showHide: !this.state.showHide });
-    console.log(this.state)
+    console.log(this.state);
   }
 
   changeDate(date) {
     this.setState({ startDate: date });
   }
-  handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(this.state)
 
-    // axios.post("http://localhost:7100/smart-factory/users",{
-    //   firstName :this.state.firstName,
-    //   lastName: this.state.lastName,
-    //   company: this.state.company,
-    //   role: this.state.role,
-    //   deadline: this.state.startDate
-    // })
-    // .then(res=>{
-    //   console.log(res.data)
+  handleSubmit = async () => {
+    const obj = {
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      company: this.state.company,
+      selectedRole: this.state.selectedRole,
+      deadline: this.state.startDate,
+    };
+    // const { data: post } = await axios.post(apiEndpoint, obj);
+    axios.post("http://localhost:7100/smart-factory/newuser", obj)
+    .then(response =>{
+      this.setState({
+          ...this.state,
+      });
+      console.log(response);
+    })
+    .catch((error)=>{
+      console.log(error)
+    });
+  };
 
-    // })
-  }
   toggleModal = () => {
     this.setState((prevState) => ({
       modalIsOpen: !prevState.modalIsOpen,
@@ -76,7 +84,6 @@ class BootstrapModal extends React.Component {
           ...this.state,
           roles: response.data.roles,
         });
-
         console.log(this.state);
       })
       .catch((error) => {
@@ -93,12 +100,12 @@ class BootstrapModal extends React.Component {
           Create New User
         </Button>
 
-        <Modal  show={this.state.showHide} className="modal">
+        <Modal show={this.state.showHide} className="modal">
           <Modal.Header closeButton onClick={() => this.handleModalShowHide()}>
             <Modal.Title>New User</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form onSubmit={this.handleSubmit} >
+            <Form onSubmit={this.handleSubmit}>
               <FormGroup>
                 <Label for="firstName">First Name</Label>
                 <Input
@@ -138,22 +145,14 @@ class BootstrapModal extends React.Component {
                   Role
                 </Label>
                 <br />
-                <Input
-                  type="select"
-                  name="select"
-                  id="select"
-                  className="select-padding"
-                  aria-label="Default select example"
-                >
-            
-                  <option selected>Select Role</option>
+                <select value={this.state.selectedRole} onChange={(e) => this.setState({selectedRole: e.target.value})}>
                   {this.state.roles.map((role) => (
-                    <option key={role.roleID} value={role.roleID}>
+                    <option key={role.roleID} value={role.name}>
                       {role.name}
                     </option>
                   ))}
-               
-                </Input>
+                </select>
+
               </FormGroup>
 
               <FormGroup style={{ width: "100%" }}>
@@ -170,8 +169,6 @@ class BootstrapModal extends React.Component {
             </Form>
           </Modal.Body>
 
-
-
           <Modal.Footer>
             <Button
               variant="secondary"
@@ -182,9 +179,10 @@ class BootstrapModal extends React.Component {
             <Button
               variant="primary"
               type="submit"
-              onClick={() => this.handleModalShowHide()}
+              onClick={this.handleSubmit}
+              // onClick={() => this.handleModalShowHide()}
             >
-              Save Changes
+              Submit
             </Button>
           </Modal.Footer>
         </Modal>

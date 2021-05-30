@@ -37,3 +37,8 @@
 .text-black {
   color: #ffffff !important;
 }
+.search{
+  height: 2.4rem;
+  margin-left: 4px
+
+}
