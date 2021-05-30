@@ -49,8 +49,9 @@ class CompanyAdmin extends Component {
         user.firstName
           .toLowerCase()
           .match(new RegExp("^" + value.toLowerCase())) ||
-           user.lastName.toLowerCase().includes(value.toLowerCase()) 
-
+           user.lastName.toLowerCase().includes(value.toLowerCase()) ||
+           user.role.toLowerCase().includes(value.toLowerCase()) ||
+           user.company.toLowerCase().includes(value.toLowerCase()) 
       );
     });
     this.setState({ filteredUsers: filteredUsers });
