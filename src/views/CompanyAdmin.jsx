@@ -57,20 +57,25 @@ class CompanyAdmin extends Component {
     this.setState({ filteredUsers: filteredUsers });
   };
 
+  
+
   getUsers = async () => {
+    const config = {
+      headers: { Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiYXV0aCI6IlJPTEVfQURNSU4sUk9MRV9QRVJNSVNTSU9OX0NSRUFURSxST0xFX1BFUk1JU1NJT05fREVMRVRFLFJPTEVfUEVSTUlTU0lPTl9SRUFELFJPTEVfUEVSTUlTU0lPTl9VUERBVEUiLCJleHAiOjE2MjUwNzA3NDh9.9KowO8KnMpl6i04VmsdsDjmr-ZHs6MVDJFS0nUt4vt03JNvgVboN8ghwrfOSyafy8EDsOqki0zZkGjQaNM6l4A'
+    }
+  };
     axios
-      .get("http://localhost:7100/smart-factory/users")
+      .get("https://coreplatform.herokuapp.com:443/api/admin/users", config)
       .then((response) => {
+        console.log(response)
         this.setState({
           ...this.state,
-          users: response.data.users,
-          filteredUsers: response.data.users,
+          users: response.data,
+          filteredUsers: response.data,
         });
       })
       .catch((error) => {
-        alert(
-          "Could not connect to Server. Make sure Mockoon server is on if you are using it"
-        );
+        console.log(error);
       });
   };
 
@@ -118,13 +123,13 @@ class CompanyAdmin extends Component {
                           {" "}
                           {user.firstName} {user.lastName}{" "}
                         </td>
-                        <td> {user.role} </td>
-                        <td> {user.company} </td>
+                        {/* <td> {user.role} </td> */}
+                        <td>{user.authorities}</td>
+                        <td> {user.email} </td>
                         <td> 12/3/22 </td>
                         <td> {user.activated ? "Active" : "Not Active"}</td>
                         <td>
                           <button className="btn btn-primary">
-                            {" "}
                             {user.activated ? "Deactivate" : "Activate"}
                           </button>
                         </td>
@@ -142,16 +147,7 @@ class CompanyAdmin extends Component {
                          </tr>
               
                        ))} */}
-                    <tr>
-                      <td>Test User</td>
-                      <td>Manufacturing Manager</td>
-                      <td>Kuehne Nagel</td>
-                      <td>12/3/22</td>
-                      <td>Active</td>
-                      <td>
-                        <button className="btn btn-primary"> Activate</button>
-                      </td>
-                    </tr>
+                  
                   </tbody>
                 </Table>
               </CardBody>

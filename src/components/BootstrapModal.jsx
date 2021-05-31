@@ -5,9 +5,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FormGroup, Form, Input, Label } from "reactstrap";
 import axios from "axios";
 
-// const apiEndpoint = "https://jsonplaceholder.typicode.com/posts";
+// // const apiEndpoint = "https://jsonplaceholder.typicode.com/posts";
 
-const apiEndpoint = "http://localhost:7100/smart-factory/newuser";
+// const apiEndpoint = "http://localhost:7100/smart-factory/newuser";
 
 class BootstrapModal extends React.Component {
   constructor() {
@@ -18,7 +18,7 @@ class BootstrapModal extends React.Component {
       roles: [],
       firstName: "",
       lastName: "",
-      company: "",
+      email: "",
       selectedRole: "",
       startDate: new Date(),
     };
@@ -42,7 +42,6 @@ class BootstrapModal extends React.Component {
 
   handleModalShowHide() {
     this.setState({ showHide: !this.state.showHide });
-    console.log(this.state);
   }
 
   changeDate(date) {
@@ -50,24 +49,53 @@ class BootstrapModal extends React.Component {
   }
 
   handleSubmit = async () => {
-    const obj = {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      company: this.state.company,
-      selectedRole: this.state.selectedRole,
-      deadline: this.state.startDate,
-    };
-    // const { data: post } = await axios.post(apiEndpoint, obj);
-    axios.post("http://localhost:7100/smart-factory/newuser", obj)
+    const firstName = this.state.firstName
+    const lastName = this.state.lastName
+    const email = this.state.email
+    const date = this.state.startDate.toISOString()
+    const obj = {   
+      login: "helloFromMars",
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      activated: true,
+      createdBy: "system",
+      createdDate: date,
+      authorities: [
+          "ROLE_ADMIN"
+      ]
+}
+console.log(obj) 
+
+// const { data: post } = await axios.post(apiEndpoint, obj);
+    const config = {
+        Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiYXV0aCI6IlJPTEVfQURNSU4sUk9MRV9QRVJNSVNTSU9OX0NSRUFURSxST0xFX1BFUk1JU1NJT05fREVMRVRFLFJPTEVfUEVSTUlTU0lPTl9SRUFELFJPTEVfUEVSTUlTU0lPTl9VUERBVEUiLCJleHAiOjE2MjUwNzA3NDh9.9KowO8KnMpl6i04VmsdsDjmr-ZHs6MVDJFS0nUt4vt03JNvgVboN8ghwrfOSyafy8EDsOqki0zZkGjQaNM6l4A',
+        'Content-Type': 'application/json'
+  };
+      axios({
+        method: 'post',
+        url: 'https://coreplatform.herokuapp.com:443/api/admin/users',
+        data: obj,
+        headers : config
+      }
+    )
     .then(response =>{
-      this.setState({
-          ...this.state,
-      });
-      console.log(response);
+      console.log(response)
     })
-    .catch((error)=>{
-      console.log(error)
-    });
+    .catch(function (error) {
+      if (error.response) {
+        // Request made and server responded
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+      }})
+  // this.handleModalShowHide();
   };
 
   toggleModal = () => {
@@ -84,7 +112,6 @@ class BootstrapModal extends React.Component {
           ...this.state,
           roles: response.data.roles,
         });
-        console.log(this.state);
       })
       .catch((error) => {
         alert(
@@ -129,13 +156,13 @@ class BootstrapModal extends React.Component {
                 />
               </FormGroup>
               <FormGroup>
-                <Label for="companyName">Company Name</Label>
+                <Label for="email">Email</Label>
                 <Input
-                  type="text"
+                  type="email"
                   className="form-control"
-                  id="companyName"
-                  name="company"
-                  value={this.state.company}
+                  id="email"
+                  name="email"
+                  value={this.state.email}
                   onChange={this.onChange}
                 />
               </FormGroup>
@@ -145,7 +172,7 @@ class BootstrapModal extends React.Component {
                   Role
                 </Label>
                 <br />
-                <select value={this.state.selectedRole} onChange={(e) => this.setState({selectedRole: e.target.value})}>
+                <select  className="select" value={this.state.selectedRole} onChange={(e) => this.setState({selectedRole: e.target.value})}>
                   {this.state.roles.map((role) => (
                     <option key={role.roleID} value={role.name}>
                       {role.name}
