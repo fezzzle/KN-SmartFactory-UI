@@ -1,6 +1,6 @@
 import http from './http-common'
 
-class apiDataService {
+class factoryDataService {
   getAll() {
     return http.get('/factory_api')
   }
@@ -34,4 +34,4 @@ class apiDataService {
   // }
 }
 
-export default new apiDataService()
+export default new factoryDataService()

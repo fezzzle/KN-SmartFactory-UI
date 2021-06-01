@@ -121,6 +121,7 @@ const FactoryEditContainer = (props) => {
         columns={columns}
         data={data}
         factoryName={props.location.state.name}
+        factoryId={props.match.params.id}
       />
     </div>
   );

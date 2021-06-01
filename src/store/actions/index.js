@@ -82,8 +82,11 @@ export const removeFactoryData = (id) => async dispatch => {
 }
 
 export const updateFactoryData = (data) => async dispatch => {
+  console.log('updateFactoryData data.id, :', data.id)
+  console.log('updateFactoryData data:', data)
   factoryDataService
     .update(data.id, data)
+    .then(res => console.log('res is in updateFactoryData', res))
     .catch(error => console.error(error))
   dispatch({
     type: UPDATE_FACTORY_DATA,

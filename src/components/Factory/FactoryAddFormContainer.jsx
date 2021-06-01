@@ -24,7 +24,7 @@ const FactoryAddFormContainer = () => {
   const [canAddAThingState, setCanAddAThingState] = useState(true);
   const [canCloseWithoutSaving, setCanCloseWithoutSaving] = useState(false);
 
-  // console.log("temporaryFactorySave:", temporaryFactorySave.current);
+  console.log("temporaryFactorySave:", temporaryFactorySave.current);
   // console.log(
   //   "temporaryFactoryAndProductionLineSave.current:",
   //   temporaryFactoryAndProductionLineSave.current

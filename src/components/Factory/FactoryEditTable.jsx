@@ -3,7 +3,7 @@ import { Card, CardBody, Table, Button, CardHeader } from "reactstrap";
 
 import { NavLink as RRNavLink } from "react-router-dom";
 
-const FactoryTable = ({ columns, data, factoryName }) => {
+const FactoryEditTable = ({ columns, data, factoryName, factoryId }) => {
   const { getTableProps, headerGroups, rows, prepareRow } = useTable({
     columns,
     data,
@@ -19,7 +19,7 @@ const FactoryTable = ({ columns, data, factoryName }) => {
           className="float-right mr-4"
           color="info"
           tag={RRNavLink}
-          to={{ pathname: "/factories/" }}
+          to={{ pathname: `/factories/${factoryId}/add_pline` }}
         >
           Add a new production line
         </Button>
@@ -63,4 +63,4 @@ const FactoryTable = ({ columns, data, factoryName }) => {
   );
 };
 
-export default FactoryTable;
+export default FactoryEditTable;
