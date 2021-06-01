@@ -16,7 +16,6 @@ import {
 import axios from 'axios';
 import { Link, Route,Switch } from 'react-router-dom';
 
-import { AdminContext } from "../../views/AdminPanel";
 
 
 class BusinessUnitAdmin extends Component {
@@ -27,6 +26,8 @@ class BusinessUnitAdmin extends Component {
 
       BusinessUnits: [],
       isLoading: false,
+      showDetail: false,
+      buInDetail: []
     };
 
     this.getBusinessUnits = this.getBusinessUnits.bind(this);
@@ -51,11 +52,14 @@ class BusinessUnitAdmin extends Component {
 
     showBusinessUnit = (bu) => {
 
-      return(
-        <BusinessUnitProvider value = {bu}>
+      this.setState({
+        showDetail: !this.state.showDetail,
+        buInDetail: bu
+        })
 
-        </BusinessUnitProvider>
-      )
+      console.log(bu)
+
+    
     }
 
     
@@ -100,6 +104,13 @@ getBusinessUnits = async ()=>{
 
   render() {
 
+    const showDetail = this.state.showDetail;
+    let viewBU;
+
+    if (showDetail) {
+        viewBU = <BusinessUnitDetail details = {this.state.buInDetail}/>      
+    }
+
 
     return (
       <div className="content">
@@ -110,7 +121,7 @@ getBusinessUnits = async ()=>{
         </Switch>
 
         <Row>
-          <Col md="12">
+          <Col >
             <Card>
               <CardHeader>
                 <div className="d-flex justify-content-between">
@@ -137,7 +148,7 @@ getBusinessUnits = async ()=>{
                     {this.state.BusinessUnits.map((bu => 
 
                     
-                      <tr key = {bu.buID}>
+                      <tr key = {bu.buID} onClick = {() => this.showBusinessUnit(bu)}>
                           <td>  {bu.name}</td>
                           <td> 
                             <span /*add css so the city's name is equal length*/>{bu.city}</span> <button 
@@ -178,11 +189,19 @@ getBusinessUnits = async ()=>{
                   
                   </tbody>
                 </Table>
+               
               </CardBody>
             </Card>
           </Col>
+
+          <Col md="4">
+            
+                  {viewBU}
+          </Col>
         </Row>
-      </div>
+
+        </div>
+      
     );
   }
 }

@@ -16,24 +16,28 @@ class BusinessUnitDetail extends Component {
 
   static contextType = BusinessUnitContext
 
-  componentDidUpdate() {
-    const bu = this.contextType
+  // componentDidUpdate() {
+  //   const bu = this.contextType
 
-    console.log(bu)
-  }
+  //   console.log(bu)
+  // }
 
   constructor(props){
     super(props);
     this.state = {
-      name: ''
-    };
-
+      buInDetail: props.details,
+      showHide: false,
+    };    
 
   }
+
+  
 
 
 
   render() {
+
+    console.log(this.state.buInDetail.name)
     return (
       <div className="content">
 
@@ -43,12 +47,16 @@ class BusinessUnitDetail extends Component {
               <CardHeader>
                 <div className="d-flex justify-content-between">
 
-                  <CardTitle tag="h4">Test</CardTitle>
+                  <CardTitle tag="h4"> {this.state.buInDetail.name}</CardTitle>
                 </div>
               </CardHeader>
 
               <CardBody>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias aut, repellat ipsum facere voluptate dicta obcaecati deserunt nobis suscipit eaque?
+              <ul>
+                <li>Location: {this.state.buInDetail.location}</li>
+                <li>Status: {this.state.buInDetail.activated? "Active" : "Not Active"}</li>
+                <li>Members: </li>
+              </ul>
 
               </CardBody>
             </Card>
