@@ -11,11 +11,3 @@ const Factory = () => {
 };
 
 export default Factory;
-
-// const ProductionLineView = () => {
-//   return (
-//     <Container>
-//       <ProductionLineProvider />
-//     </Container>
-//   );
-// };

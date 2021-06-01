@@ -19,13 +19,18 @@ import Dashboard from "views/Dashboard.js";
 import Icons from "views/Icons.js";
 import Map from "views/Map.js";
 import Factory from "views/Factory";
-import { FactoryAddFormContainer, ThingAddFormContainer, FactoryEditContainer, ProductionLineEditContainer, ProductionLineAddFormContainer } from "./components/Factory/"
+import {
+  FactoryAddFormContainer,
+  ThingAddFormContainer,
+  FactoryEditContainer,
+  ProductionLineEditContainer,
+  ProductionLineAddFormContainer,
+  FactoryEditFormContainer
+} from "./components/Factory/"
 import Notifications from "views/Notifications.js";
-import Rtl from "views/Rtl.js";
 import TableList from "views/TableList.js";
-import Typography from "views/Typography.js";
+import { Route, Switch } from "react-router-dom";
 import UserProfile from "views/UserProfile.js";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 
 function RouteWithSubRoutes(route) {
@@ -104,6 +109,12 @@ var routes = [
         name: "EDIT_FACTORIES",
         exact: true,
         component: FactoryEditContainer
+      },
+      {
+        path: "/factories/:id/edit_factory/",
+        name: "EDIT_FACTORY_DATA",
+        exact: true,
+        component: FactoryEditFormContainer
       },
       {
         path: "/factories/:id/add_pline/",

@@ -1,6 +1,8 @@
 export { default as FactoryTable } from "./FactoryTable"
 export { default as FactoryAddFormContainer } from "./FactoryAddFormContainer"
 export { default as FactoryAddForm } from "./FactoryAddForm"
+export { default as FactoryEditForm } from "./FactoryEditForm"
+export { default as FactoryEditFormContainer } from "./FactoryEditFormContainer"
 export { default as FactoryTableContainer } from "./FactoryTableContainer"
 export { default as ThingAddForm } from "./ThingAddForm"
 export { default as ProductionLineAddForm } from "./ProductionLineAddForm"

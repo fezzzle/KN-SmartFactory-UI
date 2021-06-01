@@ -5,9 +5,7 @@ import { updateFactoryData } from "../../store/actions";
 import store from "../../store/store";
 
 const ProductionLineAddFormContainer = (props) => {
-  console.log('ProductionLineAddFormContainer props:', props)
   const storeState = store.getState();
-  console.log('storeState:', storeState)
   const dispatch = useDispatch();
 
   const addProductionLine = (values) => {

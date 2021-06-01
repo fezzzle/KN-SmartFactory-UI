@@ -27,7 +27,7 @@ const FactoryEditTable = ({ columns, data, factoryName, factoryId }) => {
           className="float-right mr-4"
           color="info"
           tag={RRNavLink}
-          to={{ pathname: "/factories/" }}
+          to={{ pathname: `/factories/${factoryId}/edit_factory` }}
         >
           Edit basic factory info
         </Button>
