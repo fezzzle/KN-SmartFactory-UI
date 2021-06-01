@@ -8,6 +8,7 @@ import { NavLink as RRNavLink } from "react-router-dom";
 import ProductionLineEditTable from "./ProductionLineEditTable";
 
 const ProductionLineEditContainer = (props) => {
+  console.log('ProductionLineEditContainer props:', props)
   const stateData = useSelector((state) => state.factory);
   const thingData = stateData
     .filter((factory) => String(factory.id) === props.location.state.factoryId)
@@ -105,7 +106,7 @@ const ProductionLineEditContainer = (props) => {
   );
   return (
     <div className="content">
-      <ProductionLineEditTable columns={columns} data={data[0].thing} />
+      <ProductionLineEditTable columns={columns} data={data[0].thing} pLineName={props.location.state.pLineName}/>
     </div>
   );
 };

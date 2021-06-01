@@ -32,6 +32,7 @@ const ThingAddForm = ({ project, onSubmit }) => (
             description: "Something about the conveyor",
             production_location: 1,
             device_group: "10",
+            device_group_description: "Sensor",
             device: "DEVICES, and more DEVICES"
         }}
         validationSchema={Yup.object().shape({
@@ -47,7 +48,7 @@ const ThingAddForm = ({ project, onSubmit }) => (
                 .min(0)
                 .required()
                 .label('Location on a production line'),
-            device_group: Yup.number()
+            device_group: Yup.string()
                 .min(0)
                 .required()
                 .label('Devices group'),

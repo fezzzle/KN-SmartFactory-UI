@@ -28,7 +28,11 @@ const ThingAddFormContainer = () => {
       name: values.name,
       description: values.description,
       production_location: values.production_location,
-      device_group: values.device_group,
+      state: "ACTIVE",
+      deviceGroup: {
+        thing: values.device_group,
+        description: values.device_group_description
+      },
       device: []
     };
     temporaryThingSave.current = data

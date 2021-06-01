@@ -3,7 +3,7 @@ import { Card, CardBody, Table, Button, CardHeader } from "reactstrap";
 
 import { NavLink as RRNavLink } from "react-router-dom";
 
-const ProductionLineEditTable = ({ columns, data, factoryName }) => {
+const ProductionLineEditTable = ({ columns, data, pLineName }) => {
   const { getTableProps, headerGroups, rows, prepareRow } = useTable({
     columns,
     data,
@@ -13,7 +13,7 @@ const ProductionLineEditTable = ({ columns, data, factoryName }) => {
     <Card>
       <CardBody>
         <CardHeader>
-          <h1>{factoryName}</h1>
+          <h1>{pLineName}</h1>
         </CardHeader>
         <Button
           className="float-right mr-4"
@@ -21,7 +21,7 @@ const ProductionLineEditTable = ({ columns, data, factoryName }) => {
           tag={RRNavLink}
           to={{ pathname: "/factories/" }}
         >
-          Add a new production line
+          Add a new Thing and device
         </Button>
         <Table {...getTableProps()}>
           <thead>
