@@ -23,6 +23,7 @@ class CompanyAdmin extends Component {
       search: "",
       role: { name: "" },
       company: { name: "" },
+      activated: false
     };
 
     this.getUsers = this.getUsers.bind(this);
@@ -31,30 +32,36 @@ class CompanyAdmin extends Component {
   }
 
   async componentDidMount() {
-    await this.getUsers();
+    await this.getUsers()
   }
-  //  async componentDidMount() {
-  //    const {data : posts } = await axios.get(apiEndpoint);
-  //    this.setState({ posts });
-  // }
 
   changeStatus = (user) => {
-    this.setState((user) => ({ activated: !user.activated }));
+    const users  = [...this.state.users] 
+    const value = user.target.value
+    const filteredUser = users.filter(user => user.id === +value)
+    const index = users.indexOf(filteredUser[0])
+    users[index] = { ...users[index] }
+    console.log( users[index])
+    users[index].activated = !users[index].activated
+    this.setState({users: users})
   };
+
 
   handleSearch = (event) => {
     const value = event.target.value;
+    console.log(value)
+    console.log(this.state.users);
     const filteredUsers = this.state.users.filter((user) => {
       return (
-        user.firstName
+        user.login
           .toLowerCase()
           .match(new RegExp("^" + value.toLowerCase())) ||
+          user.firstName.toLowerCase().includes(value.toLowerCase()) ||
            user.lastName.toLowerCase().includes(value.toLowerCase()) ||
-           user.role.toLowerCase().includes(value.toLowerCase()) ||
-           user.company.toLowerCase().includes(value.toLowerCase()) 
+           user.email.toLowerCase().includes(value.toLowerCase()) 
       );
     });
-    this.setState({ filteredUsers: filteredUsers });
+    this.setState({ users: filteredUsers });
   };
 
   
@@ -107,9 +114,10 @@ class CompanyAdmin extends Component {
                 <Table className="tablesorter" responsive>
                   <thead>
                     <tr>
+                      <th>User Name</th>
                       <th>Name</th>
-                      <th>Role</th>
-                      <th>Company</th>
+                      <th>Authorities</th>
+                      <th>Email</th>
                       <th>Deadline</th>
                       <th>Status</th>
                       <th>Activate/Deactivate</th>
@@ -117,37 +125,23 @@ class CompanyAdmin extends Component {
                   </thead>
 
                   <tbody>
-                    {this.state.filteredUsers.map((user) => (
-                      <tr key={user.userID}>
-                        <td>
-                          {" "}
-                          {user.firstName} {user.lastName}{" "}
-                        </td>
+                    {this.state.users.map((user) => (
+                      <tr key={user.id}>
+                      <td>{user.login}</td>
+                        <td>{user.firstName} {user.lastName}</td>
                         {/* <td> {user.role} </td> */}
                         <td>{user.authorities}</td>
                         <td> {user.email} </td>
                         <td> 12/3/22 </td>
                         <td> {user.activated ? "Active" : "Not Active"}</td>
                         <td>
-                          <button className="btn btn-primary">
+                          <button className="btn btn-primary" onClick={this.changeStatus} value
+                          ={user.id}>
                             {user.activated ? "Deactivate" : "Activate"}
                           </button>
                         </td>
                       </tr>
-                    ))}
-
-                    {/*                        
-                       {this.state.posts.map(post => (
-                         <tr key={post.id}>
-                           <td>{post.firstName}</td>
-                           <td>{post.lastName}</td>
-                           <td>{post.company}</td>
-                           <td>{post.selectedRole}</td>
-                           <td>{post.startDate}</td>
-                         </tr>
-              
-                       ))} */}
-                  
+                    ))}    
                   </tbody>
                 </Table>
               </CardBody>
