@@ -37,3 +37,13 @@
 .text-black {
   color: #ffffff !important;
 }
+.search{
+  height: 2.4rem;
+  margin-left: 4px
+
+}
+.select{
+  width: 100%;
+  height: calc(2.25rem + 2px);
+  border-radius: 0.4285rem;
+}

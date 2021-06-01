@@ -5,20 +5,22 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FormGroup, Form, Input, Label } from "reactstrap";
 import axios from "axios";
 
+// // const apiEndpoint = "https://jsonplaceholder.typicode.com/posts";
+
+// const apiEndpoint = "http://localhost:7100/smart-factory/newuser";
+
 class BootstrapModal extends React.Component {
   constructor() {
     super();
     this.state = {
       showHide: false,
       modalIsOpen: true,
-      startDate: new Date(),
       roles: [],
       firstName: "",
       lastName: "",
-      city: "",
-      company: "",
-      role: "",
-      url : ""
+      email: "",
+      selectedRole: "",
+      startDate: new Date(),
     };
     this.getRoles = this.getRoles.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
@@ -42,28 +44,62 @@ class BootstrapModal extends React.Component {
 
   handleModalShowHide() {
     this.setState({ showHide: !this.state.showHide });
-    console.log(this.state)
   }
 
   changeDate(date) {
     this.setState({ startDate: date });
   }
-  handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(this.state)
 
-    // axios.post("http://localhost:7100/smart-factory/users",{
-    //   firstName :this.state.firstName,
-    //   lastName: this.state.lastName,
-    //   company: this.state.company,
-    //   role: this.state.role,
-    //   deadline: this.state.startDate
-    // })
-    // .then(res=>{
-    //   console.log(res.data)
+  handleSubmit = async () => {
+    const firstName = this.state.firstName
+    const lastName = this.state.lastName
+    const email = this.state.email
+    const date = this.state.startDate.toISOString()
+    const obj = {   
+      login: "helloFromMars",
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      activated: true,
+      createdBy: "system",
+      createdDate: date,
+      authorities: [
+          "ROLE_ADMIN"
+      ]
+}
+console.log(obj) 
 
-    // })
-  }
+// const { data: post } = await axios.post(apiEndpoint, obj);
+    const config = {
+        Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiYXV0aCI6IlJPTEVfQURNSU4sUk9MRV9QRVJNSVNTSU9OX0NSRUFURSxST0xFX1BFUk1JU1NJT05fREVMRVRFLFJPTEVfUEVSTUlTU0lPTl9SRUFELFJPTEVfUEVSTUlTU0lPTl9VUERBVEUiLCJleHAiOjE2MjUwNzA3NDh9.9KowO8KnMpl6i04VmsdsDjmr-ZHs6MVDJFS0nUt4vt03JNvgVboN8ghwrfOSyafy8EDsOqki0zZkGjQaNM6l4A',
+        'Content-Type': 'application/json'
+  };
+      axios({
+        method: 'post',
+        url: 'https://coreplatform.herokuapp.com:443/api/admin/users',
+        data: obj,
+        headers : config
+      }
+    )
+    .then(response =>{
+      console.log(response)
+    })
+    .catch(function (error) {
+      if (error.response) {
+        // Request made and server responded
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+      }})
+  // this.handleModalShowHide();
+  };
+
   toggleModal = () => {
     this.setState((prevState) => ({
       modalIsOpen: !prevState.modalIsOpen,
@@ -78,8 +114,6 @@ class BootstrapModal extends React.Component {
           ...this.state,
           roles: response.data.roles,
         });
-
-        console.log(this.state);
       })
       .catch((error) => {
         alert(
@@ -95,12 +129,12 @@ class BootstrapModal extends React.Component {
           Create New User
         </Button>
 
-        <Modal  show={this.state.showHide} className="modal">
+        <Modal show={this.state.showHide} className="modal">
           <Modal.Header closeButton onClick={() => this.handleModalShowHide()}>
             <Modal.Title>New User</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form onSubmit={this.handleSubmit} >
+            <Form onSubmit={this.handleSubmit}>
               <FormGroup>
                 <Label for="firstName">First Name</Label>
                 <Input
@@ -124,13 +158,13 @@ class BootstrapModal extends React.Component {
                 />
               </FormGroup>
               <FormGroup>
-                <Label for="companyName">Company Name</Label>
+                <Label for="email">Email</Label>
                 <Input
-                  type="text"
+                  type="email"
                   className="form-control"
-                  id="companyName"
-                  name="company"
-                  value={this.state.company}
+                  id="email"
+                  name="email"
+                  value={this.state.email}
                   onChange={this.onChange}
                 />
               </FormGroup>
@@ -140,22 +174,14 @@ class BootstrapModal extends React.Component {
                   Role
                 </Label>
                 <br />
-                <Input
-                  type="select"
-                  name="select"
-                  id="select"
-                  className="select-padding"
-                  aria-label="Default select example"
-                >
-            
-                  <option selected>Select Role</option>
+                <select  className="select" value={this.state.selectedRole} onChange={(e) => this.setState({selectedRole: e.target.value})}>
                   {this.state.roles.map((role) => (
-                    <option key={role.roleID} value={role.roleID}>
+                    <option key={role.roleID} value={role.name}>
                       {role.name}
                     </option>
                   ))}
-               
-                </Input>
+                </select>
+
               </FormGroup>
 
               <FormGroup style={{ width: "100%" }}>
@@ -172,9 +198,7 @@ class BootstrapModal extends React.Component {
             </Form>
           </Modal.Body>
 
-
-
-          <Modal.Footer className='modal-footer'>
+          <Modal.Footer>
             <Button
               variant="secondary"
               onClick={() => this.handleModalShowHide()}
@@ -184,9 +208,10 @@ class BootstrapModal extends React.Component {
             <Button
               variant="primary"
               type="submit"
-              onClick={() => this.handleModalShowHide()}
+              onClick={this.handleSubmit}
+              // onClick={() => this.handleModalShowHide()}
             >
-              Save Changes
+              Submit
             </Button>
           </Modal.Footer>
         </Modal>

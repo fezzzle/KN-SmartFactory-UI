@@ -10,6 +10,7 @@
     "bootstrap": "4.5.3",
     "chart.js": "2.9.4",
     "classnames": "2.2.6",
+    "file-saver": "^2.0.5",
     "immutability-helper": "^3.1.1",
     "leaflet": "^1.7.1",
     "node-sass": "4.14.1",
@@ -29,7 +30,8 @@
     "react-scripts": "4.0.1",
     "reactstrap": "8.7.1",
     "redux": "^4.1.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "xlsx": "^0.17.0"
   },
   "scripts": {
     "start": "react-scripts start",
