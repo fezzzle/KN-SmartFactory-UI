@@ -16,6 +16,7 @@ class BootstrapModal extends React.Component {
       showHide: false,
       modalIsOpen: true,
       roles: [],
+      login :"",
       firstName: "",
       lastName: "",
       email: "",
@@ -51,12 +52,13 @@ class BootstrapModal extends React.Component {
   }
 
   handleSubmit = async () => {
+    const login = this.state.login
     const firstName = this.state.firstName
     const lastName = this.state.lastName
     const email = this.state.email
     const date = this.state.startDate.toISOString()
     const obj = {   
-      login: "helloFromMars",
+      login: login,
       firstName: firstName,
       lastName: lastName,
       email: email,
@@ -97,7 +99,7 @@ console.log(obj)
         // Something happened in setting up the request that triggered an Error
         console.log('Error', error.message);
       }})
-  // this.handleModalShowHide();
+  this.handleModalShowHide();
   };
 
   toggleModal = () => {
@@ -135,6 +137,17 @@ console.log(obj)
           </Modal.Header>
           <Modal.Body>
             <Form onSubmit={this.handleSubmit}>
+              <FormGroup>
+                <Label for="login">User Name</Label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  id="login"
+                  name="login"
+                  value={this.state.login}
+                  onChange={this.onChange}
+                />
+              </FormGroup>
               <FormGroup>
                 <Label for="firstName">First Name</Label>
                 <Input
