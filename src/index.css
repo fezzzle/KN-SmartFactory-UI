@@ -14,8 +14,14 @@
 
 }
 .modal{
+  /* position: relative; */
+  /* z-index: 10; */
   position: relative;
-  z-index: 999;
+  margin-top: -0.5rem;
+  width: 600px;
+  overflow-y: scroll;
+  /* margin-bottom: 2rem; */
+
   backdrop-filter: blur(8px);
 
 }
