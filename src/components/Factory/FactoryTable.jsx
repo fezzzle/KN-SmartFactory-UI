@@ -1,5 +1,5 @@
 import { useTable } from "react-table";
-import { Card, CardBody, Table, Button } from "reactstrap";
+import { Card, CardBody, Table, Button, CardTitle } from "reactstrap";
 
 import { NavLink as RRNavLink } from "react-router-dom";
 
@@ -12,6 +12,9 @@ const FactoryTable = ({ columns, data }) => {
   return (
     <Card>
       <CardBody>
+        <CardTitle>
+          <h1 className="mt-4">List of company factories</h1>
+        </CardTitle>
         <Button
           className="float-right mr-4"
           color="info"

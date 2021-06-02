@@ -7,7 +7,7 @@ import { Button } from "reactstrap";
 
 import { useSelector, useDispatch } from "react-redux";
 
-const FactoryTableContainer = () => {
+const FactoryTableContainer = (props) => {
   const dispatch = useDispatch();
   const factoryData = useSelector((state) => state.factory);
 
@@ -28,7 +28,7 @@ const FactoryTableContainer = () => {
   const columns = React.useMemo(
     () => [
       {
-        Header: "List of factories",
+        Header: "factories",
         columns: [
           {
             Header: "Factory ID",

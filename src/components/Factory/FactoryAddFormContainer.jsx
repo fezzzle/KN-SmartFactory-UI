@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
-// import { useParams, useHistory } from "react-router-dom";
-import { Card, CardBody, Button } from "reactstrap";
+import { Card, CardBody, Button, CardTitle } from "reactstrap";
 import ProductionLineAddForm from "./ProductionLineAddForm";
 import { NavLink as RRNavLink, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -8,13 +7,8 @@ import { useDispatch } from "react-redux";
 import FactoryAddForm from "./FactoryAddForm";
 import { addFactoryData, updateFactoryData } from "../../store/actions";
 
-// import store from "../../store/store"
-// const unsubscribe = store.subscribe(() =>
-//   console.log('State after dispatch: ', store.getState())
-// )
-
-
 const FactoryAddFormContainer = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const temporaryFactorySave = useRef();
   const temporaryFactoryAndProductionLineSave = useRef();
@@ -24,18 +18,12 @@ const FactoryAddFormContainer = () => {
   const [canAddAThingState, setCanAddAThingState] = useState(true);
   const [canCloseWithoutSaving, setCanCloseWithoutSaving] = useState(false);
 
-  console.log("temporaryFactorySave:", temporaryFactorySave.current);
-  // console.log(
-  //   "temporaryFactoryAndProductionLineSave.current:",
-  //   temporaryFactoryAndProductionLineSave.current
-  // );
-
   const addTemporaryProductionLine = (values) => {
     let data = {
       id: Math.random().toString(36).substr(2, 9),
       name: values.name,
       line_number: values.line_number,
-      thing: []
+      thing: [],
     };
     setTemporaryProductionLine([data]);
     if (data.name !== undefined || data.line_number !== undefined) {
@@ -74,7 +62,7 @@ const FactoryAddFormContainer = () => {
     temporaryFactoryData(values);
     if (temporaryFactorySave.current !== undefined) {
       setAddProductionButtonState(!addProductionButtonState);
-      dispatch(addFactoryData(temporaryFactorySave.current))
+      dispatch(addFactoryData(temporaryFactorySave.current));
     }
   };
 
@@ -82,6 +70,9 @@ const FactoryAddFormContainer = () => {
     <div className="content">
       <Card>
         <CardBody>
+          <CardTitle>
+            <h1 className="mt-4">Add a new factory</h1>
+          </CardTitle>
           <FactoryAddForm
             onSubmit={(values, formikHelpers) => {
               try {
@@ -94,6 +85,7 @@ const FactoryAddFormContainer = () => {
               }
               // formikHelpers.setSubmitting(false);
             }}
+            goBack={history.goBack}
           />
           <Button
             className="float-left mr-2"
@@ -130,7 +122,7 @@ const FactoryAddFormContainer = () => {
                 disabled={canAddAThingState}
                 to={{
                   pathname: "/factories/add_factory/add_thing",
-                  state: temporaryFactoryAndProductionLineSave.current
+                  state: temporaryFactoryAndProductionLineSave.current,
                 }}
               >
                 Add a thing

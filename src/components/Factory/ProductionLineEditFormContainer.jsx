@@ -1,35 +1,47 @@
-import FactoryEditForm from "./FactoryEditForm";
+import ProductionLineEditForm from "./ProductionLineEditForm";
 import { useHistory } from "react-router-dom";
 import { Card, CardBody } from "reactstrap";
 import store from "../../store/store";
 import { patchFactoryData } from "../../store/actions";
 import { useDispatch } from "react-redux";
 
-const FactoryEditFormContainer = (props) => {
+const ProductionLineEditFormContainer = (props) => {
+  console.log("ProductionLineEditFormContainerprops:", props);
   const dispatch = useDispatch();
   const history = useHistory();
   const storeState = store.getState();
-  console.log("history is in FactoryEditContainer:", history);
 
   const editFactory = (values) => {
     const getFactory = storeState.factory.filter(
-      (factory) => String(factory.id) === props.match.params.id
+      (factory) => String(factory.id) === props.location.state.factoryId
     );
-    const newData = {
-      factory_location: {
-        name: values.name,
-        country: values.country,
-        city: values.city,
-      },
+    const getProductionLineIndex = getFactory[0].production_line.findIndex(
+      (line) => String(line.id) === props.match.params.id
+    );
+    const newArray = getFactory[0].production_line;
+
+    const filteredArray = getFactory[0].production_line.filter(
+      (pLine) => pLine.id !== Number(props.match.params.id)
+    );
+    const newProductionLineData = {
+      production_line: [
+        ...filteredArray,
+        {
+          ...newArray[getProductionLineIndex],
+          name: values.name,
+          line_number: values.line_number,
+        },
+      ],
     };
 
-    dispatch(patchFactoryData(getFactory[0].id, newData));
+    dispatch(patchFactoryData(getFactory[0].id, newProductionLineData));
+    // console.log("storeState:", storeState);
   };
   return (
     <div className="content">
       <Card>
         <CardBody>
-          <FactoryEditForm
+          <ProductionLineEditForm
             onSubmit={(values, formikHelpers) => {
               try {
                 formikHelpers.setSubmitting(true);
@@ -51,4 +63,4 @@ const FactoryEditFormContainer = (props) => {
   );
 };
 
-export default FactoryEditFormContainer;
+export default ProductionLineEditFormContainer;

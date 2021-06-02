@@ -25,7 +25,7 @@ const FormField = ({ label, name, touched, errors }) => (
     </FormGroup>
 );
 
-const ThingAddForm = ({ project, onSubmit }) => (
+const ThingAddForm = ({ onSubmit }) => (
     <Formik
         initialValues={{
             name: "Conveyor",

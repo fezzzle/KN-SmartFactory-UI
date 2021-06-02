@@ -10,5 +10,6 @@ export { default as ProductionLineAddFormContainer } from "./ProductionLineAddFo
 export { default as ThingAddFormContainer } from "./ThingAddFormContainer"
 export { default as DeviceAddForm } from "./DeviceAddForm"
 export { default as FactoryEditContainer } from "./FactoryEditContainer"
-export { default as ProductionLineEditContainer } from "./ProductionLineEditContainer"
+export { default as ProductionLineEditTableContainer } from "./ProductionLineEditTableContainer"
 export { default as ProductionLineEditTable } from "./ProductionLineEditTable"
+export { default as ProductionLineEditFormContainer } from "./ProductionLineEditFormContainer"

@@ -25,62 +25,59 @@ const FormField = ({ label, name, touched, errors }) => (
   </FormGroup>
 );
 
-const FactoryAddForm = ({ onSubmit, goBack }) => (
+const ProductionLineEditForm = ({ onSubmit, goBack }) => (
   <Formik
     initialValues={{
-      name: "Some candy factory",
-      country: "Estonia",
-      city: "Valga",
+      line_number: "1",
+      name: "Some application for line",
     }}
     validationSchema={Yup.object().shape({
-      name: Yup.string().min(0).required().label("Factory name"),
-      country: Yup.string().min(0).required().label("Country"),
-      city: Yup.string().min(0).required().label("Factory Location"),
+      line_number: Yup.string()
+        .min(0)
+        .required()
+        .label("Production Line Number"),
+      name: Yup.string().min(0).required().label("Production line name"),
     })}
     onSubmit={onSubmit}
   >
     {({ touched, errors, isSubmitting }) => (
       <Form>
         <FormField
+          name="line_number"
+          label="Production Line Number"
+          touched={touched}
+          errors={errors}
+        />
+        <FormField
           name="name"
-          label="Factory name"
-          touched={touched}
-          errors={errors}
-        />
-        <FormField
-          name="country"
-          label="Country"
-          touched={touched}
-          errors={errors}
-        />
-        <FormField
-          name="city"
-          label="Factory Location"
+          label="Production line name"
           touched={touched}
           errors={errors}
         />
         <Button
-          id="addFactoryFormSubmitButton"
+          id="addProductionFormSubmitButton"
           type="submit"
           color="primary"
           disabled={isSubmitting}
           touched={touched}
         >
-          Save factory
+          Save a production line
         </Button>
-        <Button
-          id="addFactoryGoBackButton"
-          type="button"
-          color="warning"
-          // disabled={isSubmitting}
-          touched={touched}
-          onClick={goBack}
-        >
-          Go back
-        </Button>
+        {goBack === undefined ? null : (
+          <Button
+            id="addProductionFormSubmitButton"
+            type="button"
+            color="warning"
+            disabled={isSubmitting}
+            touched={touched}
+            onClick={goBack}
+          >
+            Go back
+          </Button>
+        )}
       </Form>
     )}
   </Formik>
 );
 
-export default FactoryAddForm;
+export default ProductionLineEditForm;

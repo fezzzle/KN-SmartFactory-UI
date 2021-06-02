@@ -99,7 +99,7 @@ const ThingAddFormContainer = () => {
           <Button className="float-left mr-2" color="info" onClick={addTemporaryDevice} disabled={addDeviceButtonState}>
             Add a new device to a Thing
           </Button>
-          <Button className="float-left mb-2" color="warning" disabled={isSavedButtonState}>
+          <Button className="float-left mb-2" color="warning" disabled={isSavedButtonState} onClick={history.goBack}>
             Go back without saving
           </Button>
         </CardBody>

@@ -85,7 +85,7 @@ const FactoryEditContainer = (props) => {
                     onClick={() => logValue(properties)}
                     tag={RRNavLink}
                     to={{
-                      pathname: `${props.location.pathname}/edit_pline/${properties.row.original.id}`,
+                      pathname: `${props.location.pathname}/pline/${properties.row.original.id}`,
                       state: {
                         factoryId: props.match.params.id,
                         pLineName: properties.row.original.name

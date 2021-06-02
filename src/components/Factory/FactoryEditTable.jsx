@@ -1,9 +1,10 @@
 import { useTable } from "react-table";
-import { Card, CardBody, Table, Button, CardHeader } from "reactstrap";
-
+import { Card, CardBody, Table, Button, CardTitle } from "reactstrap";
+import { useHistory } from "react-router-dom";
 import { NavLink as RRNavLink } from "react-router-dom";
 
 const FactoryEditTable = ({ columns, data, factoryName, factoryId }) => {
+  const history = useHistory();
   const { getTableProps, headerGroups, rows, prepareRow } = useTable({
     columns,
     data,
@@ -12,9 +13,9 @@ const FactoryEditTable = ({ columns, data, factoryName, factoryId }) => {
   return (
     <Card>
       <CardBody>
-        <CardHeader>
-          <h1>{factoryName}</h1>
-        </CardHeader>
+        <CardTitle>
+          <h1 className="mt-4">{factoryName} factory</h1>
+        </CardTitle>
         <Button
           className="float-right mr-4"
           color="info"
@@ -24,12 +25,19 @@ const FactoryEditTable = ({ columns, data, factoryName, factoryId }) => {
           Add a new production line
         </Button>
         <Button
-          className="float-right mr-4"
+          className="float-right mr-2"
           color="info"
           tag={RRNavLink}
           to={{ pathname: `/factories/${factoryId}/edit_factory` }}
         >
           Edit basic factory info
+        </Button>
+        <Button
+          className="float-right mr-2"
+          color="warning"
+          onClick={history.goBack}
+        >
+          Go back
         </Button>
         <Table {...getTableProps()}>
           <thead>

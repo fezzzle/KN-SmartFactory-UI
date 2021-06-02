@@ -7,8 +7,7 @@ import { NavLink as RRNavLink } from "react-router-dom";
 
 import ProductionLineEditTable from "./ProductionLineEditTable";
 
-const ProductionLineEditContainer = (props) => {
-  console.log('ProductionLineEditContainer props:', props)
+const ProductionLineEditTableContainer = (props) => {
   const stateData = useSelector((state) => state.factory);
   const thingData = stateData
     .filter((factory) => String(factory.id) === props.location.state.factoryId)
@@ -24,10 +23,6 @@ const ProductionLineEditContainer = (props) => {
   const removeFromTable = (props) => {
     console.log("remove the line");
     // dispatch(removeFactoryData(props.row.original.id));
-  };
-
-  const logValue = (value) => {
-    console.log(value);
   };
 
   const columns = React.useMemo(
@@ -73,10 +68,9 @@ const ProductionLineEditContainer = (props) => {
                   <Button
                     className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
                     type="button"
-                    onClick={() => logValue(properties)}
                     tag={RRNavLink}
                     to={{
-                      pathname: `${props.location.pathname}/edit_pline/${properties.row.original.id}`,
+                      pathname: `${props.location.pathname}/pline/${properties.row.original.id}`,
                     }}
                   >
                     <i className="tim-icons icon-pencil"></i>
@@ -106,9 +100,15 @@ const ProductionLineEditContainer = (props) => {
   );
   return (
     <div className="content">
-      <ProductionLineEditTable columns={columns} data={data[0].thing} pLineName={props.location.state.pLineName}/>
+      <ProductionLineEditTable 
+      columns={columns} 
+      data={data[0].thing} 
+      pLineName={props.location.state.pLineName}
+      pLineId={props.match.params.id}
+      factoryId={props.location.state.factoryId}
+      />
     </div>
   );
 };
 
-export default ProductionLineEditContainer;
+export default ProductionLineEditTableContainer;

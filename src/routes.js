@@ -23,9 +23,10 @@ import {
   FactoryAddFormContainer,
   ThingAddFormContainer,
   FactoryEditContainer,
-  ProductionLineEditContainer,
+  ProductionLineEditTableContainer,
   ProductionLineAddFormContainer,
-  FactoryEditFormContainer
+  FactoryEditFormContainer,
+  ProductionLineEditFormContainer
 } from "./components/Factory/"
 import Notifications from "views/Notifications.js";
 import TableList from "views/TableList.js";
@@ -53,11 +54,6 @@ export function RenderRoutes({ routes }) {
     </Switch>
   );
 }
-// return (
-//   <div classname="content">
-//     <RouteWithSubRoutes key={route.key} {...route} />;
-//   </div>
-// )
 
 var routes = [
   { path: "/", name: "Home", exact: true, icon: "tim-icons icon-world", component: Dashboard },
@@ -126,7 +122,13 @@ var routes = [
         path: "/factories/:id/edit_pline/:id",
         name: "EDIT_PRODUCTION_LINE_FACTORIES",
         exact: true,
-        component: ProductionLineEditContainer
+        component: ProductionLineEditFormContainer
+      },
+      {
+        path: "/factories/:id/pline/:id",
+        name: "LIST_PRODUCTION_LINE_FACTORIES",
+        exact: true,
+        component: ProductionLineEditTableContainer
       },
       {
         path: "/factories/add_factory/add_thing",
