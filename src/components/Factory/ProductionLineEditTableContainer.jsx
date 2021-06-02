@@ -9,6 +9,7 @@ import ProductionLineEditTable from "./ProductionLineEditTable";
 
 const ProductionLineEditTableContainer = (props) => {
   const stateData = useSelector((state) => state.factory);
+  console.log('WHERE IT IS BROKEN:ProductionLineEditTableContainer:', stateData)
   const thingData = stateData
     .filter((factory) => String(factory.id) === props.location.state.factoryId)
     .map((item) =>

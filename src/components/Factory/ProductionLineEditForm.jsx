@@ -68,7 +68,7 @@ const ProductionLineEditForm = ({ onSubmit, goBack }) => (
             id="addProductionFormSubmitButton"
             type="button"
             color="warning"
-            disabled={isSubmitting}
+            // disabled={isSubmitting}
             touched={touched}
             onClick={goBack}
           >

@@ -1,6 +1,6 @@
 import ProductionLineEditForm from "./ProductionLineEditForm";
 import { useHistory } from "react-router-dom";
-import { Card, CardBody } from "reactstrap";
+import { Card, CardBody, CardText } from "reactstrap";
 import store from "../../store/store";
 import { patchFactoryData } from "../../store/actions";
 import { useDispatch } from "react-redux";
@@ -35,7 +35,7 @@ const ProductionLineEditFormContainer = (props) => {
     };
 
     dispatch(patchFactoryData(getFactory[0].id, newProductionLineData));
-    // console.log("storeState:", storeState);
+    console.log("STATE IS:", storeState);
   };
   return (
     <div className="content">
@@ -47,9 +47,7 @@ const ProductionLineEditFormContainer = (props) => {
                 formikHelpers.setSubmitting(true);
                 editFactory(values);
               } catch (errors) {
-                console.log("errors", errors);
                 return Object.entries(errors).forEach(([field, error]) => {
-                  console.log("field", field);
                   formikHelpers.setFieldError(field, error[0]);
                 });
               }
