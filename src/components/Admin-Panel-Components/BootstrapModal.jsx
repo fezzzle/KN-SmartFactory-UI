@@ -5,6 +5,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FormGroup, Form, Input, Label } from "reactstrap";
 import axios from "axios";
 
+const listOfAuthorities = [
+  "ROLE_PERMISSION_UPDATE",
+  "ROLE_PERMISSION_CREATE",
+  "ROLE_ADMIN",
+  "ROLE_PERMISSION_READ",
+  "ROLE_PERMISSION_DELETE",
+];
 // // const apiEndpoint = "https://jsonplaceholder.typicode.com/posts";
 
 // const apiEndpoint = "http://localhost:7100/smart-factory/newuser";
@@ -16,12 +23,14 @@ class BootstrapModal extends React.Component {
       showHide: false,
       modalIsOpen: true,
       roles: [],
-      login :"",
+      login: "",
       firstName: "",
       lastName: "",
       email: "",
       selectedRole: "",
       startDate: new Date(),
+      authorities: new Set(),
+      error: null
     };
     this.getRoles = this.getRoles.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
@@ -52,54 +61,66 @@ class BootstrapModal extends React.Component {
   }
 
   handleSubmit = async () => {
-    const login = this.state.login
-    const firstName = this.state.firstName
-    const lastName = this.state.lastName
-    const email = this.state.email
-    const date = this.state.startDate.toISOString()
-    const obj = {   
+    const login = this.state.login;
+    const firstName = this.state.firstName;
+    const lastName = this.state.lastName;
+    const email = this.state.email;
+    const date = this.state.startDate.toISOString();
+    const authorities = this.state.authorities;
+    const obj = {
       login: login,
       firstName: firstName,
       lastName: lastName,
       email: email,
+      selectedRole: "",
       activated: true,
       createdBy: "system",
       createdDate: date,
-      authorities: [
-          "ROLE_ADMIN"
-      ]
-}
-console.log(obj) 
+      checked: false,
+      authorities: [...authorities],
+    };
+    console.log(obj);
 
-// const { data: post } = await axios.post(apiEndpoint, obj);
+    // const { data: post } = await axios.post(apiEndpoint, obj);
     const config = {
-        Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiYXV0aCI6IlJPTEVfQURNSU4sUk9MRV9QRVJNSVNTSU9OX0NSRUFURSxST0xFX1BFUk1JU1NJT05fREVMRVRFLFJPTEVfUEVSTUlTU0lPTl9SRUFELFJPTEVfUEVSTUlTU0lPTl9VUERBVEUiLCJleHAiOjE2MjUwNzA3NDh9.9KowO8KnMpl6i04VmsdsDjmr-ZHs6MVDJFS0nUt4vt03JNvgVboN8ghwrfOSyafy8EDsOqki0zZkGjQaNM6l4A',
-        'Content-Type': 'application/json'
-  };
-      axios({
-        method: 'post',
-        url: 'https://coreplatform.herokuapp.com:443/api/admin/users',
-        data: obj,
-        headers : config
-      }
-    )
-    .then(response =>{
-      console.log(response)
+      Authorization:
+        "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiYXV0aCI6IlJPTEVfQURNSU4sUk9MRV9QRVJNSVNTSU9OX0NSRUFURSxST0xFX1BFUk1JU1NJT05fREVMRVRFLFJPTEVfUEVSTUlTU0lPTl9SRUFELFJPTEVfUEVSTUlTU0lPTl9VUERBVEUiLCJleHAiOjE2MjUwNzA3NDh9.9KowO8KnMpl6i04VmsdsDjmr-ZHs6MVDJFS0nUt4vt03JNvgVboN8ghwrfOSyafy8EDsOqki0zZkGjQaNM6l4A",
+      "Content-Type": "application/json",
+    };
+    axios({
+      method: "post",
+      url: "https://coreplatform.herokuapp.com:443/api/admin/users",
+      data: obj,
+      headers: config,
     })
-    .catch(function (error) {
-      if (error.response) {
-        // Request made and server responded
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        // The request was made but no response was received
-        console.log(error.request);
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log('Error', error.message);
-      }})
-  this.handleModalShowHide();
+      .then((response) => {
+        console.log(response);
+        this.setState({
+          showHide: false,
+          roles: [],
+          login: "",
+          firstName: "",
+          lastName: "",
+          email: "",
+          selectedRole: "",
+          startDate: new Date(),
+          authorities: new Set(),
+        });
+      })
+      .catch( (error) =>  {
+        if (error.response) {
+          this.setState({error: error.response.data.title}, () => {console.log(this.state.error)})
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log("Error", error.message);
+        }
+      });
   };
 
   toggleModal = () => {
@@ -125,6 +146,7 @@ console.log(obj)
   };
 
   render() {
+    const { error } = this.state
     return (
       <div>
         <Button variant="primary" onClick={() => this.handleModalShowHide()}>
@@ -136,6 +158,7 @@ console.log(obj)
             <Modal.Title>New User</Modal.Title>
           </Modal.Header>
           <Modal.Body>
+          <div><h6>{error}</h6></div>
             <Form onSubmit={this.handleSubmit}>
               <FormGroup>
                 <Label for="login">User Name</Label>
@@ -182,22 +205,24 @@ console.log(obj)
                 />
               </FormGroup>
 
-              <FormGroup>
-                <Label for="select" className="label-fix">
-                  Role
-                </Label>
-                <br />
-                <select  className="select" value={this.state.selectedRole} onChange={(e) => this.setState({selectedRole: e.target.value})}>
-                  {this.state.roles.map((role) => (
-                    <option key={role.roleID} value={role.name}>
-                      {role.name}
-                    </option>
-                  ))}
-                </select>
-
-              </FormGroup>
-
-              <FormGroup style={{ width: "100%" }}>
+              <label>Authoriteies</label>
+              {listOfAuthorities.map((option) => (
+                <div>
+                  <input
+                    type="checkbox"
+                    value={option}
+                    onChange={(event) => {
+                      if (this.state.authorities.has(option)) {
+                        this.state.authorities.delete(option);
+                      } else {
+                        this.state.authorities.add(option);
+                      }
+                    }}
+                  />{" "}
+                  {option}
+                </div>
+              ))}
+              {/* <FormGroup style={{ width: "100%" }}>
                 <label>Deadline</label>
                 <br></br>
 
@@ -207,7 +232,7 @@ console.log(obj)
                   dateFormat="dd/MM/yyyy"
                   onChange={this.changeDate}
                 />
-              </FormGroup>
+              </FormGroup> */}
             </Form>
           </Modal.Body>
 
