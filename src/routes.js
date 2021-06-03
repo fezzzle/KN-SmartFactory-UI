@@ -65,7 +65,7 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/admin",
+    path: "/companyadmin",
     name: "Company Admin",
     rtlName: "قائمة الجدول",
     icon: "tim-icons icon-puzzle-10",

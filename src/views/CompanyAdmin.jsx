@@ -12,7 +12,6 @@ import {
 } from "reactstrap";
 import axios from "axios";
 
-// const apiEndpoint = "https://jsonplaceholder.typicode.com/posts";
 
 class CompanyAdmin extends Component {
   constructor() {
@@ -22,8 +21,7 @@ class CompanyAdmin extends Component {
       filteredUsers: [],
       search: "",
       role: { name: "" },
-      company: { name: "" },
-      activated: false
+      activated: true
     };
 
     this.getUsers = this.getUsers.bind(this);
@@ -40,31 +38,26 @@ class CompanyAdmin extends Component {
     const value = user.target.value
     const filteredUser = users.filter(user => user.id === +value)
     const index = users.indexOf(filteredUser[0])
-    users[index] = { ...users[index] }
-    console.log( users[index])
     users[index].activated = !users[index].activated
     this.setState({users: users})
   };
 
 
   handleSearch = (event) => {
-    const value = event.target.value;
-    console.log(value)
-    console.log(this.state.users);
-    const filteredUsers = this.state.users.filter((user) => {
+    const value = event.target.value.toLowerCase();
+    let filteredUsers = this.state.users.filter((user) => {
       return (
         user.login
           .toLowerCase()
           .match(new RegExp("^" + value.toLowerCase())) ||
-          user.firstName.toLowerCase().includes(value.toLowerCase()) ||
-           user.lastName.toLowerCase().includes(value.toLowerCase()) ||
-           user.email.toLowerCase().includes(value.toLowerCase()) 
+          user.firstName.toLowerCase().includes(value) ||
+           user.lastName.toLowerCase().includes(value) ||
+           user.email.toLowerCase().includes(value) 
       );
     });
-    this.setState({ users: filteredUsers });
-  };
-
+    this.setState({ filteredUsers: filteredUsers });
   
+  };
 
   getUsers = async () => {
     const config = {
@@ -74,12 +67,15 @@ class CompanyAdmin extends Component {
     axios
       .get("https://coreplatform.herokuapp.com:443/api/admin/users", config)
       .then((response) => {
-        console.log(response)
         this.setState({
           ...this.state,
           users: response.data,
           filteredUsers: response.data,
         });
+        console.log(this.state.users)
+        console.log(this.state.filteredUsers)
+
+  
       })
       .catch((error) => {
         console.log(error);
@@ -91,15 +87,13 @@ class CompanyAdmin extends Component {
       <div className="content">
         <form className="d-flex mb-3">
           <input
-            className="form-control "
+            className="form-control"
             type="search"
-            value={this.state.value}
             placeholder="Search User"
             aria-label="Search"
-            onChange={this.handleSearch}
+            onInput={this.handleSearch}
           />
         </form>
-
         <Row>
           <Col md="12">
             <Card>
@@ -118,21 +112,18 @@ class CompanyAdmin extends Component {
                       <th>Name</th>
                       <th>Authorities</th>
                       <th>Email</th>
-                      <th>Deadline</th>
                       <th>Status</th>
                       <th>Activate/Deactivate</th>
                     </tr>
                   </thead>
 
                   <tbody>
-                    {this.state.users.map((user) => (
+                    {this.state.filteredUsers.map((user) => (
                       <tr key={user.id}>
                       <td>{user.login}</td>
                         <td>{user.firstName} {user.lastName}</td>
-                        {/* <td> {user.role} </td> */}
                         <td>{user.authorities}</td>
                         <td> {user.email} </td>
-                        <td> 12/3/22 </td>
                         <td> {user.activated ? "Active" : "Not Active"}</td>
                         <td>
                           <button className="btn btn-primary" onClick={this.changeStatus} value

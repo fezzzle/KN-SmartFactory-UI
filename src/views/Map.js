@@ -22,8 +22,7 @@ import {
   MapContainer,
   TileLayer,
   Marker,
-  Popup,
-  useMapEvents,
+  Popup
 } from "react-leaflet";
 import { Icon } from "leaflet";
 import * as cityData from "../cityData.json";
@@ -32,7 +31,7 @@ import factoryPic from "../assets/img/factory.svg";
 
 function Map() {
   const [activeCity, setActiveCity] = useState(null);
-  const [position, setPosition] = useState(null);
+  // const [position, setPosition] = useState(null);
   const [map, setMap] = useState(null);
   const tallinn = [59.436962, 24.753574];
   const factory = new Icon({
@@ -40,23 +39,23 @@ function Map() {
     iconSize: [40, 40],
   });
 
-  const LocationMarker = () => {
-    const map = useMapEvents({
-      click() {
-        map.locate();
-      },
-      locationfound(e) {
-        setPosition(e.latlng);
-        map.flyTo(e.latlng, map.getZoom());
-      },
-    });
+  // const LocationMarker = () => {
+  //   const map = useMapEvents({
+  //     click() {
+  //       map.locate();
+  //     },
+  //     locationfound(e) {
+  //       setPosition(e.latlng);
+  //       map.flyTo(e.latlng, map.getZoom());
+  //     },
+  //   });
 
-    return position === null ? null : (
-      <Marker position={position}>
-        <Popup>You are here</Popup>
-      </Marker>
-    );
-  };
+  //   return position === null ? null : (
+  //     <Marker position={position}>
+  //       <Popup>You are here</Popup>
+  //     </Marker>
+  //   );
+  // };
 
   // Locate me or fly to certain coords
   const changePos = () => {

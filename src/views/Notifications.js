@@ -21,17 +21,17 @@ import NotificationAlert from "react-notification-alert";
 import ReduxExample from "../components/ReduxExample";
 
 // reactstrap components
-import {
-  Alert,
-  UncontrolledAlert,
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
-  Row,
-  Col,
-} from "reactstrap";
+// import {
+//   Alert,
+//   UncontrolledAlert,
+//   Button,
+//   Card,
+//   CardHeader,
+//   CardBody,
+//   CardTitle,
+//   Row,
+//   Col,
+// } from "reactstrap";
 
 function Notifications() {
   const notificationAlertRef = React.useRef(null);

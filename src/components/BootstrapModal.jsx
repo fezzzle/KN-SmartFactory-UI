@@ -1,6 +1,7 @@
 import { Button, Modal } from "react-bootstrap";
 import React from "react";
-import DatePicker from "react-datepicker";
+// import DatePicker from "react-datepicker";
+import CreateRoleForm from '../components/CreateRoleForm'
 import "react-datepicker/dist/react-datepicker.css";
 import { FormGroup, Form, Input, Label } from "reactstrap";
 import axios from "axios";
@@ -12,9 +13,6 @@ const listOfAuthorities = [
   "ROLE_PERMISSION_READ",
   "ROLE_PERMISSION_DELETE",
 ];
-// // const apiEndpoint = "https://jsonplaceholder.typicode.com/posts";
-
-// const apiEndpoint = "http://localhost:7100/smart-factory/newuser";
 
 class BootstrapModal extends React.Component {
   constructor() {
@@ -56,6 +54,9 @@ class BootstrapModal extends React.Component {
 
   changeDate(date) {
     this.setState({ startDate: date });
+  }
+  handleRole= ()=>{
+    <CreateRoleForm/>
   }
 
   handleSubmit = async () => {
@@ -102,7 +103,8 @@ class BootstrapModal extends React.Component {
           email: "",
           selectedRole: "",
           startDate: new Date(),
-          authorities: new Set(),
+          // authorities: new Set(),
+          authorities: this.state.roles
         });
       })
       .catch( (error) =>  {
@@ -137,9 +139,7 @@ class BootstrapModal extends React.Component {
         });
       })
       .catch((error) => {
-        alert(
-          "Could not connect to Server. Make sure Mockoon server is on if you are using it"
-        );
+       console.log(error);
       });
   };
 
@@ -147,6 +147,9 @@ class BootstrapModal extends React.Component {
     const { error } = this.state
     return (
       <div>
+       <Button variant="primary" onClick={() => this.handleRole()}>
+          Create a Role
+        </Button>
         <Button variant="primary" onClick={() => this.handleModalShowHide()}>
           Create New User
         </Button>
@@ -202,6 +205,21 @@ class BootstrapModal extends React.Component {
                   onChange={this.onChange}
                 />
               </FormGroup>
+              {/* <FormGroup>
+                <Label for="select" className="label-fix">
+                  Role
+                </Label>
+                <br />
+                <select  className="select" value={this.state.selectedRole} onChange={(e) => this.setState({selectedRole: e.target.value})}>
+                  {this.state.roles.map((role) => (
+                    <option key={role.roleID} value={role.name}>
+                      {role.name}
+                    </option>
+                  ))}
+                </select>
+
+              </FormGroup> */}
+              
 
               <label>Authoriteies</label>
               {listOfAuthorities.map((option) => (
@@ -219,7 +237,7 @@ class BootstrapModal extends React.Component {
                   />{" "}
                   {option}
                 </div>
-              ))}
+              ))} 
               {/* <FormGroup style={{ width: "100%" }}>
                 <label>Deadline</label>
                 <br></br>
