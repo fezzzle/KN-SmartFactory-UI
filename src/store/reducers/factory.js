@@ -17,7 +17,9 @@ const factoryReducer = (state = [], action) => {
     case UPDATE_FACTORY_DATA:
       return [...state.map(item => item.id === action.payload.id ? item = action.payload : item)]
     case PATCH_FACTORY_DATA:
-      return [...state, { ...state[action.payload['id']], ...state[action.payload['id']].production_line = action.payload["data"].production_line }]
+      const data = action.payload[1]
+      const position = action.payload[0]
+      return state.map(item => item.id === position ? { ...item, production_line: data} : item)
     default:
       return state;
   }

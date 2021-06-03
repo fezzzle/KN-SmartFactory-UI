@@ -8,8 +8,6 @@ import { NavLink as RRNavLink } from "react-router-dom";
 import FactoryEditTable from "./FactoryEditTable";
 
 const FactoryEditContainer = (props) => {
-  console.log('FactoryEditContainer props:', props)
-  const dispatch = useDispatch();
   const stateData = useSelector((state) => state.factory);
   const factoryData = stateData
   .filter((factory) => String(factory.id) === props.match.params.id)

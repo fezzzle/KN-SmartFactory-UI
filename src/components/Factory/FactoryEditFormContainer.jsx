@@ -9,7 +9,6 @@ const FactoryEditFormContainer = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const storeState = store.getState();
-  console.log("history is in FactoryEditContainer:", history);
 
   const editFactory = (values) => {
     const getFactory = storeState.factory.filter(
@@ -35,9 +34,7 @@ const FactoryEditFormContainer = (props) => {
                 formikHelpers.setSubmitting(true);
                 editFactory(values);
               } catch (errors) {
-                console.log("errors", errors);
                 return Object.entries(errors).forEach(([field, error]) => {
-                  console.log("field", field);
                   formikHelpers.setFieldError(field, error[0]);
                 });
               }

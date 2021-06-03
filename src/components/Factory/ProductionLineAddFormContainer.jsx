@@ -12,7 +12,6 @@ const ProductionLineAddFormContainer = (props) => {
 
   const addProductionLine = (values) => {
     const getCurrentFactory = storeState.factory.filter(factory => String(factory.id) === props.match.params.id)
-    console.log('getCurrentFactory:', getCurrentFactory)
     let data = {
         id: Math.random().toString(36).substr(2, 9),
         name: values.name,

@@ -23,19 +23,25 @@ const ProductionLineEditFormContainer = (props) => {
     const filteredArray = getFactory[0].production_line.filter(
       (pLine) => pLine.id !== Number(props.match.params.id)
     );
-    const newProductionLineData = {
-      production_line: [
+    // const newProductionLineData = {
+    //   production_line: [
+    //     ...filteredArray,
+    //     {
+    //       ...newArray[getProductionLineIndex],
+    //       name: values.name,
+    //       line_number: values.line_number,
+    //     },
+    //   ],
+    // };
+    const newProductionLineData = [
         ...filteredArray,
         {
           ...newArray[getProductionLineIndex],
           name: values.name,
           line_number: values.line_number,
         },
-      ],
-    };
-
+      ]
     dispatch(patchFactoryData(getFactory[0].id, newProductionLineData));
-    console.log("STATE IS:", storeState);
   };
   return (
     <div className="content">

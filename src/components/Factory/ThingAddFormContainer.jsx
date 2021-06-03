@@ -36,7 +36,6 @@ const ThingAddFormContainer = () => {
       device: []
     };
     temporaryThingSave.current = data
-    // console.log('temporaryThingSave.current:', temporaryThingSave.current)
   };
 
   const addDevice = (values) => {
@@ -87,9 +86,7 @@ const ThingAddFormContainer = () => {
                 formikHelpers.setSubmitting(true);
                 addDevice(values)
               } catch (errors) {
-                console.log('errors', errors)
                 return Object.entries(errors).forEach(([field, error]) => {
-                  console.log('field', field)
                   formikHelpers.setFieldError(field, error[0]);
                 });
               }

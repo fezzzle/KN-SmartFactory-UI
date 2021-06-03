@@ -93,14 +93,12 @@ export const updateFactoryData = (data) => async dispatch => {
 }
 
 export const patchFactoryData = (id, data) => async dispatch => {
-  console.log('patchFactoryData id:', id)
-  console.log('patchFactoryData data:', data)
   factoryDataService
-    .patch(id, data)
+    .patch(id, {production_line:data})
     .then(res => console.log("patchFactoryData result is:", res))
     .catch(error => console.error(error))
     dispatch({
       type: PATCH_FACTORY_DATA,
-      payload: {id, data}
+      payload: [id, data]
     })
 }
