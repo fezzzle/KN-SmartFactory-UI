@@ -1,11 +1,11 @@
 import React, { useState, useRef } from "react";
 import { Card, CardBody, Button, CardTitle } from "reactstrap";
-import ProductionLineAddForm from "./ProductionLineAddForm";
+import ProductionLineAddForm from "../Components/ProductionLineAddForm";
 import { NavLink as RRNavLink, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import FactoryAddForm from "./FactoryAddForm";
-import { addFactoryData, updateFactoryData } from "../../store/actions";
+import FactoryAddForm from "../Components/FactoryAddForm";
+import { addFactoryData, updateFactoryData } from "../../../store/actions";
 
 const FactoryAddFormContainer = () => {
   const history = useHistory();

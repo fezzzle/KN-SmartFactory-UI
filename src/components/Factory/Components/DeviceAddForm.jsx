@@ -25,7 +25,7 @@ const FormField = ({ label, name, touched, errors }) => (
   </FormGroup>
 );
 
-const FactoryAddForm = ({ onSubmit }) => (
+const FactoryAddForm = ({ onSubmit, goBack }) => (
   <Formik
     initialValues={{
       name: "Humidity sensor",
@@ -91,6 +91,15 @@ const FactoryAddForm = ({ onSubmit }) => (
           touched={touched}
         >
           Save device
+        </Button>
+        <Button
+          id="addFactoryFormGoBackButton"
+          color="warning"
+          // disabled={isSubmitting}
+          touched={touched}
+          onClick={goBack}
+        >
+          Go back
         </Button>
       </Form>
     )}

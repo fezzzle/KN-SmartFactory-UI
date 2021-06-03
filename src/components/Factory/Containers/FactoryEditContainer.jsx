@@ -1,11 +1,11 @@
 import React, { useState, useRef, useMemo, useEffect } from "react";
 // import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchFactoryData, removeFactoryData } from "../../store/actions/index";
+import { fetchFactoryData, removeFactoryData } from "../../../store/actions/index";
 import { Button } from "reactstrap";
 import { NavLink as RRNavLink } from "react-router-dom";
 
-import FactoryEditTable from "./FactoryEditTable";
+import FactoryEditTable from "../Components/FactoryEditTable";
 
 const FactoryEditContainer = (props) => {
   const stateData = useSelector((state) => state.factory);

@@ -1,10 +1,10 @@
 import { useState, useRef } from 'react'
-import ThingAddForm from "./ThingAddForm";
+import ThingAddForm from "../Components/ThingAddForm";
 import { Card, CardBody, Button } from "reactstrap";
 import { NavLink as RRNavLink, useHistory } from "react-router-dom";
-import DeviceAddForm from "./DeviceAddForm";
+import DeviceAddForm from "../Components/DeviceAddForm";
 import { useDispatch } from "react-redux";
-import { updateFactoryData } from "../../store/actions";
+import { updateFactoryData } from "../../../store/actions";
 
 
 const ThingAddFormContainer = () => {
@@ -92,6 +92,7 @@ const ThingAddFormContainer = () => {
               }
               // formikHelpers.setSubmitting(false);
             }}
+            goBack={history.goBack}
           />
           <Button className="float-left mr-2" color="info" onClick={addTemporaryDevice} disabled={addDeviceButtonState}>
             Add a new device to a Thing
@@ -117,6 +118,7 @@ const ThingAddFormContainer = () => {
                   }
                   // formikHelpers.setSubmitting(false);
                 }}
+                goBack={history.goBack}
               />
               {/* <ProductionLineAddForm name={line} /> */}
               <Button

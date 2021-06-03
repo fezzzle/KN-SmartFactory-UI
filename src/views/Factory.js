@@ -1,7 +1,7 @@
 // import ProductionLineProvider from "../components/ProductionLine/ProductionLineProvider";
 // import "./ProductionLine.css";
 
-import FactoryTableContainer from "../components/Factory/FactoryTableContainer"
+import FactoryTableContainer from "../components/Factory/Containers/FactoryTableContainer"
 
 
 const Factory = () => {

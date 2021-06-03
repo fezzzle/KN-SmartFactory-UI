@@ -13,6 +13,7 @@ const ProductionLineEditTable = ({
   pLineId,
   factoryId,
   renderButtons,
+  pathName
 }) => {
   const { getTableProps, headerGroups, rows, prepareRow } = useTable({
     columns,
@@ -39,7 +40,7 @@ const ProductionLineEditTable = ({
           className="float-right mr-4"
           color="info"
           tag={RRNavLink}
-          to={{ pathname: "/factories/" }}
+          to={{ pathname: `${pathName}/add_thing` }}
         >
           Add a new Thing and device
         </Button>

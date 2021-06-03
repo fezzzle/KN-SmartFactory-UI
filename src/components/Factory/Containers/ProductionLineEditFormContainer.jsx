@@ -1,27 +1,26 @@
-import ProductionLineEditForm from "./ProductionLineEditForm";
+import ProductionLineEditForm from "../Components/ProductionLineEditForm";
 import { useHistory } from "react-router-dom";
 import { Card, CardBody, CardText } from "reactstrap";
-import store from "../../store/store";
-import { patchFactoryData } from "../../store/actions";
+import store from "../../../store/store";
+import { patchFactoryData } from "../../../store/actions";
 import { useDispatch } from "react-redux";
 
 const ProductionLineEditFormContainer = (props) => {
-  console.log("ProductionLineEditFormContainerprops:", props);
   const dispatch = useDispatch();
   const history = useHistory();
   const storeState = store.getState();
 
   const editFactory = (values) => {
     const getFactory = storeState.factory.filter(
-      (factory) => String(factory.id) === props.location.state.factoryId
+      (factory) => String(factory.id) === String(props.location.state.factoryId)
     );
     const getProductionLineIndex = getFactory[0].production_line.findIndex(
-      (line) => String(line.id) === props.match.params.id
+      (line) => String(line.id) === String(props.match.params.id)
     );
     const newArray = getFactory[0].production_line;
 
     const filteredArray = getFactory[0].production_line.filter(
-      (pLine) => pLine.id !== Number(props.match.params.id)
+      (pLine) => String(pLine.id) !== String(props.match.params.id)
     );
     // const newProductionLineData = {
     //   production_line: [

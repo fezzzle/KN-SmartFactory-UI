@@ -27,7 +27,7 @@ import {
   ProductionLineAddFormContainer,
   FactoryEditFormContainer,
   ProductionLineEditFormContainer
-} from "./components/Factory/"
+} from "./components/Factory/Containers"
 import Notifications from "views/Notifications.js";
 import TableList from "views/TableList.js";
 import { Route, Switch } from "react-router-dom";
@@ -129,6 +129,12 @@ var routes = [
         name: "LIST_PRODUCTION_LINE_FACTORIES",
         exact: true,
         component: ProductionLineEditTableContainer
+      },
+      {
+        path: "/factories/:id/pline/:id/add_thing",
+        name: "ADD_THING_TO_EXISTING_PRODUCTION_LINE",
+        exact: true,
+        component: ThingAddFormContainer
       },
       {
         path: "/factories/add_factory/add_thing",

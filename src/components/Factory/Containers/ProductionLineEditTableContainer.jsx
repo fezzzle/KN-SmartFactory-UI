@@ -1,13 +1,14 @@
-import React, { useState, useRef, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 // import { useParams, useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 // import { fetchFactoryData, removeFactoryData } from "../../store/actions/index";
 import { Card, CardBody, Table, Button, CardTitle } from "reactstrap";
 import { NavLink as RRNavLink } from "react-router-dom";
 
-import ProductionLineEditTable from "./ProductionLineEditTable";
+import ProductionLineEditTable from "../Components/ProductionLineEditTable";
 
 const ProductionLineEditTableContainer = (props) => {
+  console.log('Needed for adding thing props:', props)
   const [rowId, setRowId] = useState(null);
   console.log("rowId:", rowId);
   const stateData = useSelector((state) => state.factory);
@@ -162,6 +163,7 @@ const ProductionLineEditTableContainer = (props) => {
             pLineId={props.match.params.id}
             factoryId={props.location.state.factoryId}
             renderButtons={true}
+            pathName={props.location.pathname}
           >
             <ProductionLineEditTable
               columns={deviceColumns}
