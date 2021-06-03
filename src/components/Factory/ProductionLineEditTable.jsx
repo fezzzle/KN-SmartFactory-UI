@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useTable } from "react-table";
 import { Card, CardBody, Table, Button, CardTitle } from "reactstrap";
 import { useHistory } from "react-router-dom";
@@ -7,19 +8,30 @@ import { NavLink as RRNavLink } from "react-router-dom";
 const ProductionLineEditTable = ({
   columns,
   data,
+  children,
   pLineName,
   pLineId,
   factoryId,
+  renderButtons,
 }) => {
-  const history = useHistory();
   const { getTableProps, headerGroups, rows, prepareRow } = useTable({
     columns,
     data,
   });
+  console.log("data inside the ProductionLineEditTable:", data);
+  const history = useHistory();
+  const [open, setOpen] = useState(false);
 
-  return (
-    <Card>
-      <CardBody>
+  const toggleRowOpen = (id) => {
+    if (open === id) {
+      setOpen(false);
+    } else {
+      setOpen(id);
+    }
+  };
+  const ProductionLineButtons = () => {
+    return (
+      <>
         <CardTitle>
           <h1 className="mt-4">{pLineName} production line</h1>
         </CardTitle>
@@ -49,35 +61,60 @@ const ProductionLineEditTable = ({
         >
           Go back
         </Button>
-        <Table {...getTableProps()}>
-          <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps()}>
-                    {column.render("Header")}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {rows.map((row, i) => {
-              prepareRow(row);
-              return (
+      </>
+    );
+  };
+
+  return (
+    <>
+      {renderButtons && <ProductionLineButtons />}
+      <Table
+        {...getTableProps()}
+        style={renderButtons ?  {} : { border: "1px solid white", margin: "2rem" }}
+      >
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {renderButtons ? <th>Expand</th> : null}
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody>
+          {rows.map((row, i) => {
+            prepareRow(row);
+            return (
+              <>
                 <tr {...row.getRowProps()}>
+                  {renderButtons ? (
+                    <td>
+                      <span id={row.id} onClick={() => toggleRowOpen(row.id)}>
+                        {open === row.id ? "close" : "open"}
+                      </span>
+                    </td>
+                  ) : null}
                   {row.cells.map((cell) => {
                     return (
                       <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                     );
                   })}
                 </tr>
-              );
-            })}
-          </tbody>
-        </Table>
-      </CardBody>
-    </Card>
+                {open === row.id && (
+                  <tr colSpan={7}>
+                    <td colSpan={7}>
+                      {children}
+                      {/* React.cloneElement(children, {props: "any necessary props here"}) */}
+                    </td>
+                  </tr>
+                )}
+              </>
+            );
+          })}
+        </tbody>
+      </Table>
+    </>
   );
 };
 
