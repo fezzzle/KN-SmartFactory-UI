@@ -2,7 +2,7 @@ import FactoryEditForm from "../Components/FactoryEditForm";
 import { useHistory } from "react-router-dom";
 import { Card, CardBody } from "reactstrap";
 import store from "../../../store/store";
-import { patchFactoryData } from "../../../store/actions";
+import { patchFactoryData } from "../../../store/actions/actions";
 import { useDispatch } from "react-redux";
 
 const FactoryEditFormContainer = (props) => {

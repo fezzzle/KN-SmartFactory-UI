@@ -5,7 +5,7 @@ import { NavLink as RRNavLink, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import FactoryAddForm from "../Components/FactoryAddForm";
-import { addFactoryData, updateFactoryData } from "../../../store/actions";
+import { addFactoryData, updateFactoryData } from "../../../store/actions/actions";
 
 const FactoryAddFormContainer = () => {
   const history = useHistory();

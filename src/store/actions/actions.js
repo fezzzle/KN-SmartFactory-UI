@@ -46,18 +46,15 @@ export const posts = () => (dispatch) => {
 };
 
 export const fetchFactoryData = () => async dispatch => {
-  factoryDataService
-    .getAll()
-    .then((result) =>
-      dispatch({
-        type: RECEIVE_FACTORY_DATA,
-        payload: result.data
-      })
-    )
-    .catch((error) => {
-      console.error(error);
-    });
-  ;
+  try {
+    const result = await factoryDataService.getAll()
+    dispatch({
+      type: RECEIVE_FACTORY_DATA,
+      payload: result.data
+    })
+  } catch (err) {
+    alert(err)
+  }
 };
 
 export const addFactoryData = (data) => async dispatch => {
@@ -94,11 +91,11 @@ export const updateFactoryData = (data) => async dispatch => {
 
 export const patchFactoryData = (id, data) => async dispatch => {
   factoryDataService
-    .patch(id, {production_line:data})
+    .patch(id, { production_line: data })
     .then(res => console.log("patchFactoryData result is:", res))
     .catch(error => console.error(error))
-    dispatch({
-      type: PATCH_FACTORY_DATA,
-      payload: [id, data]
-    })
+  dispatch({
+    type: PATCH_FACTORY_DATA,
+    payload: [id, data]
+  })
 }

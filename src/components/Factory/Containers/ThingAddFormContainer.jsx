@@ -4,7 +4,7 @@ import { Card, CardBody, Button } from "reactstrap";
 import { NavLink as RRNavLink, useHistory } from "react-router-dom";
 import DeviceAddForm from "../Components/DeviceAddForm";
 import { useDispatch } from "react-redux";
-import { updateFactoryData } from "../../../store/actions";
+import { updateFactoryData } from "../../../store/actions/actions";
 
 
 const ThingAddFormContainer = () => {

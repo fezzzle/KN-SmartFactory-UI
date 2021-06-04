@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import FactoryTable from "../Components/FactoryTable";
-import { fetchFactoryData, removeFactoryData } from "../../../store/actions/index";
+import { fetchFactoryData, removeFactoryData } from "../../../store/actions/actions";
 import { NavLink as RRNavLink } from "react-router-dom";
 
 import { Button } from "reactstrap";

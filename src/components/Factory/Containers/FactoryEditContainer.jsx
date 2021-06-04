@@ -1,7 +1,7 @@
 import React, { useState, useRef, useMemo, useEffect } from "react";
 // import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchFactoryData, removeFactoryData } from "../../../store/actions/index";
+import { fetchFactoryData, removeFactoryData } from "../../../store/actions/actions";
 import { Button } from "reactstrap";
 import { NavLink as RRNavLink } from "react-router-dom";
 

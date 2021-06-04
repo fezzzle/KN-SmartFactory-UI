@@ -2,7 +2,7 @@ import ProductionLineEditForm from "../Components/ProductionLineEditForm";
 import { useHistory } from "react-router-dom";
 import { Card, CardBody, CardText } from "reactstrap";
 import store from "../../../store/store";
-import { patchFactoryData } from "../../../store/actions";
+import { patchFactoryData } from "../../../store/actions/actions";
 import { useDispatch } from "react-redux";
 
 const ProductionLineEditFormContainer = (props) => {
