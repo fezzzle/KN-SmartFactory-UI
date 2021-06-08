@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import BootstrapModal from "../components/BootstrapModal";
+import ExportCSV from "../components/ExportCSV";
 // import BusinessUnitModal from "../components/BusinessUnitModal";
 import {
   Row,
@@ -135,6 +136,7 @@ class CompanyAdmin extends Component {
                     ))}    
                   </tbody>
                 </Table>
+                <ExportCSV csvData={this.state.users} fileName={this.state.fileName} />
               </CardBody>
             </Card>
           </Col>
