@@ -9,16 +9,17 @@ export const ExportXLSX = ({csvData, fileName}) => {
     const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
     const fileExtension = '.xlsx';
 
-    const exportToCSV = (csvData, fileName) => {
+    const exportToXLSX = (csvData, fileName) => {
         const ws = XLSX.utils.json_to_sheet(csvData);
         const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
         const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const data = new Blob([excelBuffer], {type: fileType});
+        console.log(csvData)
         FileSaver.saveAs(data, fileName + fileExtension);
     }
 
     return (
-        <Button variant="warning" onClick={(e) => exportToCSV(csvData,fileName)}>Export Users to XLSX file</Button>
+        <Button variant="warning" onClick={(e) => exportToXLSX(csvData,fileName)}>Export Users to XLSX file</Button>
     )
 }
 
