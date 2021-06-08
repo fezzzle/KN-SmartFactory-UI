@@ -1,7 +1,7 @@
 import { Button, Modal } from "react-bootstrap";
 import React from "react";
 // import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker.css";
 import { FormGroup, Input } from "reactstrap";
 // import axios from 'axios';
 
