@@ -138,7 +138,7 @@ class CompanyAdmin extends Component {
                   </tbody>
                 </Table>
                 <ExportXLSX csvData={this.state.users} fileName={this.state.fileName} />
-                <ImportXLSX />
+                {/* <ImportXLSX /> */}
               </CardBody>
             </Card>
           </Col>

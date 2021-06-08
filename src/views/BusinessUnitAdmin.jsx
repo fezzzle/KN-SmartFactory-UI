@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import BusinessUnitModal from "../components/BusinessUnitModal";
+import BusinessUnitEdit from "../components/BusinessUnitEdit"
+// import BusinessUnitDetail from './BusinessUnitDetail'
+// import { BusinessUnitProvider } from '../../contexts/BusinessUnitContext'
 import {
   Row,
   Col,
@@ -8,8 +11,12 @@ import {
   CardHeader,
   CardBody,
   CardTitle,
+  ButtonGroup,
 } from "reactstrap";
 import axios from 'axios';
+import { Link, Route,Switch } from 'react-router-dom';
+
+
 
 class BusinessUnitAdmin extends Component {
 
@@ -18,22 +25,63 @@ class BusinessUnitAdmin extends Component {
     this.state = {
 
       BusinessUnits: [],
+      isLoading: false,
+      showDetail: false,
+      buInDetail: []
     };
 
     this.getBusinessUnits = this.getBusinessUnits.bind(this);
     this.changeStatus = this.changeStatus.bind(this);
+    this.showBusinessUnit = this.showBusinessUnit.bind(this);
+    this.deleteUnit = this.deleteUnit.bind(this);
     this.componentDidMount=this.componentDidMount.bind(this);
 
   }
 
-  async componentDidMount(){
-    await this.getBusinessUnits();
-   
-}
+  
 
-changeStatus = () => {
-  this.setState(prevState => ({activated: !prevState.activated}))
-}
+    async componentDidMount(){
+        await this.getBusinessUnits();
+    }
+
+
+    async componentDidUpdate() {
+        console.log("component was updated")
+        //call to the api update database
+    }
+
+    showBusinessUnit = (bu) => {
+
+      this.setState({
+        showDetail: !this.state.showDetail,
+        buInDetail: bu
+        })
+
+      console.log(bu)
+
+    
+    }
+
+    
+
+    changeStatus = (comp) => {
+
+        let newState = {...this.state}
+        const a = newState.BusinessUnits.find( (o) => { return o.buID === comp.buID});
+        a.activated = !a.activated;
+        this.setState(newState)
+
+
+    }
+
+    deleteUnit = (comp) => {
+
+        let newState = {...this.state}
+        newState.BusinessUnits = newState.BusinessUnits.filter( o => o.buID != comp.buID)
+        this.setState(newState)
+
+
+    }
 
 getBusinessUnits = async ()=>{
 
@@ -41,23 +89,39 @@ getBusinessUnits = async ()=>{
         this.setState({
           ...this.state,
           BusinessUnits: response.data.BUs,
+          isLoading: true
         });
-
-        console.log(this.state);
 
         
       }).catch(error => {
         alert('Could not connect to Server. Make sure Mockoon server is on if you are using it')
         
         });
+
+        
 };
 
 
   render() {
+
+    // const showDetail = this.state.showDetail;
+    // let viewBU;
+
+    // if (showDetail) {
+    //     viewBU = <BusinessUnitDetail details = {this.state.buInDetail}/>      
+    // }
+
+
     return (
       <div className="content">
+
+        {/* <Switch>
+          <Route path="/products/:buID" component={BusinessUnitDetail}/>
+          <Route path="/*" component={NotFound}/> 
+        </Switch> */}
+
         <Row>
-          <Col md="12">
+          <Col >
             <Card>
               <CardHeader>
                 <div className="d-flex justify-content-between">
@@ -74,34 +138,70 @@ getBusinessUnits = async ()=>{
                       <th>City</th>
                       <th>Status</th>
                       <th>Activate/Deactivate</th>
-                      <th>Delete</th>
+                      <th>Edit-View-Delete</th>
+
 
                     </tr>
                   </thead>
                   <tbody>
 
                     {this.state.BusinessUnits.map((bu => 
-                      <tr key = {bu.buID}>
-                          <td> {bu.name}</td>
-                          <td> {bu.city} </td>
+
+                    
+                      <tr key = {bu.buID} onClick = {() => this.showBusinessUnit(bu)}>
+                          <td>  {bu.name}</td>
+                          <td> 
+                            <span /*add css so the city's name is equal length*/>{bu.city}</span> <button 
+                    className="btn-icon btn-link like btn btn-info btn-sm"
+                    type="button"
+                  >
+                    <i className="tim-icons icon-square-pin"></i>
+                  </button> </td>
                           <td> {bu.activated?'Active':'Not Active'}</td> 
                          <td>
-                        <button className="btn btn-primary" > {bu.activated? 'Deactivate': 'Activate'}</button>
-                      </td>
+                        <button /*add css so active not active same length*/ style ={{width: '10rem'}} className="btn btn-primary" onClick = {() => this.changeStatus(bu) } > {bu.activated? 'Deactivate': 'Activate'}</button> 
+                      </td> 
                       <td>
-                        <button className="btn btn-danger" > Delete </button>
+                        <ButtonGroup>
+                        <BusinessUnitEdit key = {bu.buID} details = {bu}/>
+                        <button
+                    className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
+                    type="button" onClick = {() => this.showBusinessUnit(bu)} >
+                                        
+                            <i className="tim-icons icon-support-17"></i>
+                      </button>
+                        <button
+                    className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
+                    type="button" onClick = {() => this.deleteUnit(bu) }>
+                                        
+                            <i className="tim-icons icon-simple-remove"></i>
+                      </button>
+
+                        </ButtonGroup>
+
                       </td>
+                     
 
                       </tr>
-                       ))}
+                     ))}
+
+                       
                   
                   </tbody>
                 </Table>
+               
               </CardBody>
             </Card>
           </Col>
+
+          {/* <Col md="4">
+            
+                  {viewBU}
+          </Col> */}
         </Row>
-      </div>
+
+        </div>
+      
     );
   }
 }
