@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 
-export const ExportCSV = ({csvData, fileName}) => {
+export const ExportXLSX = ({csvData, fileName}) => {
 
     const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
     const fileExtension = '.xlsx';
@@ -22,4 +22,4 @@ export const ExportCSV = ({csvData, fileName}) => {
     )
 }
 
-export default ExportCSV;
+export default ExportXLSX;
