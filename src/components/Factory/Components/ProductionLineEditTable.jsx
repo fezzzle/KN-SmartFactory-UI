@@ -13,7 +13,8 @@ const ProductionLineEditTable = ({
   pLineId,
   factoryId,
   renderButtons,
-  pathName
+  pathName,
+  setRowId
 }) => {
   const { getTableProps, headerGroups, rows, prepareRow } = useTable({
     columns,
@@ -71,7 +72,9 @@ const ProductionLineEditTable = ({
       {renderButtons && <ProductionLineButtons />}
       <Table
         {...getTableProps()}
-        style={renderButtons ?  {} : { border: "1px solid white", margin: "2rem" }}
+        style={
+          renderButtons ? {} : { border: "1px solid white", margin: "2rem" }
+        }
       >
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -92,7 +95,17 @@ const ProductionLineEditTable = ({
                   {renderButtons ? (
                     <td>
                       <span id={row.id} onClick={() => toggleRowOpen(row.id)}>
-                        {open === row.id ? "close" : "open"}
+                        {open === row.id ? (
+                          "close"
+                        ) : (
+                          <Button
+                            className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
+                            type="button"
+                            onClick={() => setRowId(row.original.uuid)}
+                          >
+                            <i className="tim-icons icon-double-right"></i>
+                          </Button>
+                        )}
                       </span>
                     </td>
                   ) : null}

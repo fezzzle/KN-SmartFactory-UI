@@ -2,7 +2,7 @@ import FactoryEditForm from "../Components/FactoryEditForm";
 import { useHistory } from "react-router-dom";
 import { Card, CardBody } from "reactstrap";
 import store from "../../../store/store";
-import { patchFactoryData } from "../../../store/actions/actions";
+import { editFactoryData } from "../../../store/actions/actions";
 import { useDispatch } from "react-redux";
 
 const FactoryEditFormContainer = (props) => {
@@ -15,17 +15,15 @@ const FactoryEditFormContainer = (props) => {
       (factory) => String(factory.id) === props.match.params.id
     );
     const newData = {
-      factory_location: {
-        id: props.match.params.id,
-        name: values.name,
-        country: values.country,
-        city: values.city,
-      },
+      name: values.name,
+      country: values.country,
+      city: values.city,
     };
+    console.log("newData:", newData);
 
-    console.log('getFactory:', getFactory[0].id)
+    console.log("getFactory:", getFactory[0].id);
 
-    dispatch(patchFactoryData(getFactory[0].id, newData));
+    dispatch(editFactoryData(getFactory[0].id, newData));
   };
   return (
     <div className="content">

@@ -4,6 +4,7 @@ import {
   UPDATE_FACTORY_DATA,
   RECEIVE_FACTORY_DATA,
   PATCH_FACTORY_DATA,
+  EDIT_FACTORY_DATA,
   INCREMENT,
   DECREMENT,
   SIGN_IN,
@@ -98,4 +99,16 @@ export const patchFactoryData = (id, data) => async dispatch => {
     type: PATCH_FACTORY_DATA,
     payload: [id, data]
   })
+}
+
+export const editFactoryData = (id, data) => async dispatch => {
+  try {
+    await factoryDataService.patch(id, { "factory_location": data })
+    dispatch({
+      type: EDIT_FACTORY_DATA,
+      payload: [id, data]
+    })
+  } catch (err) {
+    alert(err)
+  }
 }

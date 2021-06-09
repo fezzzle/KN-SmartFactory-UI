@@ -9,11 +9,13 @@ import FactoryEditTable from "../Components/FactoryEditTable";
 
 const FactoryEditContainer = (props) => {
   const stateData = useSelector((state) => state.factory);
+  console.log('stateData inside factory edit screen:', stateData)
   const factoryData = stateData
   .filter((factory) => String(factory.id) === props.match.params.id)
   .map((item) => item.production_line)
   .flat();
   
+  console.log('factoryData:', factoryData)
   // useEffect(() => {
   //   dispatch(fetchFactoryData());
   // }, [dispatch]);

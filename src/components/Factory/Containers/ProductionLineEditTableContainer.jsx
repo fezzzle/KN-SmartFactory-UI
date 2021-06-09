@@ -75,26 +75,19 @@ const ProductionLineEditTableContainer = (props) => {
               return (
                 <>
                   <Button
-                    className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
-                    type="button"
-                    onClick={() => setRowId(properties.row.original.uuid)}
-                  >
-                    <i className="tim-icons icon-double-right"></i>
-                  </Button>
-                  <button
                     // color="primary"
                     className="btn-icon btn-link like btn btn-info btn-sm"
                     type="button"
                   >
                     <i className="tim-icons icon-square-pin"></i>
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
                     type="button"
                     onClick={() => removeFromTable(properties)}
                   >
                     <i className="tim-icons icon-simple-remove"></i>
-                  </button>
+                  </Button>
                 </>
               );
             },
@@ -164,6 +157,7 @@ const ProductionLineEditTableContainer = (props) => {
             factoryId={props.location.state.factoryId}
             renderButtons={true}
             pathName={props.location.pathname}
+            setRowId={setRowId}
           >
             <ProductionLineEditTable
               columns={deviceColumns}
