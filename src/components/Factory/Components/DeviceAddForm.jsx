@@ -89,6 +89,7 @@ const FactoryAddForm = ({ onSubmit, goBack }) => (
           color="primary"
           disabled={isSubmitting}
           touched={touched}
+          // TODO: onclick save new thing with a device 
         >
           Save device
         </Button>

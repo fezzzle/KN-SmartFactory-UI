@@ -3,8 +3,8 @@ import {
   REMOVE_FACTORY_DATA,
   UPDATE_FACTORY_DATA,
   RECEIVE_FACTORY_DATA,
-  PATCH_FACTORY_DATA,
-  EDIT_FACTORY_DATA,
+  PATCH_PRODICTION_LINE_DATA,
+  EDIT_FACTORY_LOCATION_DATA,
   INCREMENT,
   DECREMENT,
   SIGN_IN,
@@ -81,22 +81,36 @@ export const removeFactoryData = (id) => async dispatch => {
 }
 
 export const updateFactoryData = (data) => async dispatch => {
-  factoryDataService
-    .update(data.id, data)
-    .catch(error => console.error(error))
+  try {
+    await factoryDataService.update(data.id, data)
+  } catch (err) {
+    alert(err)
+  }
   dispatch({
     type: UPDATE_FACTORY_DATA,
     payload: data
   })
 }
 
-export const patchFactoryData = (id, data) => async dispatch => {
+export const updateThingArrayData = (factory_id, data) => async dispatch => {
+  try {
+    await factoryDataService.patch(factory_id, data)
+  } catch (err) {
+    alert(err)
+  }
+  // dispatch({
+  //   type: UPDATE_FACTORY_DATA,
+  //   payload: data
+  // })
+}
+
+export const patchProductionLineData = (id, data) => async dispatch => {
   factoryDataService
     .patch(id, { production_line: data })
-    .then(res => console.log("patchFactoryData result is:", res))
+    .then(res => console.log("patchProductionLineData result is:", res))
     .catch(error => console.error(error))
   dispatch({
-    type: PATCH_FACTORY_DATA,
+    type: PATCH_PRODICTION_LINE_DATA,
     payload: [id, data]
   })
 }
@@ -105,7 +119,7 @@ export const editFactoryData = (id, data) => async dispatch => {
   try {
     await factoryDataService.patch(id, { "factory_location": data })
     dispatch({
-      type: EDIT_FACTORY_DATA,
+      type: EDIT_FACTORY_LOCATION_DATA,
       payload: [id, data]
     })
   } catch (err) {

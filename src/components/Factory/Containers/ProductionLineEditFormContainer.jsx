@@ -1,8 +1,8 @@
 import ProductionLineEditForm from "../Components/ProductionLineEditForm";
 import { useHistory } from "react-router-dom";
-import { Card, CardBody, CardText } from "reactstrap";
+import { Card, CardBody } from "reactstrap";
 import store from "../../../store/store";
-import { patchFactoryData } from "../../../store/actions/actions";
+import { patchProductionLineData } from "../../../store/actions/actions";
 import { useDispatch } from "react-redux";
 
 const ProductionLineEditFormContainer = (props) => {
@@ -22,25 +22,15 @@ const ProductionLineEditFormContainer = (props) => {
     const filteredArray = getFactory[0].production_line.filter(
       (pLine) => String(pLine.id) !== String(props.match.params.id)
     );
-    // const newProductionLineData = {
-    //   production_line: [
-    //     ...filteredArray,
-    //     {
-    //       ...newArray[getProductionLineIndex],
-    //       name: values.name,
-    //       line_number: values.line_number,
-    //     },
-    //   ],
-    // };
     const newProductionLineData = [
-        ...filteredArray,
-        {
-          ...newArray[getProductionLineIndex],
-          name: values.name,
-          line_number: values.line_number,
-        },
-      ]
-    dispatch(patchFactoryData(getFactory[0].id, newProductionLineData));
+      ...filteredArray,
+      {
+        ...newArray[getProductionLineIndex],
+        name: values.name,
+        line_number: values.line_number,
+      },
+    ];
+    dispatch(patchProductionLineData(getFactory[0].id, newProductionLineData));
   };
   return (
     <div className="content">

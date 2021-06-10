@@ -14,13 +14,13 @@ const ProductionLineEditTable = ({
   factoryId,
   renderButtons,
   pathName,
-  setRowId
+  setRowId,
 }) => {
   const { getTableProps, headerGroups, rows, prepareRow } = useTable({
     columns,
     data,
   });
-  console.log("data inside the ProductionLineEditTable:", data);
+  // console.log("data inside the ProductionLineEditTable:", data);
   const history = useHistory();
   const [open, setOpen] = useState(false);
 
@@ -31,7 +31,8 @@ const ProductionLineEditTable = ({
       setOpen(id);
     }
   };
-  const ProductionLineButtons = () => {
+  const ProductionLineButtons = (props) => {
+    console.log("ProductionLineButtons props:", props);
     return (
       <>
         <CardTitle>
@@ -41,7 +42,10 @@ const ProductionLineEditTable = ({
           className="float-right mr-4"
           color="info"
           tag={RRNavLink}
-          to={{ pathname: `${pathName}/add_thing` }}
+          to={{
+            pathname: `${pathName}/add_thing`,
+            state: { factoryId: factoryId, pLineId: pLineId },
+          }}
         >
           Add a new Thing and device
         </Button>

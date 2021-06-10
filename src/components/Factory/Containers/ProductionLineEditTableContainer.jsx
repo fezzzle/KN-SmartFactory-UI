@@ -1,16 +1,11 @@
 import React, { useState, useMemo } from "react";
-// import { useParams, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
-// import { fetchFactoryData, removeFactoryData } from "../../store/actions/index";
-import { Card, CardBody, Table, Button, CardTitle } from "reactstrap";
-import { NavLink as RRNavLink } from "react-router-dom";
+import { Card, CardBody, Button } from "reactstrap";
 
 import ProductionLineEditTable from "../Components/ProductionLineEditTable";
 
 const ProductionLineEditTableContainer = (props) => {
-  console.log('Needed for adding thing props:', props)
   const [rowId, setRowId] = useState(null);
-  console.log("rowId:", rowId);
   const stateData = useSelector((state) => state.factory);
   const thingData = stateData
     .filter((factory) => String(factory.id) === props.location.state.factoryId)

@@ -1,26 +1,47 @@
-import { useState, useRef } from 'react'
+import { useState, useRef } from "react";
 import ThingAddForm from "../Components/ThingAddForm";
 import { Card, CardBody, Button } from "reactstrap";
 import { NavLink as RRNavLink, useHistory } from "react-router-dom";
 import DeviceAddForm from "../Components/DeviceAddForm";
 import { useDispatch } from "react-redux";
-import { updateFactoryData } from "../../../store/actions/actions";
+import { updateThingArrayData } from "../../../store/actions/actions";
+import store from "../../../store/store";
 
-
-const ThingAddFormContainer = () => {
+const ThingAddFormContainer = (props) => {
+  console.log("ThingAddFormContainer props:", props);
   const dispatch = useDispatch();
 
+  const storeState = store.getState();
+
   const history = useHistory();
-  const temporaryThingSave = useRef()
-  const temporaryThingAndDeviceSave = useRef()
-  const [temporaryDevice, setTemporaryDevice] = useState([])
-  const [isSavedButtonState, setIsSavedButtonState] = useState(false)
-  const [addDeviceButtonState, setAddDeviceButtonState] = useState(true)
-  const [canCloseWithoutSaving, setCanCloseWithoutSaving] = useState(false)
-  
+  const temporaryThingSave = useRef();
+  const temporaryThingAndDeviceSave = useRef();
+  const [temporaryDevice, setTemporaryDevice] = useState([]);
+  const [isSavedButtonState, setIsSavedButtonState] = useState(false);
+  const [addDeviceButtonState, setAddDeviceButtonState] = useState(true);
+  const [canCloseWithoutSaving, setCanCloseWithoutSaving] = useState(false);
+  console.log("temporaryThingSave:", temporaryThingSave);
+
+  const editFactory = () => {
+    const getFactoryBeingUpdated = storeState.factory.filter(
+      (factory) => String(factory.id) === String(props.location.state.factoryId)
+    );
+    const plineIndex = getFactoryBeingUpdated[0].production_line.findIndex(
+      (line) => String(line.id) === String(props.match.params.id)
+    );
+    const newThing = temporaryThingAndDeviceSave.current;
+    getFactoryBeingUpdated[0].production_line[plineIndex].thing.push(newThing);
+    dispatch(
+      updateThingArrayData(
+        getFactoryBeingUpdated[0].id,
+        getFactoryBeingUpdated[0]
+      )
+    );
+  };
+
   const removeTemporaryDevice = () => {
-    setTemporaryDevice([])
-  }
+    setTemporaryDevice([]);
+  };
 
   const storeTemporaryThingData = (values) => {
     let data = {
@@ -31,18 +52,18 @@ const ThingAddFormContainer = () => {
       state: "ACTIVE",
       deviceGroup: {
         thing: values.device_group,
-        description: values.device_group_description
+        description: values.device_group_description,
       },
-      device: []
+      device: [],
     };
-    temporaryThingSave.current = data
+    temporaryThingSave.current = data;
   };
 
   const addDevice = (values) => {
     storeTemporaryThingData(values);
     if (temporaryThingSave.current !== undefined) {
       setAddDeviceButtonState(!addDeviceButtonState);
-      setIsSavedButtonState(true)
+      setIsSavedButtonState(true);
     }
   };
 
@@ -50,15 +71,15 @@ const ThingAddFormContainer = () => {
     temporaryThingAndDeviceSave.current = temporaryThingSave.current;
     temporaryThingAndDeviceSave.current.device.push(data);
 
-    mergeProductionLineAndThing(temporaryThingAndDeviceSave.current)
+    mergeProductionLineAndThing(temporaryThingAndDeviceSave.current);
     setCanCloseWithoutSaving(true);
-  }
+  };
 
   const mergeProductionLineAndThing = (data) => {
-    const productionLine = history.location.state
-    productionLine.production_line[0].thing.push(data)
-    dispatch(updateFactoryData(productionLine));
-  }
+    const productionLine = history.location.state;
+    editFactory();
+    productionLine.production_line[0].thing.push(data);
+  };
 
   const addTemporaryDevice = (values) => {
     let data = {
@@ -67,14 +88,14 @@ const ThingAddFormContainer = () => {
       image: values.image,
       model: values.model,
       status: values.status,
-      alerts_messages: values.alerts_messages
-    }
-    setTemporaryDevice([data])
+      alerts_messages: values.alerts_messages,
+    };
+    setTemporaryDevice([data]);
     if (data.name !== undefined || data.SERIAL_NUMBER !== undefined) {
       addDeviceToThing(data);
-      setIsSavedButtonState(true)
+      setIsSavedButtonState(true);
     }
-  }
+  };
 
   return (
     <div className="content">
@@ -84,7 +105,7 @@ const ThingAddFormContainer = () => {
             onSubmit={(values, formikHelpers) => {
               try {
                 formikHelpers.setSubmitting(true);
-                addDevice(values)
+                addDevice(values);
               } catch (errors) {
                 return Object.entries(errors).forEach(([field, error]) => {
                   formikHelpers.setFieldError(field, error[0]);
@@ -94,10 +115,20 @@ const ThingAddFormContainer = () => {
             }}
             goBack={history.goBack}
           />
-          <Button className="float-left mr-2" color="info" onClick={addTemporaryDevice} disabled={addDeviceButtonState}>
+          <Button
+            className="float-left mr-2"
+            color="info"
+            onClick={addTemporaryDevice}
+            disabled={addDeviceButtonState}
+          >
             Add a new device to a Thing
           </Button>
-          <Button className="float-left mb-2" color="warning" disabled={isSavedButtonState} onClick={history.goBack}>
+          <Button
+            className="float-left mb-2"
+            color="warning"
+            disabled={isSavedButtonState}
+            onClick={history.goBack}
+          >
             Go back without saving
           </Button>
         </CardBody>
