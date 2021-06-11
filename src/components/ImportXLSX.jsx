@@ -48,7 +48,7 @@ export const ImportXLSX = () => {
           }}
         />
   
-        <table class="table container">
+        {/* <table class="table container">
           <thead>
             <tr>
               <th scope="col">Item</th>
@@ -63,7 +63,7 @@ export const ImportXLSX = () => {
               </tr>
             ))}
           </tbody>
-        </table>
+        </table> */}
       </div>
     )
 }
