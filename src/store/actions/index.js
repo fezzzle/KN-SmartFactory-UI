@@ -1,4 +1,5 @@
 import { INCREMENT, DECREMENT, SIGN_IN, POSTS } from "./types";
+import FactoryDataService from "../../services/FactoryDataService";
 
 export const increment = (number) => {
   return {
@@ -21,12 +22,14 @@ export const logged = () => {
 };
 
 export const posts = () => (dispatch) => {
-  fetch("https://jsonplaceholder.typicode.com/posts?_limit=5")
-    .then((res) => res.json())
+  FactoryDataService.getAll()
     .then((posts) =>
       dispatch({
         type: POSTS,
-        payload: posts,
+        payload: posts.data,
       })
-    );
+    )
+    .catch((e) => {
+      console.log(e);
+    });
 };

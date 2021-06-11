@@ -16,12 +16,14 @@
 
 */
 import Dashboard from "views/Dashboard.js";
+import Icons from "views/Icons.js";
 import Map from "views/Map.js";
-import Notifications from "views/Notifications.js";
-import TableList from "views/TableList.js";
 import CompanyAdmin from "views/CompanyAdmin";
 import BusinessUnitAdmin from "views/BusinessUnitAdmin";
-import { Route, Switch } from "react-router-dom";
+import Notifications from "views/Notifications.js";
+import Rtl from "views/Rtl.js";
+import TableList from "views/TableList.js";
+import Typography from "views/Typography.js";
 import UserProfile from "views/UserProfile.js";
 import ImportUserTable from "../src/components/ImportUserTable"
 

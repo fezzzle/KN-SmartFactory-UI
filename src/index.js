@@ -17,7 +17,6 @@
 */
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import AdminLayout from "layouts/Admin/Admin.js";
 import RTLLayout from "layouts/RTL/RTL.js";
@@ -47,7 +46,7 @@ ReactDOM.render(
         <BrowserRouter>
           <Switch>
             <Route
-              path="/admin" 
+              path="/admin"
               render={(props) => <AdminLayout {...props} />}
             />
             <Route path="/rtl" render={(props) => <RTLLayout {...props} />} />
