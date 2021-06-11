@@ -79,6 +79,7 @@ class BusinessUnitAdmin extends Component {
         let newState = {...this.state}
         newState.BusinessUnits = newState.BusinessUnits.filter( o => o.buID != comp.buID)
         this.setState(newState)
+        
 
 
     }
