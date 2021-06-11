@@ -26,27 +26,28 @@ import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import UserProfile from "views/UserProfile.js";
 import ImportUserTable from "../src/components/ImportUserTable"
+import {BrowserRouter as Router, Switch} from 'react-router-dom'
 
-function RouteWithSubRoutes(route) {
-  return (
-    <Route
-      path={route.path}
-      exact={route.exact}
-      render={(props) => <route.component {...props} routes={route.routes} />}
-    />
-  );
-}
+// function RouteWithSubRoutes(route) {
+//   return (
+//     <Route
+//       path={route.path}
+//       exact={route.exact}
+//       render={(props) => <route.component {...props} routes={route.routes} />}
+//     />
+//   );
+// }
 
-export function RenderRoutes({ routes }) {
-  return (
-    <Switch>
-    {routes.map((route, key) => {
-      return <RouteWithSubRoutes key={key} {...route} />;
-    })}
-    <Route component={() => <h1>Not Found!</h1>} />
-  </Switch>
-  );
-}
+// export function RenderRoutes({ routes }) {
+//   return (
+//     <Switch>
+//     {routes.map((route, key) => {
+//       return <RouteWithSubRoutes key={key} {...route} />;
+//     })}
+//     <Route component={() => <h1>Not Found!</h1>} />
+//   </Switch>
+//   );
+// }
 
 var routes = [
   { path: "/", name: "Home", exact: true, icon: "tim-icons icon-world", component: Dashboard },
