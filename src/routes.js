@@ -18,6 +18,8 @@
 import Dashboard from "views/Dashboard.js";
 import Icons from "views/Icons.js";
 import Map from "views/Map.js";
+import CompanyAdmin from "views/CompanyAdmin";
+import BusinessUnitAdmin from "views/BusinessUnitAdmin";
 import Notifications from "views/Notifications.js";
 import Rtl from "views/Rtl.js";
 import TableList from "views/TableList.js";
@@ -33,14 +35,6 @@ var routes = [
     component: Dashboard,
     layout: "/admin",
   },
-  // {
-  //   path: "/icons",
-  //   name: "Icons",
-  //   rtlName: "الرموز",
-  //   icon: "tim-icons icon-atom",
-  //   component: Icons,
-  //   layout: "/admin",
-  // },
   {
     path: "/map",
     name: "Map",
@@ -73,21 +67,21 @@ var routes = [
     component: TableList,
     layout: "/admin",
   },
-  // {
-  //   path: "/typography",
-  //   name: "Typography",
-  //   rtlName: "طباعة",
-  //   icon: "tim-icons icon-align-center",
-  //   component: Typography,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/rtl-support",
-  //   name: "RTL Support",
-  //   rtlName: "ار تي ال",
-  //   icon: "tim-icons icon-world",
-  //   component: Rtl,
-  //   layout: "/rtl",
-  // },
+  {
+    path: "/companyadmin",
+    name: "Company Admin",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-puzzle-10",
+    component: CompanyAdmin,
+    layout: "/admin" ,
+  },
+  {
+    path: "/business-unit",
+    name: "Business Unit Admin",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-puzzle-10",
+    component: BusinessUnitAdmin,
+    layout: "/admin" ,
+  },
 ];
 export default routes;
