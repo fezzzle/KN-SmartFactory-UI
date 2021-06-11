@@ -1,10 +1,11 @@
 import { Button, Modal } from "react-bootstrap";
 import React from "react";
 // import DatePicker from "react-datepicker";
-import CreateRoleForm from '../components/CreateRoleForm'
+
 import "react-datepicker/dist/react-datepicker.css";
 import { FormGroup, Form, Input, Label } from "reactstrap";
 import axios from "axios";
+
 
 const listOfAuthorities = [
   "ROLE_PERMISSION_UPDATE",
@@ -20,7 +21,9 @@ class BootstrapModal extends React.Component {
     this.state = {
       showHide: false,
       modalIsOpen: true,
+      modalisVisible: true,
       roles: [],
+      roleTitle:"",
       login: "",
       firstName: "",
       lastName: "",
@@ -28,13 +31,23 @@ class BootstrapModal extends React.Component {
       selectedRole: "",
       startDate: new Date(),
       authorities: new Set(),
-      error: null
+      error: null,
+      open: false,
     };
     this.getRoles = this.getRoles.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.changeDate = this.changeDate.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.showModal2 = this.showModal2.bind(this);
+    this.hideModal2 = this.hideModal2.bind(this);
+  }
+
+  showModal2() {
+    this.setState({ open: true });
+  }
+
+  hideModal2() {
+    this.setState({ open: false });
   }
 
   onChange(e) {
@@ -55,9 +68,8 @@ class BootstrapModal extends React.Component {
   changeDate(date) {
     this.setState({ startDate: date });
   }
-  handleRole= ()=>{
-    <CreateRoleForm/>
-  }
+
+  
 
   handleSubmit = async () => {
     const login = this.state.login;
@@ -104,12 +116,14 @@ class BootstrapModal extends React.Component {
           selectedRole: "",
           startDate: new Date(),
           // authorities: new Set(),
-          authorities: this.state.roles
+          authorities: this.state.roles,
         });
       })
-      .catch( (error) =>  {
+      .catch((error) => {
         if (error.response) {
-          this.setState({error: error.response.data.title}, () => {console.log(this.state.error)})
+          this.setState({ error: error.response.data.title }, () => {
+            console.log(this.state.error);
+          });
           console.log(error.response.data);
           console.log(error.response.status);
           console.log(error.response.headers);
@@ -128,6 +142,11 @@ class BootstrapModal extends React.Component {
       modalIsOpen: !prevState.modalIsOpen,
     }));
   };
+  toggle = () => {
+    this.setState((prevState) => ({
+      modalisVisible: !prevState.modalisVisible,
+    }));
+  };
 
   getRoles = async () => {
     axios
@@ -139,27 +158,82 @@ class BootstrapModal extends React.Component {
         });
       })
       .catch((error) => {
-       console.log(error);
+        console.log(error);
       });
   };
+  handleSave = async()=>{
+    const obj = {
+      title: this.state.roleTitle
+    };
+    console.log(obj)
+    await axios.post( "https://jsonplaceholder.typicode.com/posts", obj)
+    .then(response=>{
+      console.log(response)  
+    })
+    .catch(error=>{
+      console.log(error)
+    })
+    this.hideModal2();
+  }
 
   render() {
-    const { error } = this.state
+    const { error } = this.state;
     return (
       <div>
-       <Button variant="primary" onClick={() => this.handleRole()}>
-          Create a Role
-        </Button>
-        <Button variant="primary" onClick={() => this.handleModalShowHide()}>
-          Create New User
-        </Button>
+        <div>
+          <Button variant="primary" onClick={() => this.showModal2()}>
+            Create a Role
+          </Button>
+          <Button variant="primary" onClick={() => this.handleModalShowHide()}>
+            Create New User
+          </Button>
+        </div>
+
+        <Modal className="modal" show={this.state.open} toggle={this.toggle}>
+          <Modal.Header closeButton onClick={() => this.hideModal2()}>
+            <Modal.Title>Create New Role</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <FormGroup>
+                <Label for="roleTitle">Role Name</Label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  id="roleTitle"
+                  name="roleTitle"
+                  value={this.state.roleTitle}
+                  onChange={this.onChange}
+                />
+              </FormGroup>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => this.hideModal2()}
+            >
+              Close
+            </Button>
+            <Button
+              variant="primary"
+              type="Save"
+              onClick={this.handleSave}
+              // onClick={() => this.handleModalShowHide()}
+            >
+              Submit
+            </Button>
+          </Modal.Footer>
+        </Modal>
 
         <Modal show={this.state.showHide} className="modal">
           <Modal.Header closeButton onClick={() => this.handleModalShowHide()}>
             <Modal.Title>New User</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-          <div><h6>{error}</h6></div>
+            <div>
+              <h6>{error}</h6>
+            </div>
             <Form onSubmit={this.handleSubmit}>
               <FormGroup>
                 <Label for="login">User Name</Label>
@@ -219,7 +293,6 @@ class BootstrapModal extends React.Component {
                 </select>
 
               </FormGroup> */}
-              
 
               <label>Authoriteies</label>
               {listOfAuthorities.map((option) => (
@@ -237,7 +310,7 @@ class BootstrapModal extends React.Component {
                   />{" "}
                   {option}
                 </div>
-              ))} 
+              ))}
               {/* <FormGroup style={{ width: "100%" }}>
                 <label>Deadline</label>
                 <br></br>
