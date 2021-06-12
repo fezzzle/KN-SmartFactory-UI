@@ -26,7 +26,8 @@ import {
   ProductionLineEditTableContainer,
   ProductionLineAddFormContainer,
   FactoryEditFormContainer,
-  ProductionLineEditFormContainer
+  ProductionLineEditFormContainer,
+  DeviceAddFormContainer
 } from "./components/Factory/Containers"
 import Notifications from "views/Notifications.js";
 import TableList from "views/TableList.js";
@@ -137,10 +138,10 @@ var routes = [
         component: ThingAddFormContainer
       },
       {
-        path: "/factories/add_factory/add_thing",
-        name: "ADD_THING_FACTORIES",
+        path: "/factories/:id/pline/:id/add_device/:id/",
+        name: "ADD_DEVICE_TO_EXISTING_THING",
         exact: true,
-        component: ThingAddFormContainer,
+        component: DeviceAddFormContainer,
       },
     ],
     layout: "/admin",

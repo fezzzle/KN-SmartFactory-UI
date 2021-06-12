@@ -1,11 +1,21 @@
-import React, { useState, useMemo } from "react";
+import React, { useRef, useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { Card, CardBody, Button } from "reactstrap";
+import { NavLink as RRNavLink, useHistory } from "react-router-dom";
 
 import ProductionLineEditTable from "../Components/ProductionLineEditTable";
 
 const ProductionLineEditTableContainer = (props) => {
-  const [rowId, setRowId] = useState(null);
+  const history = useHistory();
+  const [thingRowUuid, setThingRowUuid] = useState(null);
+  const rowUuidRef = useRef(null)
+  
+  const setThingUuid = (value) => {
+    rowUuidRef.current = value
+    setThingRowUuid(value)
+  }
+  console.log('rowUuidRef:', rowUuidRef)
+
   const stateData = useSelector((state) => state.factory);
   const thingData = stateData
     .filter((factory) => String(factory.id) === props.location.state.factoryId)
@@ -17,7 +27,7 @@ const ProductionLineEditTableContainer = (props) => {
     .flat();
 
   const deviceData = thingData[0].thing
-    .filter((item) => item.uuid === rowId)
+    .filter((item) => item.uuid === thingRowUuid)
     .map((item) => item.device)
     .flat();
   const data = useMemo(() => thingData, [thingData]);
@@ -47,7 +57,7 @@ const ProductionLineEditTableContainer = (props) => {
             accessor: "description",
           },
           {
-            Header: "Production line location",
+            Header: "line pos",
             accessor: "production_location",
           },
           {
@@ -66,15 +76,25 @@ const ProductionLineEditTableContainer = (props) => {
             Header: "Actions",
             accessor: "actions",
             Cell: (properties) => {
-              // console.log('thing properties:', properties)
               return (
                 <>
-                  <Button
+                  {/* <Button
                     // color="primary"
                     className="btn-icon btn-link like btn btn-info btn-sm"
                     type="button"
                   >
                     <i className="tim-icons icon-square-pin"></i>
+                  </Button> */}
+                  <Button
+                    color="primary"
+                    className="btn-icon btn-link like btn btn-info btn-sm"
+                    type="button"
+                    tag={RRNavLink}
+                    to={{
+                      pathname: `${history.location.pathname}/add_device/${properties?.row?.original?.uuid}`,
+                    }}
+                  >
+                    <i className="tim-icons icon-simple-add"></i>
                   </Button>
                   <Button
                     className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
@@ -152,7 +172,7 @@ const ProductionLineEditTableContainer = (props) => {
             factoryId={props.location.state.factoryId}
             renderButtons={true}
             pathName={props.location.pathname}
-            setRowId={setRowId}
+            setThingUuid={setThingUuid}
           >
             <ProductionLineEditTable
               columns={deviceColumns}

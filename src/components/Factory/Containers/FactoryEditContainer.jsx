@@ -94,20 +94,20 @@ const FactoryEditContainer = (props) => {
                   >
                     <i className="tim-icons icon-pencil"></i>
                   </Button>
-                  <button
+                  {/* <Button
                     // color="primary"
                     className="btn-icon btn-link like btn btn-info btn-sm"
                     type="button"
                   >
                     <i className="tim-icons icon-square-pin"></i>
-                  </button>
-                  <button
+                  </Button> */}
+                  <Button
                     className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
                     type="button"
                     onClick={() => removeFromTable(properties)}
                   >
                     <i className="tim-icons icon-simple-remove"></i>
-                  </button>
+                  </Button>
                 </>
               );
             },

@@ -14,7 +14,7 @@ const ProductionLineEditTable = ({
   factoryId,
   renderButtons,
   pathName,
-  setRowId,
+  setThingUuid,
 }) => {
   const { getTableProps, headerGroups, rows, prepareRow } = useTable({
     columns,
@@ -105,7 +105,7 @@ const ProductionLineEditTable = ({
                           <Button
                             className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
                             type="button"
-                            onClick={() => setRowId(row.original.uuid)}
+                            onClick={() => setThingUuid(row.original.uuid)}
                           >
                             <i className="tim-icons icon-double-right"></i>
                           </Button>
