@@ -25,7 +25,7 @@ const FormField = ({ label, name, touched, errors }) => (
   </FormGroup>
 );
 
-const FactoryAddForm = ({ onSubmit, goBack }) => (
+const DeviceAddForm = ({ onSubmit, goBack }) => (
   <Formik
     initialValues={{
       name: "Humidity sensor",
@@ -107,4 +107,4 @@ const FactoryAddForm = ({ onSubmit, goBack }) => (
   </Formik>
 );
 
-export default FactoryAddForm;
+export default DeviceAddForm;

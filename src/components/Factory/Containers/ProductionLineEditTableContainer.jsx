@@ -6,6 +6,7 @@ import { NavLink as RRNavLink, useHistory } from "react-router-dom";
 import ProductionLineEditTable from "../Components/ProductionLineEditTable";
 
 const ProductionLineEditTableContainer = (props) => {
+  console.log('ProductionLineEditTableContainer props:', props)
   const history = useHistory();
   const [thingRowUuid, setThingRowUuid] = useState(null);
   const rowUuidRef = useRef(null)
@@ -92,6 +93,10 @@ const ProductionLineEditTableContainer = (props) => {
                     tag={RRNavLink}
                     to={{
                       pathname: `${history.location.pathname}/add_device/${properties?.row?.original?.uuid}`,
+                      state: {
+                        factoryId: props.location.state.factoryId,
+                        pLine: props.match.params.id
+                      },
                     }}
                   >
                     <i className="tim-icons icon-simple-add"></i>

@@ -66,14 +66,6 @@ var routes = [
     component: Dashboard,
     layout: "/admin",
   },
-  // {
-  //   path: "/icons",
-  //   name: "Icons",
-  //   rtlName: "الرموز",
-  //   icon: "tim-icons icon-atom",
-  //   component: Icons,
-  //   layout: "/admin",
-  // },
   {
     path: "/map",
     name: "Map",
@@ -100,6 +92,12 @@ var routes = [
         name: "ADD_FACTORY_FACTORIES",
         exact: true,
         component: FactoryAddFormContainer,
+      },
+      {
+        path: "/factories/add_factory/add_thing",
+        name: "ADD_FACTORY_ADD_THING_FACTORIES",
+        exact: true,
+        component: ThingAddFormContainer,
       },
       {
         path: "/factories/:id",
