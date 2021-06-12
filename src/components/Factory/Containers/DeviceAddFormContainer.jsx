@@ -68,7 +68,7 @@ const DeviceAddFormContainer = (props) => {
   //   productionLine.production_line[0].thing.push(data);
   // };
 
-  const addTemporaryDevice = (values) => {
+  const addDevice = (values) => {
     let data = {
       SERIAL_NUMBER: values.SERIAL_NUMBER,
       name: values.name,
@@ -94,7 +94,7 @@ const DeviceAddFormContainer = (props) => {
             onSubmit={(values, formikHelpers) => {
               try {
                 // formikHelpers.setSubmitting(true);
-                addTemporaryDevice(values);
+                addDevice(values);
               } catch (errors) {
                 return Object.entries(errors).forEach(([field, error]) => {
                   formikHelpers.setFieldError(field, error[0]);
