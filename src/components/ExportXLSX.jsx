@@ -1,7 +1,7 @@
 
 import React from 'react'
 import Button from 'react-bootstrap/Button';
-import * as FileSaver from 'file-saver';
+import FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 
 export const ExportXLSX = ({csvData, fileName}) => {
