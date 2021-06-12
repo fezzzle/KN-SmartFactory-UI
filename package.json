@@ -1,11 +1,5 @@
 {
   "name": "Dashboard",
-  "jest": {
-    "verbose": true,
-    "transform": {
-      "^.+\\.jsx?$": "babel-jest"
-    }
-  },
   "version": "1.2.0",
   "private": true,
   "homepage": ".",
@@ -18,11 +12,14 @@
     "bootstrap": "4.5.3",
     "chart.js": "2.9.4",
     "classnames": "2.2.6",
+    "express": "^4.17.1",
+    "express-favicon": "^2.0.1",
     "file-saver": "^2.0.5",
     "formik": "^2.2.9",
     "leaflet": "^1.7.1",
     "node-sass": "4.14.1",
     "node-sass-package-importer": "5.3.2",
+    "path": "^0.12.7",
     "perfect-scrollbar": "1.5.0",
     "prop-types": "15.7.2",
     "react": "17.0.1",
@@ -44,7 +41,7 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server.js",
     "build": "CI= react-scripts build",
     "test": "jest",
     "test:watch": "npm test -- --watch",
@@ -70,12 +67,9 @@
   "devDependencies": {
     "@babel/preset-env": "^7.14.4",
     "@types/node-fetch": "^2.5.10",
-    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.1",
-    "babel-jest": "^26.6.3",
     "enzyme": "^3.11.0",
     "fetch-mock": "^9.11.0",
     "gulp": "4.0.2",
-    "gulp-append-prepend": "1.0.8",
-    "jest": "^26.6.0"
+    "gulp-append-prepend": "1.0.8"
   }
 }
