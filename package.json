@@ -41,7 +41,7 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server.js",
     "build": "CI= react-scripts build",
     "test": "jest",
     "test:watch": "npm test -- --watch",
