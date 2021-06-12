@@ -20,13 +20,22 @@ import Icons from "views/Icons.js";
 import Map from "views/Map.js";
 import CompanyAdmin from "views/CompanyAdmin";
 import BusinessUnitAdmin from "views/BusinessUnitAdmin";
+import Factory from "views/Factory";
+import {
+  FactoryAddFormContainer,
+  ThingAddFormContainer,
+  FactoryEditContainer,
+  ProductionLineEditTableContainer,
+  ProductionLineAddFormContainer,
+  FactoryEditFormContainer,
+  ProductionLineEditFormContainer,
+  DeviceAddFormContainer
+} from "./components/Factory/Containers"
 import Notifications from "views/Notifications.js";
-import Rtl from "views/Rtl.js";
 import TableList from "views/TableList.js";
-import Typography from "views/Typography.js";
+import { Route, Switch } from "react-router-dom";
 import UserProfile from "views/UserProfile.js";
 import ImportUserTable from "../src/components/ImportUserTable"
-import {BrowserRouter as Router, Switch} from 'react-router-dom'
 
 // function RouteWithSubRoutes(route) {
 //   return (
@@ -48,6 +57,28 @@ import {BrowserRouter as Router, Switch} from 'react-router-dom'
 //   </Switch>
 //   );
 // }
+
+
+function RouteWithSubRoutes(route) {
+  return (
+    <Route
+      path={route.path}
+      exact={route.exact}
+      render={(props) => <route.component {...props} routes={route.routes} />}
+    />
+  );
+}
+
+export function RenderRoutes({ routes }) {
+  return (
+    <Switch>
+      {routes.map((route, key) => {
+        return <RouteWithSubRoutes key={key} {...route} />;
+      })}
+      <Route component={() => <h1>Not Found!</h1>} />
+    </Switch>
+  );
+}
 
 var routes = [
   { path: "/", name: "Home", exact: true, icon: "tim-icons icon-world", component: Dashboard },
@@ -89,6 +120,76 @@ var routes = [
   //   ],
   //   layout: "/admin",
   // },
+  {
+    path: "/factories",
+    name: "FACTORIES",
+    rtlName: "خط الإنتاج",
+    icon: "tim-icons icon-components",
+    component: RenderRoutes, // here's the update
+    routes: [
+      {
+        path: "/factories",
+        name: "ROOT_FACTORIES",
+        exact: true,
+        component: Factory,
+      },
+      {
+        path: "/factories/add_factory",
+        name: "ADD_FACTORY_FACTORIES",
+        exact: true,
+        component: FactoryAddFormContainer,
+      },
+      {
+        path: "/factories/add_factory/add_thing",
+        name: "ADD_FACTORY_ADD_THING_FACTORIES",
+        exact: true,
+        component: ThingAddFormContainer,
+      },
+      {
+        path: "/factories/:id",
+        name: "EDIT_FACTORIES",
+        exact: true,
+        component: FactoryEditContainer
+      },
+      {
+        path: "/factories/:id/edit_factory/",
+        name: "EDIT_FACTORY_DATA",
+        exact: true,
+        component: FactoryEditFormContainer
+      },
+      {
+        path: "/factories/:id/add_pline/",
+        name: "ADD_PRODUCTION_LINE_FACTORIES",
+        exact: true,
+        component: ProductionLineAddFormContainer
+      },
+      {
+        path: "/factories/:id/edit_pline/:id",
+        name: "EDIT_PRODUCTION_LINE_FACTORIES",
+        exact: true,
+        component: ProductionLineEditFormContainer
+      },
+      {
+        path: "/factories/:id/pline/:id",
+        name: "LIST_PRODUCTION_LINE_FACTORIES",
+        exact: true,
+        component: ProductionLineEditTableContainer
+      },
+      {
+        path: "/factories/:id/pline/:id/add_thing",
+        name: "ADD_THING_TO_EXISTING_PRODUCTION_LINE",
+        exact: true,
+        component: ThingAddFormContainer
+      },
+      {
+        path: "/factories/:id/pline/:id/add_device/:id/",
+        name: "ADD_DEVICE_TO_EXISTING_THING",
+        exact: true,
+        component: DeviceAddFormContainer,
+      },
+    ],
+    layout: "/admin",
+  },
   {
     path: "/notifications",
     name: "Notifications",
@@ -133,3 +234,4 @@ var routes = [
 
 ];
 export default routes;
+// export default ROUTES;

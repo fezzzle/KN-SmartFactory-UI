@@ -23,17 +23,17 @@ import PerfectScrollbar from "perfect-scrollbar";
 // core components
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import Footer from "components/Footer/Footer.js";
-import Sidebar from "components/Sidebar/Sidebar.js";
+import UserSidebar from "components/Sidebar/UserSidebar.js";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
-import routes from "routes.js";
+import routes, { RenderRoutes } from "../../routes"
 
 import logo from "assets/img/react-logo.png";
 import { BackgroundColorContext } from "contexts/BackgroundColorContext";
 
 var ps;
 
-function Admin(props) {
+function User(props) {
   const location = useLocation();
   const mainPanelRef = React.useRef(null);
   const [sidebarOpened, setsidebarOpened] = React.useState(
@@ -82,21 +82,6 @@ function Admin(props) {
     setsidebarOpened(!sidebarOpened);
   };
 
-  const getRoutes = (routes) => {
-    return routes.map((route, key) => {
-      if (route.layout === "/admin") {
-        return (
-          <Route
-            path={route.layout + route.path}
-            key={key}
-            component={route.component}
-          />
-        );
-      } else {
-        return null;
-      }
-    });
-  };
 
   const getBrandText = (path) => {
     for (let i = 0; i < routes.length; i++) {
@@ -112,7 +97,7 @@ function Admin(props) {
       {({ color, changeColor }) => (
         <React.Fragment>
           <div className="wrapper">
-            <Sidebar
+            <UserSidebar
               routes={routes}
               // logo={{
               //   outterLink: "https://www.creative-tim.com/",
@@ -128,13 +113,12 @@ function Admin(props) {
                 sidebarOpened={sidebarOpened}
               />
               <Switch>
-                {getRoutes(routes)}
-                <Redirect from="*" to="/admin/dashboard" />
+                <RenderRoutes routes={routes} />
               </Switch>
               {
                 // we don't want the Footer to be rendered on map page
-                (location.pathname === "/admin/map" ? null : <Footer fluid />,
-                  location.pathname === "/admin/production_line" ? null : (
+                (location.pathname === "/map" ? null : <Footer fluid />,
+                  location.pathname === "/factories" ? null : (
                     <Footer fluid />
                   ))
               }
@@ -147,4 +131,4 @@ function Admin(props) {
   );
 }
 
-export default Admin;
+export default User;
