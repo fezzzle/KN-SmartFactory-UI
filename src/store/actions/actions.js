@@ -54,7 +54,7 @@ export const fetchFactoryData = () => async dispatch => {
       payload: result.data
     })
   } catch (err) {
-    alert(err)
+    console.log(err)
   }
 };
 
@@ -84,7 +84,7 @@ export const updateFactoryData = (data) => async dispatch => {
   try {
     await factoryDataService.update(data.id, data)
   } catch (err) {
-    alert(err)
+    console.log(err)
   }
   dispatch({
     type: UPDATE_FACTORY_DATA,
@@ -96,7 +96,7 @@ export const updateThingArrayData = (factory_id, data) => async dispatch => {
   try {
     await factoryDataService.patch(factory_id, data)
   } catch (err) {
-    alert(err)
+    console.log(err)
   }
   // dispatch({
   //   type: UPDATE_FACTORY_DATA,
@@ -123,6 +123,6 @@ export const editFactoryData = (id, data) => async dispatch => {
       payload: [id, data]
     })
   } catch (err) {
-    alert(err)
+    console.log(err)
   }
 }
