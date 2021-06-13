@@ -41,26 +41,92 @@ import {
   UncontrolledTooltip,
 } from "reactstrap"
 
-// core components
-// import {
-//   donutExample,
-//   chartExample1,
-//   chartExample2,
-//   chartExample3,
-//   chartExample4,
-// } from "variables/charts.js"
+import {
+  TimeChart, 
+  calculatePercentage, 
+  timeToString, 
+  lastWeekData, 
+  totalJobs, 
+  CompletionRateChart, 
+  JobsChart, 
+  DeliveryChart
+} from "variables/ChartFunctions"
 
-import HalfDoughnutChart from "variables/chartComponents/HalfDoughnutChart"
-import BarChart from "variables/chartComponents/BarChart"
-import PieChart from "variables/chartComponents/PieChart"
+import { Pie,  Doughnut, Bar} from "react-chartjs-2"
+import HeaderComponent from "components/DashboardComponents/HeaderComponent"
+import axios from "axios"
 
-function Dashboard(props) {
-  const [bigChartData, setbigChartData] = React.useState("data1")
-  const setBgChartData = (name) => {
-    setbigChartData(name)
+class Dashboard extends React.Component {
+
+  constructor(){
+    super()
+    this.state = {
+      factoryJobData: {},
+      factoryTimeData: {},
+      productionLineTimeData: {},
+      machineTimeData: {},
+      productionLineJobData: {},
+      machineJobData: {},
+      selectedData: ["All Factories"],
+      current: "factory"
+     
+    }
+    this.getJobsData = this.getJobsData.bind(this)
+    this.getTimeData = this.getTimeData.bind(this)
+    
+
+    this.componentDidMount=this.componentDidMount.bind(this)
   }
-  return (
-    <>
+  
+  async componentDidMount() {
+    
+    this.fetchData()
+  }
+  
+  fetchData = async () => {
+    const a = await this.getJobsData()
+    const b = await this.getTimeData()
+  }
+
+  getJobsData = async () => {
+    axios.get('http://localhost:7100/jobMetrics').then(response => {
+      
+      this.setState(prevState => ({
+        ...this.state,
+        factoryJobData: response.data.factoryJobs,
+        productionLineJobData: response.data.productionLineJobs,
+        machineJobData: response.data.machineJobs,
+        selectedData: [...prevState.selectedData, response.data.factoryJobs]
+
+      }))
+      
+    }).catch(error => {
+      alert('Could not connect to Server. Make sure Mockoon server is on if you are using it')
+      
+      });
+  }
+  getTimeData = async () => {
+    axios.get('http://localhost:7100/timeMetrics').then(response => {
+      
+      this.setState(prevState => ({
+        ...this.state,
+        factoryTimeData: response.data.factoryTime,
+        productionLineTimeData: response.data.productionLineTime,
+        machineTimeData: response.data.machineTime,
+        selectedData: [...prevState.selectedData, response.data.factoryTime]
+      }))
+      
+    }).catch(error => {
+      alert('Could not connect to Server. Make sure Mockoon server is on if you are using it')
+      
+      });
+  }
+  render() {
+    if(this.state.selectedData.length !== 3){
+      return null
+    }
+    return (
+      
       <div className="content">
         <Row>
           <Card className="card-plain">
@@ -72,16 +138,16 @@ function Dashboard(props) {
                 <Button
                   tag="label"
                   className={classNames("btn-simple", {
-                    active: bigChartData === "data1",
+                    active: this.state.current === "factory",
                   })}
                   color="info"
                   id="0"
                   size="sm"
-                  onClick={() => setBgChartData("data1")}
+                  onClick={() => this.setState({selectedData: ["All Factories", this.state.factoryJobData, this.state.factoryTimeData], current: "factory"})}
                 >
                   <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
                     Factories
-                        </span>
+                  </span>
                   <span className="d-block d-sm-none">
                     <i className="tim-icons icon-single-02" />
                   </span>
@@ -92,13 +158,13 @@ function Dashboard(props) {
                   size="sm"
                   tag="label"
                   className={classNames("btn-simple", {
-                    active: bigChartData === "data2",
+                    active: this.state.current === "productionLine",
                   })}
-                  onClick={() => setBgChartData("data2")}
+                  onClick={() => this.setState({selectedData: ["All Production Lines", this.state.productionLineJobData, this.state.productionLineTimeData], current: "productionLine"})}
                 >
                   <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
                     Production Lines
-                        </span>
+                  </span>
                   <span className="d-block d-sm-none">
                     <i className="tim-icons icon-gift-2" />
                   </span>
@@ -109,13 +175,13 @@ function Dashboard(props) {
                   size="sm"
                   tag="label"
                   className={classNames("btn-simple", {
-                    active: bigChartData === "data3",
+                    active: this.state.current === "machine",
                   })}
-                  onClick={() => setBgChartData("data3")}
+                  onClick={() => this.setState({selectedData: ["All Machines", this.state.machineJobData, this.state.machineTimeData], current: "machine"})}
                 >
                   <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
                     Machines
-                        </span>
+                  </span>
                   <span className="d-block d-sm-none">
                     <i className="tim-icons icon-tap-02" />
                   </span>
@@ -124,65 +190,8 @@ function Dashboard(props) {
             </Col>
           </Card>
         </Row>
-        <Row>
-          <Col xs="12">
-            <Card>
-              <CardHeader>
-                <Row className="card-body">
-                  <Col className="text-left text-center" sm="3">
-                    {/* TODO: fix title alignment */}
-                    <CardTitle tag="h1">Factory 1</CardTitle>
-                  </Col>
-                  
-                  {/* TODO: load data dynamically into these values */}
-                  <Col sm="3">
-                    <div className="text-right">
-                      <CardTitle tag="h3">3h 36min</CardTitle>
-                      <h5 className="card-category">Last Active</h5>
-                    </div>
-                  </Col>
-                  
-                  <Col sm="1">
-                    <div className="text-center">
-                      <CardTitle tag="h3">80</CardTitle>
-                      <h5 className="card-category">On Time Delivery</h5>
-                    </div>
-                  </Col>
-                  <Col sm="1">
-                    <div className="text-center">
-                      <CardTitle tag="h3">274</CardTitle>
-                      <h5 className="card-category">Completed Jobs</h5>
-                    </div>
-                  </Col>
-                  <Col sm="1">
-                    <div className="text-center">
-                      <CardTitle tag="h3">126</CardTitle>
-                      <h5 className="card-category">Pending Jobs</h5>
-                    </div>
-                  </Col>
-                  <Col sm="1">
-                    <div className="text-center">
-                      <CardTitle tag="h3">43</CardTitle>
-                      <h5 className="card-category">Scrapped Jobs</h5>
-                    </div>
-                  </Col>
-                  <Col sm="1">
-                    <div className="text-center">
-                      <CardTitle tag="h3">57</CardTitle>
-                      <h5 className="card-category">Rejected Jobs</h5>
-                    </div>
-                  </Col>
-                  <Col sm="1">
-                    <div className="text-center">
-                      <CardTitle tag="h3">100</CardTitle>
-                      <h5 className="card-category">TEE</h5>
-                    </div>
-                  </Col>
-                </Row>
-              </CardHeader>
-            </Card>
-          </Col>
-        </Row>
+        
+        <HeaderComponent selectedData={this.state.selectedData} />
         <Row>
           <Col lg="3">
             <Card className="card-chart">
@@ -191,22 +200,21 @@ function Dashboard(props) {
                   <Col className="text-left" sm="8">
                     <h5 className="card-category">Use Time</h5>
                     <CardTitle tag="h3">
-                      <i className="tim-icons icon-time-alarm text-info" /> 14h 24min
-                </CardTitle>
+                      <i className="tim-icons icon-time-alarm text-info" /> 
+                      {timeToString(this.state.selectedData[2].upTime)}
+                    </CardTitle>
                   </Col>
                 </Row>
               </CardHeader>
               <CardBody>
                 <div className="chart-area">
-                  <HalfDoughnutChart
-                    labels={["Use Time"]}
-                    data={[60, 40]}
-                    color={["rgba(29,140,248,0.2)"]}
-                    lineColor={"rgb(29,140,248)"}
-                  />
+                <Doughnut
+                 data={TimeChart(this.state.selectedData[2], ["Use Time"]).data} 
+                 options={TimeChart(this.state.selectedData[2], ["Use Time"]).options}
+                 />
                 </div>
                 <CardTitle tag="h1" className="text-center">
-                  60%
+                  {calculatePercentage(this.state.selectedData[2].upTime)}
                 </CardTitle>
               </CardBody>
             </Card>
@@ -216,24 +224,23 @@ function Dashboard(props) {
               <CardHeader>
                 <Row>
                   <Col className="text-left" sm="8">
-                  <h5 className="card-category">Idle Time</h5>
+                    <h5 className="card-category">Idle Time</h5>
                     <CardTitle tag="h3">
-                      <i className="tim-icons icon-time-alarm text-warning" /> 6h 0min
-                </CardTitle>
+                      <i className="tim-icons icon-time-alarm text-warning" />{" "}
+                      {timeToString(this.state.selectedData[2].idleTime)}
+                    </CardTitle>
                   </Col>
                 </Row>
               </CardHeader>
               <CardBody>
                 <div className="chart-area">
-                  <HalfDoughnutChart
-                    labels={["Idle Time"]}
-                    data={[25, 75]}
-                    color={["rgba(248, 208, 29,0.2)"]}
-                    lineColor={"rgb(248, 208, 29)"}
-                  />
+                <Doughnut
+                 data={TimeChart(this.state.selectedData[2], ["Idle Time"]).data} 
+                 options={TimeChart(this.state.selectedData[2], ["Idle Time"]).options}
+                 />
                 </div>
                 <CardTitle tag="h1" className="text-center">
-                  25%
+                {calculatePercentage(this.state.selectedData[2].idleTime)}
                 </CardTitle>
               </CardBody>
             </Card>
@@ -243,24 +250,23 @@ function Dashboard(props) {
               <CardHeader>
                 <Row>
                   <Col className="text-left" sm="8">
-                  <h5 className="card-category">Downtime</h5>
+                    <h5 className="card-category">Downtime</h5>
                     <CardTitle tag="h3">
-                      <i className="tim-icons icon-time-alarm text-danger" /> 3h 36min
-                </CardTitle>
+                      <i className="tim-icons icon-time-alarm text-danger" /> 
+                      {timeToString(this.state.selectedData[2].downTime)}
+                    </CardTitle>
                   </Col>
                 </Row>
               </CardHeader>
               <CardBody>
                 <div className="chart-area">
-                  <HalfDoughnutChart
-                    labels={["Downtime"]}
-                    data={[15, 75]}
-                    color={["rgba(248,29,204,0.2)"]}
-                    lineColor={"rgb(248,29,204)"}
-                  />
+                <Doughnut
+                 data={TimeChart(this.state.selectedData[2], ["Downtime"]).data} 
+                 options={TimeChart(this.state.selectedData[2], ["Downtime"]).options}
+                 />
                 </div>
                 <CardTitle tag="h1" className="text-center">
-                  15%
+                {calculatePercentage(this.state.selectedData[2].downTime)}
                 </CardTitle>
               </CardBody>
             </Card>
@@ -270,21 +276,16 @@ function Dashboard(props) {
               <CardHeader>
                 <Row>
                   <Col className="text-left" sm="8">
-                  <h5 className="card-category">On Time Delivery</h5>
+                    <h5 className="card-category">On Time Delivery</h5>
                     <CardTitle tag="h3">
                       <i className="tim-icons icon-send text-success" /> 80
-                </CardTitle>
+                    </CardTitle>
                   </Col>
                 </Row>
               </CardHeader>
               <CardBody>
                 <div className="chart-area">
-                  <HalfDoughnutChart
-                    labels={["Downtime"]}
-                    data={[80, 20]}
-                    color={["rgba(29,248,179,0.2)"]}
-                    lineColor={"rgb(29,248,179)"}
-                  />
+                <Doughnut data={DeliveryChart([80, 20], ["On Time Delivery", ]).data} options={DeliveryChart([80, 20], ["On Time Delivery",]).options}/>
                 </div>
                 <CardTitle tag="h1" className="text-center">
                   80%
@@ -297,18 +298,17 @@ function Dashboard(props) {
           <Col lg="6">
             <Card className="card-chart">
               <CardHeader>
-              <h5 className="card-category">Job Completion Rate</h5>
-                    <CardTitle tag="h3">
-                      <i className="tim-icons icon-check-2 text-success" /> Avg 125/day
+                <h5 className="card-category">Job Completion Rate</h5>
+                <CardTitle tag="h3">
+                  <i className="tim-icons icon-check-2 text-success" /> 
+                  {"Avg " + lastWeekData(this.state.selectedData[1][2021]["May"]["days"])[2] + "/day"}
                 </CardTitle>
               </CardHeader>
               <CardBody>
                 <div className="chart-area large">
-                  <BarChart
-                    labels={["M", "T", "W", "T", "F", "S", "S"]}
-                    data={[80, 178, 123, 30, 50, 150, 265]}
-                    color={"rgba(29,248,179,0.2)"}
-                    lineColor={"rgb(29,248,179)"}
+                  <Bar
+                  data={CompletionRateChart(this.state.selectedData[1][2021]["May"]["days"]).data}
+                  options={CompletionRateChart(this.state.selectedData[1][2021]["May"]["days"]).options}
                   />
                 </div>
               </CardBody>
@@ -317,22 +317,27 @@ function Dashboard(props) {
           <Col lg="6" md="12">
             <Card className="card-chart">
               <CardHeader>
-              <h5 className="card-category">All Jobs</h5>
-                    <CardTitle tag="h3">
-                      <i className="tim-icons icon-bullet-list-67 text-info" /> 500
+                <h5 className="card-category">All Jobs</h5>
+                <CardTitle tag="h3">
+                  <i className="tim-icons icon-bullet-list-67 text-info" /> 
+                  {totalJobs(this.state.selectedData[1])}
                 </CardTitle>
               </CardHeader>
               <CardBody>
                 <div className="chart-area large">
-                  <PieChart data={[274, 126, 43, 57]} />
+                  <Pie
+                  data={JobsChart(this.state.selectedData[1]).data}
+                  options={JobsChart(this.state.selectedData[1]).options}
+                  />
                 </div>
               </CardBody>
             </Card>
           </Col>
         </Row>
       </div>
-    </>
-  )
+
+    )
+  }
 }
 
 export default Dashboard
