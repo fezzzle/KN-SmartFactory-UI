@@ -1,0 +1,121 @@
+{
+  "factoryTime": {
+    "status": "active",
+    "lastChange": "2021-05-30T12:34:30.571Z",
+    "upTime": "16:34",
+    "downTime": "02:47",
+    "idleTime": "02:39",
+    "totalActive": 1,
+    "totalInactive": 0,
+    "totalIdle": 0,
+    "2021": {
+      "upTime": "16:27",
+      "downTime": "02:04",
+      "idleTime": "02:06",
+
+      "totalActive": 1,
+      "totalInactive": 0,
+      "totalIdle": 0,
+      "May": {
+        "upTime": "15:08",
+        "downTime": "01:13",
+        "idleTime": "01:25",
+        "totalActive": 1,
+        "totalInactive": 0,
+        "totalIdle": 0,
+        "30-05-2021": {
+          "upTime": " 15:58",
+          "downTime": "00:31",
+          "idleTime": "02:11",
+
+          "totalActive": 1,
+          "totalInactive": 0,
+          "totalIdle": 0,
+
+          "00:00:00": {
+            "status": "active"
+          }
+        }
+      }
+    }
+  },
+  "productionLineTime": {
+    "status": "active",
+    "lastChange": "2021-05-30T18:08:43.866Z",
+    "upTime": "17:16",
+    "downTime": "01:56",
+    "idleTime": "02:31",
+    "totalActive": 1,
+    "totalInactive": 0,
+    "totalIdle": 0,
+    "2021": {
+      "upTime": "15:12",
+      "downTime": "01:28",
+      "idleTime": "02:41",
+
+      "totalActive": 1,
+      "totalInactive": 0,
+      "totalIdle": 0,
+      "May": {
+        "upTime": "15:31",
+        "downTime": "02:33",
+        "idleTime": "02:03",
+
+        "totalActive": 1,
+        "totalInactive": 0,
+        "totalIdle": 0,
+        "30-05-2021": {
+          "upTime": "15:08",
+          "downTime": "01:28",
+          "idleTime": "00:05",
+
+          "totalActive": 1,
+          "totalInactive": 0,
+          "totalIdle": 0,
+
+          "00:00:00": {
+            "status": "active"
+          }
+        }
+      }
+    }
+  },
+  "machineTime": {
+    "status": "active",
+    "lastChange": "2021-05-30T17:15:12.353Z",
+    "upTime": "17:19",
+    "downTime": "02:20",
+    "idleTime": "02:44",
+    "totalActive": 1,
+    "totalInactive": 0,
+    "totalIdle": 0,
+    "2021": {
+      "upTime": "16:40",
+      "downTime": "01:23",
+      "idleTime": "01:17",
+
+      "totalActive": 1,
+      "totalInactive": 0,
+      "totalIdle": 0,
+      "May": {
+        "upTime": "16:54",
+        "downTime": "02:07",
+        "idleTime": "02:27",
+        "totalActive": 1,
+        "totalInactive": 0,
+        "totalIdle": 0,
+        "30-05-2021": {
+          "upTime": "17:58",
+          "downTime": "01:05",
+          "idleTime": " 00:21",
+          "totalActive": 1,
+          "totalInactive": 0,
+          "totalIdle": 0,
+          "00:00:00": {
+            "status": "active"
+          }
+        }
+      }
+    }
+  }
+}
