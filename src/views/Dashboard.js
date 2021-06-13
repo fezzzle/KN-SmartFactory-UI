@@ -56,8 +56,11 @@ import { Pie,  Doughnut, Bar} from "react-chartjs-2"
 import HeaderComponent from "components/DashboardComponents/HeaderComponent"
 import axios from "axios"
 
-class Dashboard extends React.Component {
+import * as jobMetrics from "dashboardData/jobMetrics"
+import * as timeMetrics from "dashboardData/timeMetrics"
 
+class Dashboard extends React.Component {
+  
   constructor(){
     super()
     this.state = {
@@ -101,8 +104,15 @@ class Dashboard extends React.Component {
       }))
       
     }).catch(error => {
-      alert('Could not connect to Server. Make sure Mockoon server is on if you are using it')
-      
+      // Loading data from file if Mockoon is not active
+      this.setState(prevState => ({
+        ...this.state,
+        factoryJobData: jobMetrics.factoryJobs,
+        productionLineJobData: jobMetrics.productionLineJobs,
+        machineJobData: jobMetrics.machineJobs,
+        selectedData: [...prevState.selectedData, jobMetrics.factoryJobs]
+
+      }))
       });
   }
   getTimeData = async () => {
@@ -117,17 +127,25 @@ class Dashboard extends React.Component {
       }))
       
     }).catch(error => {
-      alert('Could not connect to Server. Make sure Mockoon server is on if you are using it')
-      
+      alert('Could not connect to Server. Make sure Mockoon server is on if you are using it. Loading data from file...')
+      this.setState(prevState => ({
+        ...this.state,
+        factoryTimeData: timeMetrics.factoryTime,
+        productionLineTimeData: timeMetrics.productionLineTime,
+        machineTimeData: timeMetrics.machineTime,
+        selectedData: [...prevState.selectedData, timeMetrics.factoryTime]
+      }))
       });
   }
   render() {
+    //Checking if all data is loaded before rendering
     if(this.state.selectedData.length !== 3){
       return null
     }
     return (
       
       <div className="content">
+        {/* Switch between Factories/Production Lines/Machines */}
         <Row>
           <Card className="card-plain">
             <Col sm="12">

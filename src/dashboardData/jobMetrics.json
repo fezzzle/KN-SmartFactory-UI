@@ -1,0 +1,590 @@
+{
+  "factoryJobs": {
+    "completed": 5801,
+    "pending": 8666,
+    "scrapped": 7869,
+    "rejected": 9895,
+
+    "2021": {
+      "completed": 859,
+      "pending": 599,
+      "scrapped": 962,
+      "rejected": 629,
+      "May": {
+        "completed": 144,
+        "pending": 218,
+        "scrapped": 279,
+        "rejected": 423,
+        "days": {
+          "30-05-2021": {
+            "completed": 78,
+            "pending": 22,
+            "scrapped": 95,
+            "rejected": 37,
+
+            "02:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "01:00:00": {
+              "completed": 1,
+              "pending": -1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "00:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            }
+          },
+          "29-05-2021": {
+            "completed": 91,
+            "pending": 34,
+            "scrapped": 67,
+            "rejected": 59,
+
+            "02:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "01:00:00": {
+              "completed": 1,
+              "pending": -1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "00:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            }
+          },
+          "28-05-2021": {
+            "completed": 97,
+            "pending": 27,
+            "scrapped": 59,
+            "rejected": 63,
+
+            "02:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "01:00:00": {
+              "completed": 1,
+              "pending": -1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "00:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            }
+          },
+          "27-05-2021": {
+            "completed": 38,
+            "pending": 30,
+            "scrapped": 25,
+            "rejected": 20,
+
+            "02:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "01:00:00": {
+              "completed": 1,
+              "pending": -1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "00:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            }
+          },
+          "26-05-2021": {
+            "completed": 100,
+            "pending": 61,
+            "scrapped": 49,
+            "rejected": 96,
+
+            "02:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "01:00:00": {
+              "completed": 1,
+              "pending": -1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "00:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            }
+          },
+          "25-05-2021": {
+            "completed": 95,
+            "pending": 29,
+            "scrapped": 6,
+            "rejected": 38,
+
+            "02:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "01:00:00": {
+              "completed": 1,
+              "pending": -1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "00:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            }
+          },
+          "24-05-2021": {
+            "completed": 97,
+            "pending": 92,
+            "scrapped": 87,
+            "rejected": 65,
+
+            "02:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "01:00:00": {
+              "completed": 1,
+              "pending": -1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "00:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            }
+          }
+        }
+      }
+    }
+  },
+  "productionLineJobs": {
+    "completed": 6647,
+    "pending": 7666,
+    "scrapped": 6667,
+    "rejected": 7813,
+
+    "2021": {
+      "completed": 726,
+      "pending": 705,
+      "scrapped": 866,
+      "rejected": 592,
+      "May": {
+        "completed": 355,
+        "pending": 242,
+        "scrapped": 373,
+        "rejected": 455,
+        "days": {
+          "30-05-2021": {
+            "completed": 10,
+            "pending": 98,
+            "scrapped": 11,
+            "rejected": 14,
+
+            "02:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "01:00:00": {
+              "completed": 1,
+              "pending": -1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "00:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            }
+          },
+          "29-05-2021": {
+            "completed": 75,
+            "pending": 75,
+            "scrapped": 4,
+            "rejected": 44,
+
+            "02:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "01:00:00": {
+              "completed": 1,
+              "pending": -1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "00:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            }
+          },
+          "28-05-2021": {
+            "completed": 15,
+            "pending": 100,
+            "scrapped": 46,
+            "rejected": 68,
+
+            "02:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "01:00:00": {
+              "completed": 1,
+              "pending": -1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "00:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            }
+          },
+          "27-05-2021": {
+            "completed": 94,
+            "pending": 14,
+            "scrapped": 80,
+            "rejected": 50,
+
+            "02:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "01:00:00": {
+              "completed": 1,
+              "pending": -1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "00:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            }
+          },
+          "26-05-2021": {
+            "completed": 11,
+            "pending": 5,
+            "scrapped": 19,
+            "rejected": 10,
+
+            "02:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "01:00:00": {
+              "completed": 1,
+              "pending": -1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "00:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            }
+          },
+          "25-05-2021": {
+            "completed": 92,
+            "pending": 93,
+            "scrapped": 8,
+            "rejected": 36,
+
+            "02:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "01:00:00": {
+              "completed": 1,
+              "pending": -1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "00:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            }
+          },
+          "24-05-2021": {
+            "completed": 43,
+            "pending": 69,
+            "scrapped": 72,
+            "rejected": 72,
+
+            "02:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "01:00:00": {
+              "completed": 1,
+              "pending": -1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "00:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            }
+          }
+        }
+      }
+    }
+  },
+  "machineJobs": {
+    "completed": 9432,
+    "pending": 8383,
+    "scrapped": 7218,
+    "rejected": 9908,
+
+    "2021": {
+      "completed": 643,
+      "pending": 584,
+      "scrapped": 658,
+      "rejected": 539,
+      "May": {
+        "completed": 254,
+        "pending": 261,
+        "scrapped": 197,
+        "rejected": 352,
+        "days": {
+          "30-05-2021": {
+            "completed": 89,
+            "pending": 9,
+            "scrapped": 10,
+            "rejected": 86,
+
+            "02:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "01:00:00": {
+              "completed": 1,
+              "pending": -1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "00:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            }
+          },
+          "29-05-2021": {
+            "completed": 69,
+            "pending": 60,
+            "scrapped": 82,
+            "rejected": 68,
+
+            "02:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "01:00:00": {
+              "completed": 1,
+              "pending": -1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "00:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            }
+          },
+          "28-05-2021": {
+            "completed": 90,
+            "pending": 50,
+            "scrapped": 82,
+            "rejected": 17,
+
+            "02:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "01:00:00": {
+              "completed": 1,
+              "pending": -1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "00:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            }
+          },
+          "27-05-2021": {
+            "completed": 72,
+            "pending": 42,
+            "scrapped": 88,
+            "rejected": 56,
+
+            "02:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "01:00:00": {
+              "completed": 1,
+              "pending": -1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "00:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            }
+          },
+          "26-05-2021": {
+            "completed": 36,
+            "pending": 88,
+            "scrapped": 81,
+            "rejected": 7,
+
+            "02:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "01:00:00": {
+              "completed": 1,
+              "pending": -1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "00:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            }
+          },
+          "25-05-2021": {
+            "completed": 58,
+            "pending": 79,
+            "scrapped": 42,
+            "rejected": 90,
+
+            "02:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "01:00:00": {
+              "completed": 1,
+              "pending": -1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "00:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            }
+          },
+          "24-05-2021": {
+            "completed": 64,
+            "pending": 91,
+            "scrapped": 34,
+            "rejected": 7,
+
+            "02:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "01:00:00": {
+              "completed": 1,
+              "pending": -1,
+              "scrapped": 1,
+              "rejected": 1
+            },
+            "00:00:00": {
+              "completed": 1,
+              "pending": 1,
+              "scrapped": 1,
+              "rejected": 1
+            }
+          }
+        }
+      }
+    }
+  }
+}

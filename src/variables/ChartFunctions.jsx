@@ -144,7 +144,7 @@ function CompletionRateChart(data) {
         labels: lastWeekData(data)[1],
         datasets: [
           {
-            label: "Data",
+            label: "Completed",
             fill: true,
             backgroundColor: "rgba(29,248,179,0.2)",
             borderColor: "rgb(29,248,179)",
