@@ -127,7 +127,8 @@ class Dashboard extends React.Component {
       }))
       
     }).catch(error => {
-      alert('Could not connect to Server. Make sure Mockoon server is on if you are using it. Loading data from file...')
+      console.log('Could not connect to Server. Make sure Mockoon server is on if you are using it. Loading data from file...')
+      // alert('Could not connect to Server. Make sure Mockoon server is on if you are using it. Loading data from file...')
       this.setState(prevState => ({
         ...this.state,
         factoryTimeData: timeMetrics.factoryTime,
