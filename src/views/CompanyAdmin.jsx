@@ -68,7 +68,7 @@ class CompanyAdmin extends Component {
     }
   };
     axios
-      .get("https://coreplatform.herokuapp.com:443/api/admin/users", config)
+      .get("/api/users", config)
       .then((response) => {
         this.setState({
           ...this.state,

@@ -1,7 +1,12 @@
 {
-    "root": "build/",
-    "routes": {
-        "/**": "index.html"
+  "root": "build/",
+  "headers": {
+    "/**": {
+      "Access-Control-Allow-Origin": "*"
+    }
+  },
+  "routes": {
+    "/**": "index.html"
   },
   "https_only": true,
   "proxies": {
@@ -10,4 +15,3 @@
     }
   }
 }
-
