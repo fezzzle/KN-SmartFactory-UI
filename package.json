@@ -1,6 +1,7 @@
 {
   "name": "Dashboard",
   "version": "1.2.0",
+  "proxy": "https://coreplatform.herokuapp.com:443/api/admin/users",
   "private": true,
   "homepage": ".",
   "dependencies": {
@@ -41,7 +42,7 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "react-scripts start",
     "build": "CI= react-scripts build",
     "test": "jest",
     "test:watch": "npm test -- --watch",
