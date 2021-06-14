@@ -3,15 +3,17 @@ import ThingAddForm from "../Components/ThingAddForm";
 import { Card, CardBody, Button } from "reactstrap";
 import { NavLink as RRNavLink, useHistory } from "react-router-dom";
 import DeviceAddForm from "../Components/DeviceAddForm";
-import { useDispatch } from "react-redux";
-import { updateThingArrayData } from "../../../store/actions/actions";
-import store from "../../../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { patchThingsArrayData } from "../../../store/actions/actions";
+// import store from "../../../store/store";
 
 const ThingAddFormContainer = (props) => {
   console.log("ThingAddFormContainer props:", props);
   const dispatch = useDispatch();
 
-  const storeState = store.getState();
+  // const storeState = store.getState();
+
+  const stateData = useSelector((state) => state.factory);
 
   const history = useHistory();
   const temporaryThingSave = useRef();
@@ -22,8 +24,8 @@ const ThingAddFormContainer = (props) => {
   const [canCloseWithoutSaving, setCanCloseWithoutSaving] = useState(false);
   console.log("temporaryThingSave:", temporaryThingSave);
 
-  const editFactory = () => {
-    const getFactoryBeingUpdated = storeState.factory.filter(
+  const updateThingsArrayData = () => {
+    const getFactoryBeingUpdated = stateData.filter(
       (factory) => String(factory.id) === String(props.location.state.factoryId)
     );
     const plineIndex = getFactoryBeingUpdated[0].production_line.findIndex(
@@ -32,7 +34,7 @@ const ThingAddFormContainer = (props) => {
     const newThing = temporaryThingAndDeviceSave.current;
     getFactoryBeingUpdated[0].production_line[plineIndex].thing.push(newThing);
     dispatch(
-      updateThingArrayData(
+      patchThingsArrayData(
         getFactoryBeingUpdated[0].id,
         getFactoryBeingUpdated[0]
       )
@@ -77,7 +79,7 @@ const ThingAddFormContainer = (props) => {
 
   const mergeProductionLineAndThing = (data) => {
     const productionLine = history.location.state;
-    editFactory();
+    updateThingsArrayData();
     productionLine.production_line[0].thing.push(data);
   };
 

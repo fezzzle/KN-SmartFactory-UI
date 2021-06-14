@@ -1,17 +1,19 @@
 import ProductionLineAddForm from "../Components/ProductionLineAddForm";
 import { Card, CardBody, CardTitle } from "reactstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom"
 import { updateFactoryData } from "../../../store/actions/actions";
 import store from "../../../store/store";
 
 const ProductionLineAddFormContainer = (props) => {
   const history = useHistory()
-  const storeState = store.getState();
+  // const storeState = store.getState();
   const dispatch = useDispatch();
+  const stateData = useSelector((state) => state.factory);
+  
 
   const addProductionLine = (values) => {
-    const getCurrentFactory = storeState.factory.filter(factory => String(factory.id) === props.match.params.id)
+    const getCurrentFactory = stateData.filter(factory => String(factory.id) === props.match.params.id)
     let data = {
         id: Math.random().toString(36).substr(2, 9),
         name: values.name,

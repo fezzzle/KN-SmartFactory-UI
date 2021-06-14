@@ -3,15 +3,16 @@ import { useHistory } from "react-router-dom";
 import { Card, CardBody } from "reactstrap";
 import store from "../../../store/store";
 import { patchProductionLineData } from "../../../store/actions/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const ProductionLineEditFormContainer = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const storeState = store.getState();
+  // const storeState = store.getState();
+  const stateData = useSelector((state) => state.factory);
 
   const editFactory = (values) => {
-    const getFactory = storeState.factory.filter(
+    const getFactory = stateData.filter(
       (factory) => String(factory.id) === String(props.location.state.factoryId)
     );
     const getProductionLineIndex = getFactory[0].production_line.findIndex(

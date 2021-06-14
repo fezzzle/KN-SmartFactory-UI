@@ -2,15 +2,16 @@ import { useState, useRef } from "react";
 import { Card, CardBody, Button, CardTitle} from "reactstrap";
 import { NavLink as RRNavLink, useHistory } from "react-router-dom";
 import DeviceAddForm from "../Components/DeviceAddForm";
-import { useDispatch } from "react-redux";
-import { updateThingArrayData } from "../../../store/actions/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { patchThingsArrayData } from "../../../store/actions/actions";
 import store from "../../../store/store";
 
 const DeviceAddFormContainer = (props) => {
   console.log("DeviceAddFormContainer props:", props);
   const dispatch = useDispatch();
 
-  const storeState = store.getState();
+  // const storeState = store.getState();
+  const stateData = useSelector((state) => state.factory);
 
   const history = useHistory();
   // const temporaryThingSave = useRef();
@@ -21,8 +22,8 @@ const DeviceAddFormContainer = (props) => {
   // const [canCloseWithoutSaving, setCanCloseWithoutSaving] = useState(false);
   console.log("temporaryDeviceSave:", temporaryDeviceSave);
 
-  const updateFactoryData = () => {
-    const getFactoryBeingUpdated = storeState.factory.filter(
+  const updateThingsData = () => {
+    const getFactoryBeingUpdated = stateData.filter(
       (factory) => String(factory.id) === String(props.location.state.factoryId)
     );
     const getPlineIndex = getFactoryBeingUpdated[0].production_line.findIndex(
@@ -36,7 +37,7 @@ const DeviceAddFormContainer = (props) => {
     const newDevice = temporaryDeviceSave.current;
     getFactoryBeingUpdated[0].production_line[getPlineIndex].thing[getThingIndex].device.push(newDevice)
     dispatch(
-      updateThingArrayData(
+      patchThingsArrayData(
         getFactoryBeingUpdated[0].id,
         getFactoryBeingUpdated[0]
       )
@@ -69,6 +70,7 @@ const DeviceAddFormContainer = (props) => {
   // };
 
   const addDevice = (values) => {
+    console.log('values:', values)
     let data = {
       SERIAL_NUMBER: values.SERIAL_NUMBER,
       name: values.name,
@@ -78,7 +80,7 @@ const DeviceAddFormContainer = (props) => {
       alerts_messages: values.alerts_messages,
     };
     temporaryDeviceSave.current = data;
-    updateFactoryData();
+    updateThingsData();
     // if (data.name !== undefined || data.SERIAL_NUMBER !== undefined) {
     // addDeviceToThing(data);
     // setIsSavedButtonState(true);

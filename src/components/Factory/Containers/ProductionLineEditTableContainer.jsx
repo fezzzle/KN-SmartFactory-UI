@@ -3,11 +3,17 @@ import { useSelector } from "react-redux";
 import { Card, CardBody, Button } from "reactstrap";
 import { NavLink as RRNavLink, useHistory } from "react-router-dom";
 import store from "../../../store/store";
+import {
+  patchDeviceArrayData,
+  patchThingsArrayData,
+} from "../../../store/actions/actions";
+import { useDispatch } from "react-redux";
 
 import ProductionLineEditTable from "../Components/ProductionLineEditTable";
 
 const ProductionLineEditTableContainer = (props) => {
-  const storeState = store.getState();
+  const dispatch = useDispatch();
+  // const storeState = store.getState();
   console.log("ProductionLineEditTableContainer props:", props);
   const history = useHistory();
   const [thingRowUuid, setThingRowUuid] = useState(null);
@@ -35,9 +41,8 @@ const ProductionLineEditTableContainer = (props) => {
   const data = useMemo(() => thingData, [thingData]);
   const data2 = useMemo(() => deviceData, [deviceData]);
 
-  const updateDevicesData = (value) => {
-    
-    const getFactoryBeingUpdated = storeState.factory.filter(
+  const updateDeviceData = (value) => {
+    const getFactoryBeingUpdated = stateData.filter(
       (factory) => String(factory.id) === String(props.location.state.factoryId)
     );
     const getPlineIndex = getFactoryBeingUpdated[0].production_line.findIndex(
@@ -48,24 +53,34 @@ const ProductionLineEditTableContainer = (props) => {
     ].thing.findIndex(
       (thing) => String(thing.uuid) === String(rowUuidRef.current)
     );
-    console.log('getFactoryBeingUpdated:', getFactoryBeingUpdated)
-    console.log("getThingIndex:", getThingIndex);
-    console.log('value:', value)
-    // const newDevice = temporaryDeviceSave.current;
-    // getFactoryBeingUpdated[0].production_line[getPlineIndex].thing[getThingIndex].device.push(newDevice)
-    // dispatch(
-    //   updateThingArrayData(
-    //     getFactoryBeingUpdated[0].id,
-    //     getFactoryBeingUpdated[0]
-    //   )
-    // );
+    getFactoryBeingUpdated[0].production_line[getPlineIndex].thing[
+      getThingIndex
+    ].device.splice(value, 1);
+    dispatch(
+      patchDeviceArrayData(
+        getFactoryBeingUpdated[0].id,
+        getFactoryBeingUpdated[0]
+      )
+    );
   };
 
-  const removeFromTable = (value) => {
-    console.log("remove the line");
-    updateDevicesData(value);
-    // dispatch(removeFactoryData(props.row.original.id));
-    // dispatch(removeFactoryData(props.row.original.uuid));
+  const updateThingsArrayData = (value) => {
+    const getFactoryBeingUpdated = stateData.filter(
+      (factory) => String(factory.id) === String(props.location.state.factoryId)
+    );
+    const getPlineIndex = getFactoryBeingUpdated[0].production_line.findIndex(
+      (line) => String(line.id) === String(props.match.params.id)
+    );
+    getFactoryBeingUpdated[0].production_line[getPlineIndex].thing.splice(
+      value,
+      1
+    );
+    dispatch(
+      patchThingsArrayData(
+        getFactoryBeingUpdated[0].id,
+        getFactoryBeingUpdated[0]
+      )
+    );
   };
 
   const thingColumns = React.useMemo(
@@ -132,8 +147,9 @@ const ProductionLineEditTableContainer = (props) => {
                   <Button
                     className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
                     type="button"
-                    // onClick={() => removeFromTable(properties)}
-                    onClick={() => console.log("properties?.row?.original?.uuid", properties?.row?.original?.uuid) }
+                    onClick={() =>
+                      updateThingsArrayData(properties?.row?.index)
+                    }
                   >
                     <i className="tim-icons icon-simple-remove"></i>
                   </Button>
@@ -177,11 +193,11 @@ const ProductionLineEditTableContainer = (props) => {
             Cell: (properties) => {
               return (
                 <>
+                  {/* Remove device from table */}
                   <button
                     className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
                     type="button"
-                    onClick={() => removeFromTable(properties?.row?.original?.SERIAL_NUMBER)}
-                    // onClick={() => console.log("properties?.row?.original?.uuid", properties?.row?.original?.SERIAL_NUMBER) }
+                    onClick={() => updateDeviceData(properties.row.index)}
                   >
                     <i className="tim-icons icon-simple-remove"></i>
                   </button>

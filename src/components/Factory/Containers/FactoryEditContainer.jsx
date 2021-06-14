@@ -1,7 +1,11 @@
 import React, { useState, useRef, useMemo, useEffect } from "react";
 // import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchFactoryData, removeFactoryData } from "../../../store/actions/actions";
+import {
+  patchFactoryData,
+  removeFactoryData,
+  patchThingsArrayData,
+} from "../../../store/actions/actions";
 import { Button } from "reactstrap";
 import { NavLink as RRNavLink } from "react-router-dom";
 
@@ -9,22 +13,26 @@ import FactoryEditTable from "../Components/FactoryEditTable";
 
 const FactoryEditContainer = (props) => {
   const stateData = useSelector((state) => state.factory);
-  console.log('stateData inside factory edit screen:', stateData)
+  const dispatch = useDispatch();
   const factoryData = stateData
-  .filter((factory) => String(factory.id) === props.match.params.id)
-  .map((item) => item.production_line)
-  .flat();
-  
-  console.log('factoryData:', factoryData)
-  // useEffect(() => {
-  //   dispatch(fetchFactoryData());
-  // }, [dispatch]);
+    .filter((factory) => String(factory.id) === props.match.params.id)
+    .map((item) => item.production_line)
+    .flat();
 
   const data = useMemo(() => factoryData, [factoryData]);
 
-  const removeFromTable = (props) => {
-    console.log("remove the line");
-    // dispatch(removeFactoryData(props.row.original.id));
+  const updateFactoryArrayData = (value) => {
+    console.log('value:', value)
+    const getFactoryBeingUpdated = stateData.filter(
+      (factory) => String(factory.id) === String(props.match.params.id)
+    );
+    getFactoryBeingUpdated[0].production_line.splice(value, 1);
+    dispatch(
+      patchFactoryData(
+        getFactoryBeingUpdated[0].id,
+        getFactoryBeingUpdated[0]
+      )
+    );
   };
 
   const logValue = (value) => {
@@ -88,7 +96,7 @@ const FactoryEditContainer = (props) => {
                       pathname: `${props.location.pathname}/pline/${properties.row.original.id}`,
                       state: {
                         factoryId: props.match.params.id,
-                        pLineName: properties.row.original.name
+                        pLineName: properties.row.original.name,
                       },
                     }}
                   >
@@ -104,7 +112,7 @@ const FactoryEditContainer = (props) => {
                   <Button
                     className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
                     type="button"
-                    onClick={() => removeFromTable(properties)}
+                    onClick={() => updateFactoryArrayData(properties.row.index)}
                   >
                     <i className="tim-icons icon-simple-remove"></i>
                   </Button>

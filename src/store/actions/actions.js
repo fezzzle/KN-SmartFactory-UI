@@ -9,6 +9,7 @@ import {
   DECREMENT,
   SIGN_IN,
   POSTS,
+  REMOVE_DEVICE_FROM_DEVICE_ARRAY
 } from "./types";
 import factoryDataService from "../../services/factoryDataService";
 
@@ -58,6 +59,14 @@ export const fetchFactoryData = () => async dispatch => {
   }
 };
 
+export const patchDeviceArrayData = (factory_id, data) => async dispatch => {
+  try {
+    await factoryDataService.patch(factory_id, data)
+  } catch (err) { 
+    console.error(err)
+  }
+}
+
 export const addFactoryData = (data) => async dispatch => {
   factoryDataService
     .create(data)
@@ -80,6 +89,18 @@ export const removeFactoryData = (id) => async dispatch => {
     .catch(error => console.error(error))
 }
 
+export const patchFactoryData = (factory_id, data) => async dispatch => {
+  try {
+    await factoryDataService.patch(factory_id, data)
+  } catch (err) {
+    console.log(err)
+  }
+  // dispatch({
+  //   type: UPDATE_FACTORY_DATA,
+  //   payload: data
+  // })
+}
+
 export const updateFactoryData = (data) => async dispatch => {
   try {
     await factoryDataService.update(data.id, data)
@@ -92,7 +113,7 @@ export const updateFactoryData = (data) => async dispatch => {
   })
 }
 
-export const updateThingArrayData = (factory_id, data) => async dispatch => {
+export const patchThingsArrayData = (factory_id, data) => async dispatch => {
   try {
     await factoryDataService.patch(factory_id, data)
   } catch (err) {
