@@ -8,21 +8,22 @@ import { patchThingsArrayData } from "../../../store/actions/actions";
 // import store from "../../../store/store";
 
 const ThingAddFormContainer = (props) => {
-  console.log("ThingAddFormContainer props:", props);
   const dispatch = useDispatch();
-
-  // const storeState = store.getState();
+  const [thingAlreadySaved, setThingAlreadySaved] = useState(false);
+  const [deviceAlreadySaved, setDeviceAlreadySaved] = useState(false);
 
   const stateData = useSelector((state) => state.factory);
 
   const history = useHistory();
   const temporaryThingSave = useRef();
   const temporaryThingAndDeviceSave = useRef();
-  const [temporaryDevice, setTemporaryDevice] = useState([]);
+  // const [temporaryDevice, setTemporaryDevice] = useState([]);
+  const temporaryDeviceSave = useRef([]);
   const [isSavedButtonState, setIsSavedButtonState] = useState(false);
   const [addDeviceButtonState, setAddDeviceButtonState] = useState(true);
   const [canCloseWithoutSaving, setCanCloseWithoutSaving] = useState(false);
-  console.log("temporaryThingSave:", temporaryThingSave);
+  console.log("temporaryThingSave.CURRENT:", temporaryThingSave.current);
+  console.log("temporaryDeviceSave.CURRENT:", temporaryDeviceSave.current);
 
   const updateThingsArrayData = () => {
     const getFactoryBeingUpdated = stateData.filter(
@@ -31,7 +32,13 @@ const ThingAddFormContainer = (props) => {
     const plineIndex = getFactoryBeingUpdated[0].production_line.findIndex(
       (line) => String(line.id) === String(props.match.params.id)
     );
-    const newThing = temporaryThingAndDeviceSave.current;
+    let newThing = null;
+    if (temporaryThingAndDeviceSave.current !== undefined) {
+      newThing = temporaryThingAndDeviceSave.current;
+    } else {
+      newThing = temporaryThingSave.current;
+    }
+    console.log("newThing:", newThing);
     getFactoryBeingUpdated[0].production_line[plineIndex].thing.push(newThing);
     dispatch(
       patchThingsArrayData(
@@ -41,9 +48,9 @@ const ThingAddFormContainer = (props) => {
     );
   };
 
-  const removeTemporaryDevice = () => {
-    setTemporaryDevice([]);
-  };
+  // const removeTemporaryDevice = () => {
+  //   setTemporaryDevice([]);
+  // };
 
   const storeTemporaryThingData = (values) => {
     let data = {
@@ -59,9 +66,11 @@ const ThingAddFormContainer = (props) => {
       device: [],
     };
     temporaryThingSave.current = data;
+    setThingAlreadySaved(true);
+    updateThingsArrayData();
   };
 
-  const addDevice = (values) => {
+  const addThing = (values) => {
     storeTemporaryThingData(values);
     if (temporaryThingSave.current !== undefined) {
       setAddDeviceButtonState(!addDeviceButtonState);
@@ -79,7 +88,7 @@ const ThingAddFormContainer = (props) => {
 
   const mergeProductionLineAndThing = (data) => {
     const productionLine = history.location.state;
-    updateThingsArrayData();
+    // updateThingsArrayData();
     productionLine.production_line[0].thing.push(data);
   };
 
@@ -92,8 +101,14 @@ const ThingAddFormContainer = (props) => {
       status: values.status,
       alerts_messages: values.alerts_messages,
     };
-    setTemporaryDevice([data]);
-    if (data.name !== undefined || data.SERIAL_NUMBER !== undefined) {
+    // setTemporaryDevice([data]);
+    temporaryDeviceSave.current = [data];
+    setDeviceAlreadySaved(true);
+    if (
+      (thingAlreadySaved !== true) | (data.name !== undefined) ||
+      data.SERIAL_NUMBER !== undefined
+    ) {
+      console.log("THING ALREADY SAVE IS:", thingAlreadySaved);
       addDeviceToThing(data);
       setIsSavedButtonState(true);
     }
@@ -107,7 +122,7 @@ const ThingAddFormContainer = (props) => {
             onSubmit={(values, formikHelpers) => {
               try {
                 formikHelpers.setSubmitting(true);
-                addDevice(values);
+                addThing(values);
               } catch (errors) {
                 return Object.entries(errors).forEach(([field, error]) => {
                   formikHelpers.setFieldError(field, error[0]);
@@ -125,17 +140,17 @@ const ThingAddFormContainer = (props) => {
           >
             Add a new device to a Thing
           </Button>
-          <Button
+          {/* <Button
             className="float-left mb-2"
             color="warning"
             disabled={isSavedButtonState}
             onClick={history.goBack}
           >
             Go back without saving
-          </Button>
+          </Button> */}
         </CardBody>
       </Card>
-      {temporaryDevice.map((_, key) => {
+      {temporaryDeviceSave.current.map((_, key) => {
         return (
           <Card key={key}>
             <CardBody>
@@ -157,7 +172,7 @@ const ThingAddFormContainer = (props) => {
               <Button
                 className="float-left mr-2"
                 color="warning"
-                onClick={removeTemporaryDevice}
+                // onClick={removeTemporaryDevice}
                 disabled={canCloseWithoutSaving}
               >
                 Remove device and don't save

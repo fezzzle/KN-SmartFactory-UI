@@ -79,7 +79,7 @@ const ThingAddForm = ({ onSubmit, goBack }) => (
           touched={touched}
           errors={errors}
         />{" "}
-                <Button
+        <Button
           id="editProjectFormSubmitButton"
           type="submit"
           color="primary"
