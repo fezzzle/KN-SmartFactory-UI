@@ -26,7 +26,7 @@ const factoryReducer = (state = [], action) => {
     case UPDATE_THINGS_ARRAY:
       return [...state.map(item => item.id === action.payload.id ? item = action.payload : item)]
     case REMOVE_THINGS_FROM_THINGS_ARRAY:
-      return [...state.map(item => item.id === action.payload.id ? { ...item, item: action.payload } : item)]
+      return [...state.map(item => item.id === action.payload.id ? { ...item, production_line: action.payload.production_line } : item)]
     case REMOVE_DEVICE_FROM_DEVICE_ARRAY:
       return [...state.map(item => item.id === action.payload.id ? { ...item, item: action.payload } : item)]
     case PATCH_PRODICTION_LINE_DATA: {
