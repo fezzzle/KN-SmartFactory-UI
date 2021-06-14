@@ -1,29 +1,27 @@
-import FactoryEditForm from "../Components/FactoryEditForm";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Card, CardBody } from "reactstrap";
-import store from "../../../store/store";
 import { editFactoryData } from "../../../store/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
+import FactoryEditForm from "../Components/FactoryEditForm";
 
 const FactoryEditFormContainer = (props) => {
+  console.log("FactoryEditFormContainer props:", props);
   const dispatch = useDispatch();
   const history = useHistory();
-  // const storeState = store.getState();
   const stateData = useSelector((state) => state.factory);
+  const [saveStatus, setSaveStatus] = useState(false);
+
+  const getFactory = stateData.filter(
+    (factory) => String(factory.id) === props.match.params.id
+  );
 
   const editFactory = (values) => {
-    const getFactory = stateData.filter(
-      (factory) => String(factory.id) === props.match.params.id
-    );
     const newData = {
       name: values.name,
       country: values.country,
       city: values.city,
     };
-    console.log("newData:", newData);
-
-    console.log("getFactory:", getFactory[0].id);
-
     dispatch(editFactoryData(getFactory[0].id, newData));
   };
   return (
@@ -34,6 +32,7 @@ const FactoryEditFormContainer = (props) => {
             onSubmit={(values, formikHelpers) => {
               try {
                 formikHelpers.setSubmitting(true);
+                setSaveStatus(true);
                 editFactory(values);
               } catch (errors) {
                 return Object.entries(errors).forEach(([field, error]) => {
@@ -43,6 +42,7 @@ const FactoryEditFormContainer = (props) => {
               // formikHelpers.setSubmitting(false);
             }}
             goBack={history.goBack}
+            factoryDataFields={getFactory[0]}
           />
         </CardBody>
       </Card>
