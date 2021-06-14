@@ -64,11 +64,11 @@ class CompanyAdmin extends Component {
 
   getUsers = async () => {
     const config = {
-      headers: { Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfUEVSTUlTU0lPTl9DUkVBVEUsUk9MRV9QRVJNSVNTSU9OX0RFTEVURSxST0xFX1BFUk1JU1NJT05fUkVBRCxST0xFX1BFUk1JU1NJT05fVVBEQVRFLFJPTEVfVVNFUiIsImV4cCI6MTYyNTM4OTUxOH0.xlD6cRaRDVLTbTkZB-guJoqMzJ4MzWTaECLsC31IQRYRtk6KWEEO1NSoP1Dx6YghBaNgrcaX6a0KFqDSDUIakA',
+      headers: { Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfUEVSTUlTU0lPTl9DUkVBVEUsUk9MRV9QRVJNSVNTSU9OX0RFTEVURSxST0xFX1BFUk1JU1NJT05fUkVBRCxST0xFX1BFUk1JU1NJT05fVVBEQVRFLFJPTEVfVVNFUiIsImV4cCI6MTYyMzc2MjM4MH0.Xly6x_GvJcrYN4RkEB6vTem7s8un6SMfP-wdzfw7PIb48OwzKSRbi_E72NSxMmc3y0FV0HgE7weWPnjr_ID1lw',
     }
   };
     axios
-      .get("https://coreplatform.herokuapp.com:443/api/admin/users", config)
+      .get("/api/users", config)
       .then((response) => {
         this.setState({
           ...this.state,

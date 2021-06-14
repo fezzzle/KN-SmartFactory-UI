@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { posts } from "../store/actions";
+import { posts } from "../store/actions/actions";
 
 const Posts = () => {
   const loadPosts = useSelector((state) => state.posts);
