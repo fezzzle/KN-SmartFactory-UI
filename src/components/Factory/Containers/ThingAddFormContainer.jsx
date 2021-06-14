@@ -108,7 +108,6 @@ const ThingAddFormContainer = (props) => {
       (thingAlreadySaved !== true) | (data.name !== undefined) ||
       data.SERIAL_NUMBER !== undefined
     ) {
-      console.log("THING ALREADY SAVE IS:", thingAlreadySaved);
       addDeviceToThing(data);
       setIsSavedButtonState(true);
     }

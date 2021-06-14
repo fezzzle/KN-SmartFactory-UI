@@ -1,11 +1,28 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import FactoryTable from "../Components/FactoryTable";
-import { fetchFactoryData, removeFactoryData } from "../../../store/actions/actions";
+import {
+  fetchFactoryData,
+  removeFactoryData,
+} from "../../../store/actions/actions";
 import { NavLink as RRNavLink } from "react-router-dom";
 
-import { Button } from "reactstrap";
+import { Button, Badge } from "reactstrap";
 
 import { useSelector, useDispatch } from "react-redux";
+
+const Alerts = ({ values }) => {
+  return (
+    <>
+      {values.map((genre, idx) => {
+        return (
+          <span key={idx} className="badge">
+            {genre}
+          </span>
+        );
+      })}
+    </>
+  );
+};
 
 const FactoryTableContainer = (props) => {
   const dispatch = useDispatch();
@@ -81,7 +98,9 @@ const FactoryTableContainer = (props) => {
           {
             Header: "Status",
             accessor: "status",
+            // Cell: ({ cell: { value } }) => console.log(value)
           },
+          // {<Alerts />}
           {
             Header: "Actions",
             accessor: "actions",
