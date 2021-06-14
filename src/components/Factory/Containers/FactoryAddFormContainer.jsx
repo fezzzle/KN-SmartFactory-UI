@@ -113,6 +113,7 @@ const FactoryAddFormContainer = () => {
                   }
                   // formikHelpers.setSubmitting(false);
                 }}
+                goBack={history.goBack}
               />
               {/* <ProductionLineAddForm name={line} /> */}
               <Button
