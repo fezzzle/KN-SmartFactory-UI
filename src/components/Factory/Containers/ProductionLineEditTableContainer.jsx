@@ -24,6 +24,7 @@ const ProductionLineEditTableContainer = (props) => {
   };
 
   const stateData = useSelector((state) => state.factory);
+  console.log('stateData:', stateData)
   const thingData = stateData
     .filter((factory) => String(factory.id) === props.location.state.factoryId)
     .map((item) =>
@@ -166,7 +167,7 @@ const ProductionLineEditTableContainer = (props) => {
         ],
       },
     ],
-    []
+    [stateData] // WHAT??? Why do I need to pass it here?
   );
   const deviceColumns = React.useMemo(
     () => [

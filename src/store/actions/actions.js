@@ -76,17 +76,15 @@ export const updateFactoryData = (data) => async dispatch => {
 }
 
 export const removeFromThingsAction = (factory_id, data) => async dispatch => {
-  console.log('data:', data)
-  console.log('factory_id:', factory_id)
-  // try {
-  //   await factoryDataService.patch(factory_id, data)
-  // } catch (err) {
-  //   console.log(err)
-  // }
   dispatch({
     type: REMOVE_THINGS_FROM_THINGS_ARRAY,
     payload: data
   })
+  try {
+    await factoryDataService.patch(factory_id, data)
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 export const removeFromDevicesAction = (factory_id, data) => async dispatch => {
@@ -94,11 +92,11 @@ export const removeFromDevicesAction = (factory_id, data) => async dispatch => {
     type: REMOVE_DEVICE_FROM_DEVICE_ARRAY,
     payload: data
   })
-  // try {
-  //   await factoryDataService.patch(factory_id, data)
-  // } catch (err) {
-  //   console.error(err)
-  // }
+  try {
+    await factoryDataService.patch(factory_id, data)
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 export const patchThingsArrayData = (factory_id, data) => async dispatch => {
