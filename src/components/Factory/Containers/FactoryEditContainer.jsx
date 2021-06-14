@@ -1,9 +1,7 @@
 import React, { useState, useRef, useMemo, useEffect } from "react";
 // import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  patchFactoryData,
-} from "../../../store/actions/actions";
+import { patchFactoryData } from "../../../store/actions/actions";
 import { Button } from "reactstrap";
 import { NavLink as RRNavLink } from "react-router-dom";
 
@@ -18,23 +16,25 @@ const FactoryEditContainer = (props) => {
     .flat();
 
   const data = useMemo(() => factoryData, [factoryData]);
+  console.log("data:", data);
 
-  const updateFactoryArrayData = (value) => {
-    console.log('value:', value)
-    const getFactoryBeingUpdated = stateData.filter(
+  const getFactoryData = () => {
+    return stateData.filter(
       (factory) => String(factory.id) === String(props.match.params.id)
-    );
-    getFactoryBeingUpdated[0].production_line.splice(value, 1);
-    dispatch(
-      patchFactoryData(
-        getFactoryBeingUpdated[0].id,
-        getFactoryBeingUpdated[0]
-      )
     );
   };
 
-  const logValue = (value) => {
-    console.log(value);
+  const factoryName = () => {
+    const data = getFactoryData();
+    return data[0].factory_location.name;
+  };
+  
+  const updateFactoryArrayData = (value) => {
+    const getFactoryBeingUpdated = getFactoryData();
+    getFactoryBeingUpdated[0].production_line.splice(value, 1);
+    dispatch(
+      patchFactoryData(getFactoryBeingUpdated[0].id, getFactoryBeingUpdated[0])
+    );
   };
 
   const columns = React.useMemo(
@@ -88,7 +88,6 @@ const FactoryEditContainer = (props) => {
                   <Button
                     className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
                     type="button"
-                    onClick={() => logValue(properties)}
                     tag={RRNavLink}
                     to={{
                       pathname: `${props.location.pathname}/pline/${properties.row.original.id}`,
@@ -128,7 +127,7 @@ const FactoryEditContainer = (props) => {
       <FactoryEditTable
         columns={columns}
         data={data}
-        factoryName={props.location.state.name}
+        factoryName={factoryName}
         factoryId={props.match.params.id}
       />
     </div>

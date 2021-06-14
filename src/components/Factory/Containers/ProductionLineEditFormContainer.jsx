@@ -1,28 +1,31 @@
 import ProductionLineEditForm from "../Components/ProductionLineEditForm";
 import { useHistory } from "react-router-dom";
-import { Card, CardBody } from "reactstrap";
-import store from "../../../store/store";
+import { Card, CardBody, CardTitle } from "reactstrap";
 import { patchProductionLineData } from "../../../store/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 const ProductionLineEditFormContainer = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  // const storeState = store.getState();
+  console.log("history:", history);
   const stateData = useSelector((state) => state.factory);
+  console.log("stateData:", stateData);
+
+  const getFactory = stateData.filter(
+    (factory) => String(factory.id) === String(props.location.state.factoryId)
+  );
+  const getProductionLineIndex = getFactory[0].production_line.findIndex(
+    (line) => String(line.id) === String(props.match.params.id)
+  );
+
+  const filteredArray = getFactory[0].production_line.filter(
+    (pLine) => String(pLine.id) !== String(props.match.params.id)
+  );
+
+  console.log("filteredArray:", filteredArray);
 
   const editFactory = (values) => {
-    const getFactory = stateData.filter(
-      (factory) => String(factory.id) === String(props.location.state.factoryId)
-    );
-    const getProductionLineIndex = getFactory[0].production_line.findIndex(
-      (line) => String(line.id) === String(props.match.params.id)
-    );
     const newArray = getFactory[0].production_line;
-
-    const filteredArray = getFactory[0].production_line.filter(
-      (pLine) => String(pLine.id) !== String(props.match.params.id)
-    );
     const newProductionLineData = [
       ...filteredArray,
       {
@@ -37,6 +40,7 @@ const ProductionLineEditFormContainer = (props) => {
     <div className="content">
       <Card>
         <CardBody>
+        <CardTitle><h3>Edit production line data</h3></CardTitle>
           <ProductionLineEditForm
             onSubmit={(values, formikHelpers) => {
               try {
@@ -50,6 +54,7 @@ const ProductionLineEditFormContainer = (props) => {
               // formikHelpers.setSubmitting(false);
             }}
             goBack={history.goBack}
+            pLineDataFields={filteredArray[0]}
           />
         </CardBody>
       </Card>

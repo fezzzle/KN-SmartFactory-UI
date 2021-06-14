@@ -28,9 +28,9 @@ const ProductionLineAddFormContainer = (props) => {
       <Card>
         <CardBody>
           <CardTitle>
-            <h1 className="mt-4">
+            <h3 className="mt-4">
               Add A new production line
-            </h1>
+            </h3>
           </CardTitle>
           <ProductionLineAddForm
             onSubmit={(values, formikHelpers) => {

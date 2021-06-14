@@ -46,9 +46,11 @@ export const removeFactoryData = (id) => async dispatch => {
     type: REMOVE_FACTORY_DATA,
     payload: id
   })
-  factoryDataService
-    .delete(id)
-    .catch(error => console.error(error))
+  try {
+    factoryDataService.delete(id)
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 export const patchFactoryData = (factory_id, data) => async dispatch => {
@@ -112,14 +114,15 @@ export const patchThingsArrayData = (factory_id, data) => async dispatch => {
 }
 
 export const patchProductionLineData = (id, data) => async dispatch => {
-  factoryDataService
-    .patch(id, { production_line: data })
-    .then(res => console.log("patchProductionLineData result is:", res))
-    .catch(error => console.error(error))
   dispatch({
     type: PATCH_PRODICTION_LINE_DATA,
     payload: [id, data]
   })
+  try {
+    await factoryDataService.patch(id, { production_line: data })
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 export const editFactoryData = (id, data) => async dispatch => {

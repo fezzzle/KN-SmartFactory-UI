@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import ThingAddForm from "../Components/ThingAddForm";
-import { Card, CardBody, Button } from "reactstrap";
+import { Card, CardBody, Button, CardTitle} from "reactstrap";
 import { NavLink as RRNavLink, useHistory } from "react-router-dom";
 import DeviceAddForm from "../Components/DeviceAddForm";
 import { useDispatch, useSelector } from "react-redux";
@@ -118,6 +118,7 @@ const ThingAddFormContainer = (props) => {
     <div className="content">
       <Card>
         <CardBody>
+          <CardTitle><h3>Add a Thing</h3></CardTitle>
           <ThingAddForm
             onSubmit={(values, formikHelpers) => {
               try {

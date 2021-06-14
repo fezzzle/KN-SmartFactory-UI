@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { NavLink as RRNavLink } from "react-router-dom";
 
 const FactoryEditTable = ({ columns, data, factoryName, factoryId }) => {
+  console.log('factoryName:', factoryName)
   const history = useHistory();
   const { getTableProps, headerGroups, rows, prepareRow } = useTable({
     columns,
@@ -14,7 +15,7 @@ const FactoryEditTable = ({ columns, data, factoryName, factoryId }) => {
     <Card>
       <CardBody>
         <CardTitle>
-          <h1 className="mt-4">{factoryName} factory</h1>
+          <h1 className="mt-4">{factoryName()} factory</h1>
         </CardTitle>
         <Button
           className="float-right mr-4"

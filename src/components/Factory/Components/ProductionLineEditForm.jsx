@@ -25,11 +25,15 @@ const FormField = ({ label, name, touched, errors }) => (
   </FormGroup>
 );
 
-const ProductionLineEditForm = ({ onSubmit, goBack }) => (
+const ProductionLineEditForm = ({ onSubmit, goBack, pLineDataFields }) => (
   <Formik
+    // initialValues={{
+    //   line_number: pLineDataFields["line_number"],
+    //   name: pLineDataFields["name"],
+    // }}
     initialValues={{
-      line_number: "1",
-      name: "Some application for line",
+      line_number: 123,
+      name: "tere",
     }}
     validationSchema={Yup.object().shape({
       line_number: Yup.string()
