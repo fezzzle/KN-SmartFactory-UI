@@ -2,10 +2,9 @@ import React, { useRef, useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { Card, CardBody, Button } from "reactstrap";
 import { NavLink as RRNavLink, useHistory } from "react-router-dom";
-import store from "../../../store/store";
 import {
-  patchDeviceArrayData,
-  patchThingsArrayData,
+  removeFromDevicesAction,
+  removeFromThingsAction,
 } from "../../../store/actions/actions";
 import { useDispatch } from "react-redux";
 
@@ -34,14 +33,20 @@ const ProductionLineEditTableContainer = (props) => {
     )
     .flat();
 
+
+    console.log('thingData:', thingData)
+    console.log('deviceData:', deviceData)
+
   const deviceData = thingData[0].thing
     .filter((item) => item.uuid === thingRowUuid)
     .map((item) => item.device)
     .flat();
   const data = useMemo(() => thingData, [thingData]);
+  console.log('data[0].thing:', data[0])
   const data2 = useMemo(() => deviceData, [deviceData]);
+  console.log('data2:', data2)
 
-  const updateDeviceData = (value) => {
+  const removeFromDeviceArrayData = (value) => {
     const getFactoryBeingUpdated = stateData.filter(
       (factory) => String(factory.id) === String(props.location.state.factoryId)
     );
@@ -57,14 +62,14 @@ const ProductionLineEditTableContainer = (props) => {
       getThingIndex
     ].device.splice(value, 1);
     dispatch(
-      patchDeviceArrayData(
+      removeFromDevicesAction(
         getFactoryBeingUpdated[0].id,
         getFactoryBeingUpdated[0]
       )
     );
   };
 
-  const updateThingsArrayData = (value) => {
+  const removeFromThingsArrayData = (value) => {
     const getFactoryBeingUpdated = stateData.filter(
       (factory) => String(factory.id) === String(props.location.state.factoryId)
     );
@@ -75,8 +80,9 @@ const ProductionLineEditTableContainer = (props) => {
       value,
       1
     );
+    console.log("getFactoryBeingUpdated:", getFactoryBeingUpdated);
     dispatch(
-      patchThingsArrayData(
+      removeFromThingsAction(
         getFactoryBeingUpdated[0].id,
         getFactoryBeingUpdated[0]
       )
@@ -148,7 +154,7 @@ const ProductionLineEditTableContainer = (props) => {
                     className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
                     type="button"
                     onClick={() =>
-                      updateThingsArrayData(properties?.row?.index)
+                      removeFromThingsArrayData(properties.row.index)
                     }
                   >
                     <i className="tim-icons icon-simple-remove"></i>
@@ -197,7 +203,9 @@ const ProductionLineEditTableContainer = (props) => {
                   <button
                     className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
                     type="button"
-                    onClick={() => updateDeviceData(properties.row.index)}
+                    onClick={() =>
+                      removeFromDeviceArrayData(properties.row.index)
+                    }
                   >
                     <i className="tim-icons icon-simple-remove"></i>
                   </button>

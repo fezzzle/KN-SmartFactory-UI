@@ -5,48 +5,18 @@ import {
   RECEIVE_FACTORY_DATA,
   PATCH_PRODICTION_LINE_DATA,
   EDIT_FACTORY_LOCATION_DATA,
-  INCREMENT,
-  DECREMENT,
+  PATCH_FACTORY_PLINE_DATA,
   SIGN_IN,
-  POSTS,
-  REMOVE_DEVICE_FROM_DEVICE_ARRAY
+  REMOVE_DEVICE_FROM_DEVICE_ARRAY,
+  REMOVE_THINGS_FROM_THINGS_ARRAY
 } from "./types";
 import factoryDataService from "../../services/factoryDataService";
-
-export const increment = (number) => {
-  return {
-    type: INCREMENT,
-    payload: number,
-  };
-};
-
-export const decrement = (number) => {
-  return {
-    type: DECREMENT,
-    payload: number,
-  };
-};
 
 export const logged = () => {
   return {
     type: SIGN_IN,
   };
 };
-
-export const posts = () => (dispatch) => {
-  factoryDataService
-    .getAll()
-    .then((posts) =>
-      dispatch({
-        type: POSTS,
-        payload: posts.data,
-      })
-    )
-    .catch((e) => {
-      console.log(e);
-    });
-};
-
 export const fetchFactoryData = () => async dispatch => {
   try {
     const result = await factoryDataService.getAll()
@@ -58,14 +28,6 @@ export const fetchFactoryData = () => async dispatch => {
     console.log(err)
   }
 };
-
-export const patchDeviceArrayData = (factory_id, data) => async dispatch => {
-  try {
-    await factoryDataService.patch(factory_id, data)
-  } catch (err) { 
-    console.error(err)
-  }
-}
 
 export const addFactoryData = (data) => async dispatch => {
   factoryDataService
@@ -90,15 +52,15 @@ export const removeFactoryData = (id) => async dispatch => {
 }
 
 export const patchFactoryData = (factory_id, data) => async dispatch => {
+  dispatch({
+    type: PATCH_FACTORY_PLINE_DATA,
+    payload: data
+  })
   try {
     await factoryDataService.patch(factory_id, data)
   } catch (err) {
     console.log(err)
   }
-  // dispatch({
-  //   type: UPDATE_FACTORY_DATA,
-  //   payload: data
-  // })
 }
 
 export const updateFactoryData = (data) => async dispatch => {
@@ -113,16 +75,42 @@ export const updateFactoryData = (data) => async dispatch => {
   })
 }
 
+export const removeFromThingsAction = (factory_id, data) => async dispatch => {
+  console.log('data:', data)
+  console.log('factory_id:', factory_id)
+  // try {
+  //   await factoryDataService.patch(factory_id, data)
+  // } catch (err) {
+  //   console.log(err)
+  // }
+  dispatch({
+    type: REMOVE_THINGS_FROM_THINGS_ARRAY,
+    payload: data
+  })
+}
+
+export const removeFromDevicesAction = (factory_id, data) => async dispatch => {
+  dispatch({
+    type: REMOVE_DEVICE_FROM_DEVICE_ARRAY,
+    payload: data
+  })
+  // try {
+  //   await factoryDataService.patch(factory_id, data)
+  // } catch (err) {
+  //   console.error(err)
+  // }
+}
+
 export const patchThingsArrayData = (factory_id, data) => async dispatch => {
+  dispatch({
+    type: PATCH_FACTORY_PLINE_DATA,
+    payload: data
+  })
   try {
     await factoryDataService.patch(factory_id, data)
   } catch (err) {
     console.log(err)
   }
-  // dispatch({
-  //   type: UPDATE_FACTORY_DATA,
-  //   payload: data
-  // })
 }
 
 export const patchProductionLineData = (id, data) => async dispatch => {

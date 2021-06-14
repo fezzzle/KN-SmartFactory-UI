@@ -3,8 +3,6 @@ import React, { useState, useRef, useMemo, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   patchFactoryData,
-  removeFactoryData,
-  patchThingsArrayData,
 } from "../../../store/actions/actions";
 import { Button } from "reactstrap";
 import { NavLink as RRNavLink } from "react-router-dom";

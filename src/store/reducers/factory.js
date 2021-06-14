@@ -3,13 +3,16 @@ import {
   ADD_FACTORY_DATA,
   UPDATE_FACTORY_DATA,
   RECEIVE_FACTORY_DATA,
-  PATCH_FACTORY_DATA,
+  PATCH_FACTORY_PLINE_DATA,
   UPDATE_THINGS_ARRAY,
   PATCH_PRODICTION_LINE_DATA,
-  EDIT_FACTORY_LOCATION_DATA
+  EDIT_FACTORY_LOCATION_DATA,
+  REMOVE_THINGS_FROM_THINGS_ARRAY,
+  REMOVE_DEVICE_FROM_DEVICE_ARRAY
 } from "../actions/types";
 
 const factoryReducer = (state = [], action) => {
+  console.log('state:', state)
   switch (action.type) {
     case RECEIVE_FACTORY_DATA:
       return action.payload;
@@ -19,9 +22,18 @@ const factoryReducer = (state = [], action) => {
       return state.filter(item => item.id !== action.payload)
     case UPDATE_FACTORY_DATA:
       return [...state.map(item => item.id === action.payload.id ? item = action.payload : item)]
-    // case UPDATE_THINGS_ARRAY:
-    //   console.log('state')
-    //   return [...state.map(item => item.id === action.payload.id ? item = action.payload : item)]
+    case PATCH_FACTORY_PLINE_DATA:
+      return state.filter(item => item.id === action.payload.id)
+    case UPDATE_THINGS_ARRAY:
+      //   console.log('state')
+      return [...state.map(item => item.id === action.payload.id ? item = action.payload : item)]
+    case REMOVE_THINGS_FROM_THINGS_ARRAY:
+
+      return [...state.map(item => item.id === action.payload.id ? { ...item, item: action.payload } : item)]
+
+    case REMOVE_DEVICE_FROM_DEVICE_ARRAY:
+      return [...state.map(item => item.id === action.payload.id ? { ...item, item: action.payload } : item)]
+
     case PATCH_PRODICTION_LINE_DATA: {
       const data = action.payload[1]
       const position = action.payload[0]

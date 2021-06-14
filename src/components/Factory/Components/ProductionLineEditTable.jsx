@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import { useTable } from "react-table";
 import { Card, CardBody, Table, Button, CardTitle } from "reactstrap";
 import { useHistory } from "react-router-dom";
@@ -94,7 +94,7 @@ const ProductionLineEditTable = ({
           {rows.map((row, i) => {
             prepareRow(row);
             return (
-              <>
+              <Fragment key={i}>
                 <tr {...row.getRowProps()}>
                   {renderButtons ? (
                     <td>
@@ -127,7 +127,7 @@ const ProductionLineEditTable = ({
                     </td>
                   </tr>
                 )}
-              </>
+              </Fragment>
             );
           })}
         </tbody>
