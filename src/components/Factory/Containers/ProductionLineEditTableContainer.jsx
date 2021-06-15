@@ -7,10 +7,15 @@ import {
   removeFromThingsAction,
 } from "../../../store/actions/actions";
 import { useDispatch } from "react-redux";
-
 import ProductionLineEditTable from "../Components/ProductionLineEditTable";
+import ConfirmModal from "../ConfirmModal";
 
 const ProductionLineEditTableContainer = (props) => {
+  const [showModal, setShowModal] = useState(false);
+  const toggleModal = () => setShowModal(!showModal);
+  const savePressedThingsDeleteButtonProps = useRef(null);
+  const savePressedDeviceDeleteButtonProps = useRef(null);
+
   const dispatch = useDispatch();
   const history = useHistory();
   const [thingRowUuid, setThingRowUuid] = useState(null);
@@ -22,7 +27,7 @@ const ProductionLineEditTableContainer = (props) => {
   };
 
   const stateData = useSelector((state) => state.factory);
-  console.log('stateData:', stateData)
+  console.log("stateData:", stateData);
   const thingData = stateData
     .filter((factory) => String(factory.id) === props.location.state.factoryId)
     .map((item) =>
@@ -37,11 +42,9 @@ const ProductionLineEditTableContainer = (props) => {
     .map((item) => item.device)
     .flat();
   const data = useMemo(() => thingData, [thingData]);
-  console.log('data[0].thing:', data[0])
   const data2 = useMemo(() => deviceData, [deviceData]);
-  console.log('data2:', data2)
 
-  const removeFromDeviceArrayData = (value) => {
+  const removeFromDeviceTable = () => {
     const getFactoryBeingUpdated = stateData.filter(
       (factory) => String(factory.id) === String(props.location.state.factoryId)
     );
@@ -55,16 +58,17 @@ const ProductionLineEditTableContainer = (props) => {
     );
     getFactoryBeingUpdated[0].production_line[getPlineIndex].thing[
       getThingIndex
-    ].device.splice(value, 1);
+    ].device.splice(savePressedDeviceDeleteButtonProps.current.row.index, 1);
     dispatch(
       removeFromDevicesAction(
         getFactoryBeingUpdated[0].id,
         getFactoryBeingUpdated[0]
       )
     );
+    setShowModal(false);
   };
 
-  const removeFromThingsArrayData = (value) => {
+  const removeFromThingsTable = () => {
     const getFactoryBeingUpdated = stateData.filter(
       (factory) => String(factory.id) === String(props.location.state.factoryId)
     );
@@ -72,16 +76,16 @@ const ProductionLineEditTableContainer = (props) => {
       (line) => String(line.id) === String(props.match.params.id)
     );
     getFactoryBeingUpdated[0].production_line[getPlineIndex].thing.splice(
-      value,
+      savePressedThingsDeleteButtonProps.current.row.index,
       1
     );
-    console.log("getFactoryBeingUpdated:", getFactoryBeingUpdated);
     dispatch(
       removeFromThingsAction(
         getFactoryBeingUpdated[0].id,
         getFactoryBeingUpdated[0]
       )
     );
+    setShowModal(false);
   };
 
   const thingColumns = React.useMemo(
@@ -148,9 +152,13 @@ const ProductionLineEditTableContainer = (props) => {
                   <Button
                     className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
                     type="button"
-                    onClick={() =>
-                      removeFromThingsArrayData(properties.row.index)
-                    }
+                    // onClick={() =>
+                    //   removeFromThingsArrayData(properties.row.index)
+                    // }
+                    onClick={() => {
+                      toggleModal();
+                      savePressedThingsDeleteButtonProps.current = properties;
+                    }}
                   >
                     <i className="tim-icons icon-simple-remove"></i>
                   </Button>
@@ -198,9 +206,13 @@ const ProductionLineEditTableContainer = (props) => {
                   <button
                     className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
                     type="button"
-                    onClick={() =>
-                      removeFromDeviceArrayData(properties.row.index)
-                    }
+                    // onClick={() =>
+                    //   removeFromDeviceArrayData(properties.row.index)
+                    // }
+                    onClick={() => {
+                      toggleModal();
+                      savePressedDeviceDeleteButtonProps.current = properties;
+                    }}
                   >
                     <i className="tim-icons icon-simple-remove"></i>
                   </button>
@@ -217,6 +229,11 @@ const ProductionLineEditTableContainer = (props) => {
   return (
     <div className="content">
       <Card>
+        <ConfirmModal
+          showModal={showModal}
+          removeFromTable={removeFromThingsTable}
+          setShowModal={setShowModal}
+        />
         <CardBody>
           <ProductionLineEditTable
             columns={thingColumns}
@@ -228,6 +245,12 @@ const ProductionLineEditTableContainer = (props) => {
             pathName={props.location.pathname}
             setThingUuid={setThingUuid}
           >
+            {" "}
+            <ConfirmModal
+              showModal={showModal}
+              removeFromTable={removeFromDeviceTable}
+              setShowModal={setShowModal}
+            />
             <ProductionLineEditTable
               columns={deviceColumns}
               data={data2}

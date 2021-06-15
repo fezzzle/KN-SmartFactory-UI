@@ -20,7 +20,6 @@ const ProductionLineEditTable = ({
     columns,
     data,
   });
-  // console.log("data inside the ProductionLineEditTable:", data);
   const history = useHistory();
   const [open, setOpen] = useState(false);
 
