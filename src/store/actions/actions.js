@@ -8,7 +8,8 @@ import {
   PATCH_FACTORY_PLINE_DATA,
   SIGN_IN,
   REMOVE_DEVICE_FROM_DEVICE_ARRAY,
-  REMOVE_THINGS_FROM_THINGS_ARRAY
+  REMOVE_THINGS_FROM_THINGS_ARRAY,
+  SET_LOADING
 } from "./types";
 import factoryDataService from "../../services/factoryDataService";
 
@@ -19,15 +20,26 @@ export const logged = () => {
 };
 export const fetchFactoryData = () => async dispatch => {
   try {
+    // dispatch(setIsLoading(true))
     const result = await factoryDataService.getAll()
     dispatch({
       type: RECEIVE_FACTORY_DATA,
       payload: result.data
     })
+    // dispatch(setIsLoading(false))
   } catch (err) {
     console.log(err)
   }
+
 };
+
+export const setIsLoading = (isLoading) => async dispatch => {
+  console.log('IN SETISLOADING:', isLoading)
+  dispatch({
+    type: SET_LOADING,
+    payload: isLoading
+  })
+}
 
 export const addFactoryData = (data) => async dispatch => {
   factoryDataService

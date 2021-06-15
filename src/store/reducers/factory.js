@@ -8,7 +8,7 @@ import {
   PATCH_PRODICTION_LINE_DATA,
   EDIT_FACTORY_LOCATION_DATA,
   REMOVE_THINGS_FROM_THINGS_ARRAY,
-  REMOVE_DEVICE_FROM_DEVICE_ARRAY
+  REMOVE_DEVICE_FROM_DEVICE_ARRAY,
 } from "../actions/types";
 
 const factoryReducer = (state = [], action) => {

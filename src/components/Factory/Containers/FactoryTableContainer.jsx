@@ -4,7 +4,7 @@ import { fetchFactoryData } from "../../../store/actions/actions";
 import { NavLink as RRNavLink } from "react-router-dom";
 import { Button, Badge } from "reactstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFactoryData } from "../../../store/actions/actions";
+import { removeFactoryData, setIsLoading } from "../../../store/actions/actions";
 
 const AlertPill = ({ data }) => {
   const getRandomColorCode = () => {
@@ -59,7 +59,7 @@ const FactoryTableContainer = (props) => {
   const factoryData = useSelector((state) => state.factory);
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal(!showModal);
-  const savePressedDeleteButtonProps = useRef(null)
+  const savePressedDeleteButtonProps = useRef(null);
 
   useEffect(() => {
     dispatch(fetchFactoryData());
@@ -68,7 +68,9 @@ const FactoryTableContainer = (props) => {
   const data = useMemo(() => factoryData, [factoryData]);
 
   const removeFromTable = () => {
-    dispatch(removeFactoryData(savePressedDeleteButtonProps.current.row.original.id));
+    dispatch(
+      removeFactoryData(savePressedDeleteButtonProps.current.row.original.id)
+    );
     setShowModal(false);
   };
 
@@ -169,7 +171,7 @@ const FactoryTableContainer = (props) => {
                     type="button"
                     onClick={() => {
                       toggleModal();
-                      savePressedDeleteButtonProps.current = props
+                      savePressedDeleteButtonProps.current = props;
                     }}
                   >
                     <i className="tim-icons icon-simple-remove"></i>
