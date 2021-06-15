@@ -91,7 +91,7 @@ const table = (
         />
 
         <div>
-          {uploaded ? table : table}
+          {uploaded ? table : ''}
         </div>
   
        
