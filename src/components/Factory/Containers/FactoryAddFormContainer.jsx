@@ -5,7 +5,10 @@ import { NavLink as RRNavLink, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import FactoryAddForm from "../Components/FactoryAddForm";
-import { addFactoryData, updateFactoryData } from "../../../store/actions/actions";
+import {
+  addFactoryData,
+  updateFactoryData,
+} from "../../../store/actions/actions";
 
 const FactoryAddFormContainer = () => {
   const history = useHistory();
@@ -23,6 +26,8 @@ const FactoryAddFormContainer = () => {
       id: Math.random().toString(36).substr(2, 9),
       name: values.name,
       line_number: values.line_number,
+      alerts: getRandomAlertsCode(),
+      status: getRandomStatusCode(),
       thing: [],
     };
     setTemporaryProductionLine([data]);
@@ -48,6 +53,8 @@ const FactoryAddFormContainer = () => {
     let data = {
       id: Math.random().toString(36).substr(2, 9),
       time_added: Date.now(),
+      alerts: getRandomAlertsCode(),
+      status: getRandomStatusCode(),
       factory_location: {
         country: values.country,
         city: values.city,
@@ -64,6 +71,32 @@ const FactoryAddFormContainer = () => {
       setAddProductionButtonState(!addProductionButtonState);
       dispatch(addFactoryData(temporaryFactorySave.current));
     }
+  };
+
+  const getRandomAlertsCode = () => {
+    const alerts = [
+      "Fire",
+      "Unresolved",
+      "Green",
+      "Danger",
+      "Warning",
+      "Info",
+      "Uprising",
+      "Red",
+      "None",
+      "Low KPI"
+    ];
+    const res = Math.floor(Math.random() * alerts.length);
+
+    return alerts[res];
+  };
+  const getRandomStatusCode = () => {
+    const status = [
+      "Working", "Not active", "Problem"
+    ];
+    const res = Math.floor(Math.random() * status.length);
+
+    return status[res];
   };
 
   return (

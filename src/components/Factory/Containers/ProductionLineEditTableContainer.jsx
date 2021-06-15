@@ -1,6 +1,6 @@
 import React, { useRef, useState, useMemo } from "react";
 import { useSelector } from "react-redux";
-import { Card, CardBody, Button } from "reactstrap";
+import { Card, CardBody, Button, Badge } from "reactstrap";
 import { NavLink as RRNavLink, useHistory } from "react-router-dom";
 import {
   removeFromDevicesAction,
@@ -86,6 +86,30 @@ const ProductionLineEditTableContainer = (props) => {
       )
     );
     setShowModal(false);
+  };
+
+
+  const StatusBadge = ({ data }) => {
+    const getRandomColorCode = () => {
+      const colorCodes = [
+        "primary",
+        "secondary",
+        "success",
+        "danger",
+        "warning",
+        "info",
+        "light",
+        "dark",
+      ];
+      const res = Math.floor(Math.random() * colorCodes.length);
+  
+      return colorCodes[res];
+    };
+    return (
+      <>
+        <Badge color={getRandomColorCode()}>{data}</Badge>
+      </>
+    );
   };
 
   const thingColumns = React.useMemo(
@@ -195,6 +219,9 @@ const ProductionLineEditTableContainer = (props) => {
           {
             Header: "Device alerts",
             accessor: "alerts",
+            Cell: (props) => {
+              return <StatusBadge data={props.value} />;
+            },
           },
           {
             Header: "Actions",

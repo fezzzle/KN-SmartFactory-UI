@@ -28,15 +28,12 @@ const FormField = ({ label, name, touched, errors }) => (
 const ProductionLineAddForm = ({ onSubmit, goBack }) => (
   <Formik
     initialValues={{
-      line_number: "1",
       name: "Some application for line",
+      line_number: 1,
     }}
     validationSchema={Yup.object().shape({
-      line_number: Yup.string()
-        .min(0)
-        .required()
-        .label("Production Line Number"),
       name: Yup.string().min(0).required().label("Production line name"),
+      line_number: Yup.number().min(0).max(100).positive().integer().required().label("Production Line Number"),
     })}
     onSubmit={onSubmit}
   >

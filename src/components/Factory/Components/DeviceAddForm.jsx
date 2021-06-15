@@ -37,7 +37,8 @@ const DeviceAddForm = ({ onSubmit, goBack }) => (
     }}
     validationSchema={Yup.object().shape({
       name: Yup.string().min(0).required().label("Name"),
-      SERIAL_NUMBER: Yup.string().min(0).required().label("Device serial number"),
+      // SERIAL_NUMBER: Yup.number().min(0).required().label("Device serial number"),
+      SERIAL_NUMBER: Yup.number().min(0).positive().integer().required().label("Device serial number"),
       image: Yup.string().min(0).required().label("Image location"),
       model: Yup.string().min(0).required().label("Device model"),
       status: Yup.string().min(0).required().label("Device status"),

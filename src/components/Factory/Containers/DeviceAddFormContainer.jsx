@@ -66,6 +66,25 @@ const DeviceAddFormContainer = (props) => {
   //   productionLine.production_line[0].thing.push(data);
   // };
 
+  const getRandomAlertsCode = () => {
+    const alerts = [
+      "Fire",
+      "Unresolved",
+      "Green",
+      "Danger",
+      "Warning",
+      "Info",
+      "Uprising",
+      "Red",
+      "None",
+      "Low KPI"
+    ];
+    const res = Math.floor(Math.random() * alerts.length);
+
+    return alerts[res];
+  };
+
+
   const addDevice = (values) => {
     console.log('values:', values)
     let data = {
@@ -75,6 +94,7 @@ const DeviceAddFormContainer = (props) => {
       model: values.model,
       status: values.status,
       alerts_messages: values.alerts_messages,
+      alerts: getRandomAlertsCode()
     };
     temporaryDeviceSave.current = data;
     updateThingsData();

@@ -28,9 +28,9 @@ const FormField = ({ label, name, touched, errors }) => (
 const FactoryAddForm = ({ onSubmit, goBack }) => (
   <Formik
     initialValues={{
-      name: "Some candy factory",
-      country: "Estonia",
-      city: "Valga",
+      name: "Factory name",
+      country: "Country",
+      city: "City",
     }}
     validationSchema={Yup.object().shape({
       name: Yup.string().min(0).required().label("Factory name"),

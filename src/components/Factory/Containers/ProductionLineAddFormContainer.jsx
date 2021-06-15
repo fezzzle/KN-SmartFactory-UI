@@ -8,6 +8,33 @@ const ProductionLineAddFormContainer = (props) => {
   const history = useHistory()
   const dispatch = useDispatch();
   const stateData = useSelector((state) => state.factory);
+
+  const getRandomAlertsCode = () => {
+    const alerts = [
+      "Fire",
+      "Unresolved",
+      "Green",
+      "Danger",
+      "Warning",
+      "Info",
+      "Uprising",
+      "Red",
+      "None",
+      "Low KPI"
+    ];
+    const res = Math.floor(Math.random() * alerts.length);
+
+    return alerts[res];
+  };
+
+  const getRandomStatusCode = () => {
+    const status = [
+      "Working", "Not active", "Problem"
+    ];
+    const res = Math.floor(Math.random() * status.length);
+
+    return status[res];
+  };
   
 
   const addProductionLine = (values) => {
@@ -15,6 +42,8 @@ const ProductionLineAddFormContainer = (props) => {
     let data = {
         id: Math.random().toString(36).substr(2, 9),
         name: values.name,
+        alerts: getRandomAlertsCode(),
+        status: getRandomStatusCode(),
         line_number: values.line_number,
         thing: [],
     };
