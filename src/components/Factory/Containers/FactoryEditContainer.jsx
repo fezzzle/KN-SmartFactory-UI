@@ -1,8 +1,7 @@
-import React, { useState, useRef, useMemo, useEffect } from "react";
-// import { useParams, useHistory } from "react-router-dom";
+import React, {  useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { patchFactoryData } from "../../../store/actions/actions";
-import { Button } from "reactstrap";
+import { Button, Badge } from "reactstrap";
 import { NavLink as RRNavLink } from "react-router-dom";
 
 import FactoryEditTable from "../Components/FactoryEditTable";
@@ -37,6 +36,29 @@ const FactoryEditContainer = (props) => {
     );
   };
 
+  const StatusBadge = ({ data }) => {
+    const getRandomColorCode = () => {
+      const colorCodes = [
+        "primary",
+        "secondary",
+        "success",
+        "danger",
+        "warning",
+        "info",
+        "light",
+        "dark",
+      ];
+      const res = Math.floor(Math.random() * colorCodes.length);
+  
+      return colorCodes[res];
+    };
+    return (
+      <>
+        <Badge color={getRandomColorCode()}>{data}</Badge>
+      </>
+    );
+  };
+
   const columns = React.useMemo(
     () => [
       {
@@ -53,6 +75,9 @@ const FactoryEditContainer = (props) => {
           {
             Header: "Status",
             accessor: "status",
+            Cell: (props) => {
+              return <StatusBadge data={props.value} />;
+            },
           },
           {
             Header: "Alerts",

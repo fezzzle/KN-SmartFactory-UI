@@ -3,11 +3,9 @@ import { Card, CardBody, CardTitle } from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom"
 import { updateFactoryData } from "../../../store/actions/actions";
-import store from "../../../store/store";
 
 const ProductionLineAddFormContainer = (props) => {
   const history = useHistory()
-  // const storeState = store.getState();
   const dispatch = useDispatch();
   const stateData = useSelector((state) => state.factory);
   

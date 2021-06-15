@@ -1,11 +1,10 @@
 import { useState, useRef } from "react";
 import ThingAddForm from "../Components/ThingAddForm";
 import { Card, CardBody, Button, CardTitle} from "reactstrap";
-import { NavLink as RRNavLink, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import DeviceAddForm from "../Components/DeviceAddForm";
 import { useDispatch, useSelector } from "react-redux";
 import { patchThingsArrayData } from "../../../store/actions/actions";
-// import store from "../../../store/store";
 
 const ThingAddFormContainer = (props) => {
   const dispatch = useDispatch();
@@ -22,8 +21,6 @@ const ThingAddFormContainer = (props) => {
   const [isSavedButtonState, setIsSavedButtonState] = useState(false);
   const [addDeviceButtonState, setAddDeviceButtonState] = useState(true);
   const [canCloseWithoutSaving, setCanCloseWithoutSaving] = useState(false);
-  console.log("temporaryThingSave.CURRENT:", temporaryThingSave.current);
-  console.log("temporaryDeviceSave.CURRENT:", temporaryDeviceSave.current);
 
   const updateThingsArrayData = () => {
     const getFactoryBeingUpdated = stateData.filter(
@@ -38,7 +35,6 @@ const ThingAddFormContainer = (props) => {
     } else {
       newThing = temporaryThingSave.current;
     }
-    console.log("newThing:", newThing);
     getFactoryBeingUpdated[0].production_line[plineIndex].thing.push(newThing);
     dispatch(
       patchThingsArrayData(

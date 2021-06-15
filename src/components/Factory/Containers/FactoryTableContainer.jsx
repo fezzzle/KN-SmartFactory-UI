@@ -10,16 +10,50 @@ import { Button, Badge } from "reactstrap";
 
 import { useSelector, useDispatch } from "react-redux";
 
-const Alerts = ({ values }) => {
+const AlertPill = ({ data }) => {
+  const getRandomColorCode = () => {
+    const colorCodes = [
+      "primary",
+      "secondary",
+      "success",
+      "danger",
+      "warning",
+      "info",
+      "light",
+      "dark",
+    ];
+    const res = Math.floor(Math.random() * colorCodes.length);
+
+    return colorCodes[res];
+  };
   return (
     <>
-      {values.map((genre, idx) => {
-        return (
-          <span key={idx} className="badge">
-            {genre}
-          </span>
-        );
-      })}
+      <Badge color={getRandomColorCode()} pill>
+        {data}
+      </Badge>
+    </>
+  );
+};
+
+const StatusBadge = ({ data }) => {
+  const getRandomColorCode = () => {
+    const colorCodes = [
+      "primary",
+      "secondary",
+      "success",
+      "danger",
+      "warning",
+      "info",
+      "light",
+      "dark",
+    ];
+    const res = Math.floor(Math.random() * colorCodes.length);
+
+    return colorCodes[res];
+  };
+  return (
+    <>
+      <Badge color={getRandomColorCode()}>{data}</Badge>
     </>
   );
 };
@@ -58,6 +92,9 @@ const FactoryTableContainer = (props) => {
           {
             Header: "Alerts",
             accessor: "alerts",
+            Cell: (props) => {
+              return <StatusBadge data={props.value} />;
+            },
           },
           {
             Header: "Country",
@@ -98,9 +135,10 @@ const FactoryTableContainer = (props) => {
           {
             Header: "Status",
             accessor: "status",
-            // Cell: ({ cell: { value } }) => console.log(value)
+            Cell: (props) => {
+              return <AlertPill data={props.value} />;
+            },
           },
-          // {<Alerts />}
           {
             Header: "Actions",
             accessor: "actions",

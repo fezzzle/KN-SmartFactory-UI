@@ -1,6 +1,6 @@
 import { useState, Fragment } from "react";
 import { useTable } from "react-table";
-import { Card, CardBody, Table, Button, CardTitle } from "reactstrap";
+import { Table, Button, CardTitle } from "reactstrap";
 import { useHistory } from "react-router-dom";
 
 import { NavLink as RRNavLink } from "react-router-dom";

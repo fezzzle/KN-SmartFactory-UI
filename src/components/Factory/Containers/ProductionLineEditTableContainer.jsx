@@ -12,8 +12,6 @@ import ProductionLineEditTable from "../Components/ProductionLineEditTable";
 
 const ProductionLineEditTableContainer = (props) => {
   const dispatch = useDispatch();
-  // const storeState = store.getState();
-  console.log("ProductionLineEditTableContainer props:", props);
   const history = useHistory();
   const [thingRowUuid, setThingRowUuid] = useState(null);
   const rowUuidRef = useRef(null);
@@ -33,10 +31,6 @@ const ProductionLineEditTableContainer = (props) => {
       )
     )
     .flat();
-
-
-    console.log('thingData:', thingData)
-    console.log('deviceData:', deviceData)
 
   const deviceData = thingData[0].thing
     .filter((item) => item.uuid === thingRowUuid)

@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import FactoryEditForm from "../Components/FactoryEditForm";
 
 const FactoryEditFormContainer = (props) => {
-  console.log("FactoryEditFormContainer props:", props);
   const dispatch = useDispatch();
   const history = useHistory();
   const stateData = useSelector((state) => state.factory);

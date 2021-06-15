@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import BootstrapModal from "../components/BootstrapModal";
 import ExportXLSX from "../components/ExportXLSX";
-import ImportXLSX from "../components/ImportXLSX";
 // import BusinessUnitModal from "../components/BusinessUnitModal";
 import {
   Row,
