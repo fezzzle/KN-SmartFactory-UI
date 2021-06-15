@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import BootstrapModal from "../components/BootstrapModal";
 import ExportXLSX from "../components/ExportXLSX";
-// import BusinessUnitModal from "../components/BusinessUnitModal";
+import ImportXLSX from "../components/ImportXLSX";
+import ImportUsersModal from "../components/ImportUsersModal";
 import {
   Row,
   Col,
@@ -138,6 +139,7 @@ class CompanyAdmin extends Component {
                   </tbody>
                 </Table>
                 <ExportXLSX csvData={this.state.users} fileName={this.state.fileName} />
+                <ImportUsersModal />
                 
               </CardBody>
             </Card>
