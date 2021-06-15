@@ -1,4 +1,4 @@
-import React, {  useMemo } from "react";
+import React, {  useMemo, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { patchFactoryData } from "../../../store/actions/actions";
 import { Button, Badge } from "reactstrap";
@@ -7,6 +7,10 @@ import { NavLink as RRNavLink } from "react-router-dom";
 import FactoryEditTable from "../Components/FactoryEditTable";
 
 const FactoryEditContainer = (props) => {
+  const [showModal, setShowModal] = useState(false);
+  const toggleModal = () => setShowModal(!showModal);
+  const savePressedDeleteButtonProps = useRef(null)
+
   const stateData = useSelector((state) => state.factory);
   const dispatch = useDispatch();
   const factoryData = stateData
@@ -15,7 +19,6 @@ const FactoryEditContainer = (props) => {
     .flat();
 
   const data = useMemo(() => factoryData, [factoryData]);
-  console.log("data:", data);
 
   const getFactoryData = () => {
     return stateData.filter(
@@ -28,13 +31,15 @@ const FactoryEditContainer = (props) => {
     return data[0].factory_location.name;
   };
   
-  const updateFactoryArrayData = (value) => {
+  const removeFromTable = () => {
     const getFactoryBeingUpdated = getFactoryData();
-    getFactoryBeingUpdated[0].production_line.splice(value, 1);
+    getFactoryBeingUpdated[0].production_line.splice(savePressedDeleteButtonProps.current.row.index, 1);
     dispatch(
       patchFactoryData(getFactoryBeingUpdated[0].id, getFactoryBeingUpdated[0])
     );
+    setShowModal(false)
   };
+
 
   const StatusBadge = ({ data }) => {
     const getRandomColorCode = () => {
@@ -134,7 +139,12 @@ const FactoryEditContainer = (props) => {
                   <Button
                     className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
                     type="button"
-                    onClick={() => updateFactoryArrayData(properties.row.index)}
+                    // onClick={() => updateFactoryArrayData(properties.row.index)}
+                    onClick={() => {
+                      savePressedDeleteButtonProps.current = properties
+                      toggleModal();
+                    }
+                  }
                   >
                     <i className="tim-icons icon-simple-remove"></i>
                   </Button>
@@ -154,6 +164,9 @@ const FactoryEditContainer = (props) => {
         data={data}
         factoryName={factoryName}
         factoryId={props.match.params.id}
+        removeFromTable={removeFromTable}
+        showModal={showModal}
+        setShowModal={setShowModal}
       />
     </div>
   );

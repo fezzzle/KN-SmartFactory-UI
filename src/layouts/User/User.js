@@ -89,7 +89,8 @@ function User(props) {
         return routes[i].name;
       }
     }
-    return "Brand";
+    // return "Brand";
+    return "Smartfactory";
   };
 
   return (

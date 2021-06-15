@@ -2,8 +2,9 @@ import { useTable } from "react-table";
 import { Card, CardBody, Table, Button, CardTitle } from "reactstrap";
 
 import { NavLink as RRNavLink } from "react-router-dom";
+import ConfirmModal from "../ConfirmModal";
 
-const FactoryTable = ({ columns, data }) => {
+const FactoryTable = ({ columns, data, removeFromTable, showModal, setShowModal }) => {
   const { getTableProps, headerGroups, rows, prepareRow } = useTable({
     columns,
     data,
@@ -11,6 +12,7 @@ const FactoryTable = ({ columns, data }) => {
 
   return (
     <Card>
+      <ConfirmModal showModal={showModal} removeFromTable={removeFromTable} setShowModal={setShowModal}/>
       <CardBody>
         <CardTitle>
           <h1 className="mt-4">List of company factories</h1>

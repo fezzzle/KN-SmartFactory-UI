@@ -1,14 +1,10 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
 import FactoryTable from "../Components/FactoryTable";
-import {
-  fetchFactoryData,
-  removeFactoryData,
-} from "../../../store/actions/actions";
+import { fetchFactoryData } from "../../../store/actions/actions";
 import { NavLink as RRNavLink } from "react-router-dom";
-
 import { Button, Badge } from "reactstrap";
-
 import { useSelector, useDispatch } from "react-redux";
+import { removeFactoryData } from "../../../store/actions/actions";
 
 const AlertPill = ({ data }) => {
   const getRandomColorCode = () => {
@@ -61,6 +57,9 @@ const StatusBadge = ({ data }) => {
 const FactoryTableContainer = (props) => {
   const dispatch = useDispatch();
   const factoryData = useSelector((state) => state.factory);
+  const [showModal, setShowModal] = useState(false);
+  const toggleModal = () => setShowModal(!showModal);
+  const savePressedDeleteButtonProps = useRef(null)
 
   useEffect(() => {
     dispatch(fetchFactoryData());
@@ -68,8 +67,9 @@ const FactoryTableContainer = (props) => {
 
   const data = useMemo(() => factoryData, [factoryData]);
 
-  const removeFromTable = (props) => {
-    dispatch(removeFactoryData(props.row.original.id));
+  const removeFromTable = () => {
+    dispatch(removeFactoryData(savePressedDeleteButtonProps.current.row.original.id));
+    setShowModal(false);
   };
 
   const logValue = (value) => {
@@ -167,7 +167,10 @@ const FactoryTableContainer = (props) => {
                   <Button
                     className="btn-icon btn-link like btn-neutral btn btn-info btn-sm"
                     type="button"
-                    onClick={() => removeFromTable(props)}
+                    onClick={() => {
+                      toggleModal();
+                      savePressedDeleteButtonProps.current = props
+                    }}
                   >
                     <i className="tim-icons icon-simple-remove"></i>
                   </Button>
@@ -182,7 +185,13 @@ const FactoryTableContainer = (props) => {
   );
   return (
     <div className="content">
-      <FactoryTable columns={columns} data={data} />
+      <FactoryTable
+        columns={columns}
+        data={data}
+        removeFromTable={removeFromTable}
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
     </div>
   );
 };
