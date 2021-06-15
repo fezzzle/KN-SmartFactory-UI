@@ -14,7 +14,6 @@ import {
   ButtonGroup,
 } from "reactstrap";
 import axios from 'axios';
-import { Link, Route,Switch } from 'react-router-dom';
 
 
 
@@ -95,7 +94,8 @@ getBusinessUnits = async ()=>{
 
         
       }).catch(error => {
-        alert('Could not connect to Server. Make sure Mockoon server is on if you are using it')
+        // alert('Could not connect to Server. Make sure Mockoon server is on if you are using it')
+        console.log('Could not connect to Server. Make sure Mockoon server is on if you are using it')
         
         });
 

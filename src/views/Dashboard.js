@@ -15,11 +15,10 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React from "react"
 // nodejs library that concatenates classes
-import classNames from "classnames";
+import classNames from "classnames"
 // react plugin used to create charts
-import { Line, Bar } from "react-chartjs-2";
 
 // reactstrap components
 import {
@@ -29,507 +28,326 @@ import {
   CardHeader,
   CardBody,
   CardTitle,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  Label,
-  FormGroup,
-  Input,
-  Table,
   Row,
   Col,
-  UncontrolledTooltip,
-} from "reactstrap";
+} from "reactstrap"
 
-// core components
 import {
-  chartExample1,
-  chartExample2,
-  chartExample3,
-  chartExample4,
-} from "variables/charts.js";
+  TimeChart, 
+  calculatePercentage, 
+  timeToString, 
+  lastWeekData, 
+  totalJobs, 
+  CompletionRateChart, 
+  JobsChart, 
+  DeliveryChart
+} from "variables/ChartFunctions"
 
-function Dashboard(props) {
-  const [bigChartData, setbigChartData] = React.useState("data1");
-  const setBgChartData = (name) => {
-    setbigChartData(name);
-  };
-  return (
-    <>
+import { Pie,  Doughnut, Bar} from "react-chartjs-2"
+import HeaderComponent from "components/DashboardComponents/HeaderComponent"
+import axios from "axios"
+
+import * as jobMetrics from "dashboardData/jobMetrics"
+import * as timeMetrics from "dashboardData/timeMetrics"
+
+class Dashboard extends React.Component {
+  
+  constructor(){
+    super()
+    this.state = {
+      factoryJobData: {},
+      factoryTimeData: {},
+      productionLineTimeData: {},
+      machineTimeData: {},
+      productionLineJobData: {},
+      machineJobData: {},
+      selectedData: ["All Factories"],
+      current: "factory"
+     
+    }
+    this.getJobsData = this.getJobsData.bind(this)
+    this.getTimeData = this.getTimeData.bind(this)
+    
+
+    this.componentDidMount=this.componentDidMount.bind(this)
+  }
+  
+  async componentDidMount() {
+    
+    this.fetchData()
+  }
+  
+  fetchData = async () => {
+    const a = await this.getJobsData()
+    const b = await this.getTimeData()
+  }
+
+  getJobsData = async () => {
+    axios.get('http://localhost:7100/jobMetrics').then(response => {
+      
+      this.setState(prevState => ({
+        ...this.state,
+        factoryJobData: response.data.factoryJobs,
+        productionLineJobData: response.data.productionLineJobs,
+        machineJobData: response.data.machineJobs,
+        selectedData: [...prevState.selectedData, response.data.factoryJobs]
+
+      }))
+      
+    }).catch(error => {
+      // Loading data from file if Mockoon is not active
+      this.setState(prevState => ({
+        ...this.state,
+        factoryJobData: jobMetrics.factoryJobs,
+        productionLineJobData: jobMetrics.productionLineJobs,
+        machineJobData: jobMetrics.machineJobs,
+        selectedData: [...prevState.selectedData, jobMetrics.factoryJobs]
+
+      }))
+      });
+  }
+  getTimeData = async () => {
+    axios.get('http://localhost:7100/timeMetrics').then(response => {
+      
+      this.setState(prevState => ({
+        ...this.state,
+        factoryTimeData: response.data.factoryTime,
+        productionLineTimeData: response.data.productionLineTime,
+        machineTimeData: response.data.machineTime,
+        selectedData: [...prevState.selectedData, response.data.factoryTime]
+      }))
+      
+    }).catch(error => {
+      console.log('Could not connect to Server. Make sure Mockoon server is on if you are using it. Loading data from file...')
+      // alert('Could not connect to Server. Make sure Mockoon server is on if you are using it. Loading data from file...')
+      this.setState(prevState => ({
+        ...this.state,
+        factoryTimeData: timeMetrics.factoryTime,
+        productionLineTimeData: timeMetrics.productionLineTime,
+        machineTimeData: timeMetrics.machineTime,
+        selectedData: [...prevState.selectedData, timeMetrics.factoryTime]
+      }))
+      });
+  }
+  render() {
+    //Checking if all data is loaded before rendering
+    if(this.state.selectedData.length !== 3){
+      return null
+    }
+    return (
+      
       <div className="content">
+        {/* Switch between Factories/Production Lines/Machines */}
         <Row>
-          <Col xs="12">
+          <Card className="card-plain">
+            <Col sm="12">
+              <ButtonGroup
+                className="btn-group-toggle float-right"
+                data-toggle="buttons"
+              >
+                <Button
+                  tag="label"
+                  className={classNames("btn-simple", {
+                    active: this.state.current === "factory",
+                  })}
+                  color="info"
+                  id="0"
+                  size="sm"
+                  onClick={() => this.setState({selectedData: ["All Factories", this.state.factoryJobData, this.state.factoryTimeData], current: "factory"})}
+                >
+                  <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                    Factories
+                  </span>
+                  <span className="d-block d-sm-none">
+                    <i className="tim-icons icon-single-02" />
+                  </span>
+                </Button>
+                <Button
+                  color="info"
+                  id="1"
+                  size="sm"
+                  tag="label"
+                  className={classNames("btn-simple", {
+                    active: this.state.current === "productionLine",
+                  })}
+                  onClick={() => this.setState({selectedData: ["All Production Lines", this.state.productionLineJobData, this.state.productionLineTimeData], current: "productionLine"})}
+                >
+                  <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                    Production Lines
+                  </span>
+                  <span className="d-block d-sm-none">
+                    <i className="tim-icons icon-gift-2" />
+                  </span>
+                </Button>
+                <Button
+                  color="info"
+                  id="2"
+                  size="sm"
+                  tag="label"
+                  className={classNames("btn-simple", {
+                    active: this.state.current === "machine",
+                  })}
+                  onClick={() => this.setState({selectedData: ["All Machines", this.state.machineJobData, this.state.machineTimeData], current: "machine"})}
+                >
+                  <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                    Machines
+                  </span>
+                  <span className="d-block d-sm-none">
+                    <i className="tim-icons icon-tap-02" />
+                  </span>
+                </Button>
+              </ButtonGroup>
+            </Col>
+          </Card>
+        </Row>
+        
+        <HeaderComponent selectedData={this.state.selectedData} />
+        <Row>
+          <Col lg="3">
             <Card className="card-chart">
               <CardHeader>
                 <Row>
-                  <Col className="text-left" sm="6">
-                    <h5 className="card-category">Total Shipments</h5>
-                    <CardTitle tag="h2">Performance</CardTitle>
-                  </Col>
-                  <Col sm="6">
-                    <ButtonGroup
-                      className="btn-group-toggle float-right"
-                      data-toggle="buttons"
-                    >
-                      <Button
-                        tag="label"
-                        className={classNames("btn-simple", {
-                          active: bigChartData === "data1",
-                        })}
-                        color="info"
-                        id="0"
-                        size="sm"
-                        onClick={() => setBgChartData("data1")}
-                      >
-                        <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                          Accounts
-                        </span>
-                        <span className="d-block d-sm-none">
-                          <i className="tim-icons icon-single-02" />
-                        </span>
-                      </Button>
-                      <Button
-                        color="info"
-                        id="1"
-                        size="sm"
-                        tag="label"
-                        className={classNames("btn-simple", {
-                          active: bigChartData === "data2",
-                        })}
-                        onClick={() => setBgChartData("data2")}
-                      >
-                        <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                          Purchases
-                        </span>
-                        <span className="d-block d-sm-none">
-                          <i className="tim-icons icon-gift-2" />
-                        </span>
-                      </Button>
-                      <Button
-                        color="info"
-                        id="2"
-                        size="sm"
-                        tag="label"
-                        className={classNames("btn-simple", {
-                          active: bigChartData === "data3",
-                        })}
-                        onClick={() => setBgChartData("data3")}
-                      >
-                        <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                          Sessions
-                        </span>
-                        <span className="d-block d-sm-none">
-                          <i className="tim-icons icon-tap-02" />
-                        </span>
-                      </Button>
-                    </ButtonGroup>
+                  <Col className="text-left" sm="8">
+                    <h5 className="card-category">Use Time</h5>
+                    <CardTitle tag="h3">
+                      <i className="tim-icons icon-time-alarm text-info" /> 
+                      {timeToString(this.state.selectedData[2].upTime)}
+                    </CardTitle>
                   </Col>
                 </Row>
               </CardHeader>
               <CardBody>
                 <div className="chart-area">
-                  <Line
-                    data={chartExample1[bigChartData]}
-                    options={chartExample1.options}
-                  />
+                <Doughnut
+                 data={TimeChart(this.state.selectedData[2], ["Use Time"]).data} 
+                 options={TimeChart(this.state.selectedData[2], ["Use Time"]).options}
+                 />
                 </div>
+                <CardTitle tag="h1" className="text-center">
+                  {calculatePercentage(this.state.selectedData[2].upTime)}
+                </CardTitle>
+              </CardBody>
+            </Card>
+          </Col>
+          <Col lg="3">
+            <Card className="card-chart">
+              <CardHeader>
+                <Row>
+                  <Col className="text-left" sm="8">
+                    <h5 className="card-category">Idle Time</h5>
+                    <CardTitle tag="h3">
+                      <i className="tim-icons icon-time-alarm text-warning" />{" "}
+                      {timeToString(this.state.selectedData[2].idleTime)}
+                    </CardTitle>
+                  </Col>
+                </Row>
+              </CardHeader>
+              <CardBody>
+                <div className="chart-area">
+                <Doughnut
+                 data={TimeChart(this.state.selectedData[2], ["Idle Time"]).data} 
+                 options={TimeChart(this.state.selectedData[2], ["Idle Time"]).options}
+                 />
+                </div>
+                <CardTitle tag="h1" className="text-center">
+                {calculatePercentage(this.state.selectedData[2].idleTime)}
+                </CardTitle>
+              </CardBody>
+            </Card>
+          </Col>
+          <Col lg="3">
+            <Card className="card-chart">
+              <CardHeader>
+                <Row>
+                  <Col className="text-left" sm="8">
+                    <h5 className="card-category">Downtime</h5>
+                    <CardTitle tag="h3">
+                      <i className="tim-icons icon-time-alarm text-danger" /> 
+                      {timeToString(this.state.selectedData[2].downTime)}
+                    </CardTitle>
+                  </Col>
+                </Row>
+              </CardHeader>
+              <CardBody>
+                <div className="chart-area">
+                <Doughnut
+                 data={TimeChart(this.state.selectedData[2], ["Downtime"]).data} 
+                 options={TimeChart(this.state.selectedData[2], ["Downtime"]).options}
+                 />
+                </div>
+                <CardTitle tag="h1" className="text-center">
+                {calculatePercentage(this.state.selectedData[2].downTime)}
+                </CardTitle>
+              </CardBody>
+            </Card>
+          </Col>
+          <Col lg="3">
+            <Card className="card-chart">
+              <CardHeader>
+                <Row>
+                  <Col className="text-left" sm="8">
+                    <h5 className="card-category">On Time Delivery</h5>
+                    <CardTitle tag="h3">
+                      <i className="tim-icons icon-send text-success" /> 80
+                    </CardTitle>
+                  </Col>
+                </Row>
+              </CardHeader>
+              <CardBody>
+                <div className="chart-area">
+                <Doughnut data={DeliveryChart([80, 20], ["On Time Delivery", ]).data} options={DeliveryChart([80, 20], ["On Time Delivery",]).options}/>
+                </div>
+                <CardTitle tag="h1" className="text-center">
+                  80%
+                </CardTitle>
               </CardBody>
             </Card>
           </Col>
         </Row>
         <Row>
-          <Col lg="4">
+          <Col lg="6">
             <Card className="card-chart">
               <CardHeader>
-                <h5 className="card-category">Total Shipments</h5>
+                <h5 className="card-category">Job Completion Rate</h5>
                 <CardTitle tag="h3">
-                  <i className="tim-icons icon-bell-55 text-info" /> 763,215
+                  <i className="tim-icons icon-check-2 text-success" /> 
+                  {"Avg " + lastWeekData(this.state.selectedData[1][2021]["May"]["days"])[2] + "/day"}
                 </CardTitle>
               </CardHeader>
               <CardBody>
-                <div className="chart-area">
-                  <Line
-                    data={chartExample2.data}
-                    options={chartExample2.options}
-                  />
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col lg="4">
-            <Card className="card-chart">
-              <CardHeader>
-                <h5 className="card-category">Daily Sales</h5>
-                <CardTitle tag="h3">
-                  <i className="tim-icons icon-delivery-fast text-primary" />{" "}
-                  3,500€
-                </CardTitle>
-              </CardHeader>
-              <CardBody>
-                <div className="chart-area">
+                <div className="chart-area large">
                   <Bar
-                    data={chartExample3.data}
-                    options={chartExample3.options}
+                  data={CompletionRateChart(this.state.selectedData[1][2021]["May"]["days"]).data}
+                  options={CompletionRateChart(this.state.selectedData[1][2021]["May"]["days"]).options}
                   />
                 </div>
               </CardBody>
             </Card>
           </Col>
-          <Col lg="4">
+          <Col lg="6" md="12">
             <Card className="card-chart">
               <CardHeader>
-                <h5 className="card-category">Completed Tasks</h5>
+                <h5 className="card-category">All Jobs</h5>
                 <CardTitle tag="h3">
-                  <i className="tim-icons icon-send text-success" /> 12,100K
+                  <i className="tim-icons icon-bullet-list-67 text-info" /> 
+                  {totalJobs(this.state.selectedData[1])}
                 </CardTitle>
               </CardHeader>
               <CardBody>
-                <div className="chart-area">
-                  <Line
-                    data={chartExample4.data}
-                    options={chartExample4.options}
+                <div className="chart-area large">
+                  <Pie
+                  data={JobsChart(this.state.selectedData[1]).data}
+                  options={JobsChart(this.state.selectedData[1]).options}
                   />
                 </div>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-        <Row>
-          <Col lg="6" md="12">
-            <Card className="card-tasks">
-              <CardHeader>
-                <h6 className="title d-inline">Tasks(5)</h6>
-                <p className="card-category d-inline"> today</p>
-                <UncontrolledDropdown>
-                  <DropdownToggle
-                    caret
-                    className="btn-icon"
-                    color="link"
-                    data-toggle="dropdown"
-                    type="button"
-                  >
-                    <i className="tim-icons icon-settings-gear-63" />
-                  </DropdownToggle>
-                  <DropdownMenu aria-labelledby="dropdownMenuLink" right>
-                    <DropdownItem
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      Action
-                    </DropdownItem>
-                    <DropdownItem
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      Another action
-                    </DropdownItem>
-                    <DropdownItem
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      Something else
-                    </DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-              </CardHeader>
-              <CardBody>
-                <div className="table-full-width table-responsive">
-                  <Table>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <FormGroup check>
-                            <Label check>
-                              <Input defaultValue="" type="checkbox" />
-                              <span className="form-check-sign">
-                                <span className="check" />
-                              </span>
-                            </Label>
-                          </FormGroup>
-                        </td>
-                        <td>
-                          <p className="title">Update the Documentation</p>
-                          <p className="text-muted">
-                            Dwuamish Head, Seattle, WA 8:47 AM
-                          </p>
-                        </td>
-                        <td className="td-actions text-right">
-                          <Button
-                            color="link"
-                            id="tooltip636901683"
-                            title=""
-                            type="button"
-                          >
-                            <i className="tim-icons icon-pencil" />
-                          </Button>
-                          <UncontrolledTooltip
-                            delay={0}
-                            target="tooltip636901683"
-                            placement="right"
-                          >
-                            Edit Task
-                          </UncontrolledTooltip>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <FormGroup check>
-                            <Label check>
-                              <Input
-                                defaultChecked
-                                defaultValue=""
-                                type="checkbox"
-                              />
-                              <span className="form-check-sign">
-                                <span className="check" />
-                              </span>
-                            </Label>
-                          </FormGroup>
-                        </td>
-                        <td>
-                          <p className="title">GDPR Compliance</p>
-                          <p className="text-muted">
-                            The GDPR is a regulation that requires businesses to
-                            protect the personal data and privacy of Europe
-                            citizens for transactions that occur within EU
-                            member states.
-                          </p>
-                        </td>
-                        <td className="td-actions text-right">
-                          <Button
-                            color="link"
-                            id="tooltip457194718"
-                            title=""
-                            type="button"
-                          >
-                            <i className="tim-icons icon-pencil" />
-                          </Button>
-                          <UncontrolledTooltip
-                            delay={0}
-                            target="tooltip457194718"
-                            placement="right"
-                          >
-                            Edit Task
-                          </UncontrolledTooltip>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <FormGroup check>
-                            <Label check>
-                              <Input defaultValue="" type="checkbox" />
-                              <span className="form-check-sign">
-                                <span className="check" />
-                              </span>
-                            </Label>
-                          </FormGroup>
-                        </td>
-                        <td>
-                          <p className="title">Solve the issues</p>
-                          <p className="text-muted">
-                            Fifty percent of all respondents said they would be
-                            more likely to shop at a company
-                          </p>
-                        </td>
-                        <td className="td-actions text-right">
-                          <Button
-                            color="link"
-                            id="tooltip362404923"
-                            title=""
-                            type="button"
-                          >
-                            <i className="tim-icons icon-pencil" />
-                          </Button>
-                          <UncontrolledTooltip
-                            delay={0}
-                            target="tooltip362404923"
-                            placement="right"
-                          >
-                            Edit Task
-                          </UncontrolledTooltip>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <FormGroup check>
-                            <Label check>
-                              <Input defaultValue="" type="checkbox" />
-                              <span className="form-check-sign">
-                                <span className="check" />
-                              </span>
-                            </Label>
-                          </FormGroup>
-                        </td>
-                        <td>
-                          <p className="title">Release v2.0.0</p>
-                          <p className="text-muted">
-                            Ra Ave SW, Seattle, WA 98116, SUA 11:19 AM
-                          </p>
-                        </td>
-                        <td className="td-actions text-right">
-                          <Button
-                            color="link"
-                            id="tooltip818217463"
-                            title=""
-                            type="button"
-                          >
-                            <i className="tim-icons icon-pencil" />
-                          </Button>
-                          <UncontrolledTooltip
-                            delay={0}
-                            target="tooltip818217463"
-                            placement="right"
-                          >
-                            Edit Task
-                          </UncontrolledTooltip>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <FormGroup check>
-                            <Label check>
-                              <Input defaultValue="" type="checkbox" />
-                              <span className="form-check-sign">
-                                <span className="check" />
-                              </span>
-                            </Label>
-                          </FormGroup>
-                        </td>
-                        <td>
-                          <p className="title">Export the processed files</p>
-                          <p className="text-muted">
-                            The report also shows that consumers will not easily
-                            forgive a company once a breach exposing their
-                            personal data occurs.
-                          </p>
-                        </td>
-                        <td className="td-actions text-right">
-                          <Button
-                            color="link"
-                            id="tooltip831835125"
-                            title=""
-                            type="button"
-                          >
-                            <i className="tim-icons icon-pencil" />
-                          </Button>
-                          <UncontrolledTooltip
-                            delay={0}
-                            target="tooltip831835125"
-                            placement="right"
-                          >
-                            Edit Task
-                          </UncontrolledTooltip>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <FormGroup check>
-                            <Label check>
-                              <Input defaultValue="" type="checkbox" />
-                              <span className="form-check-sign">
-                                <span className="check" />
-                              </span>
-                            </Label>
-                          </FormGroup>
-                        </td>
-                        <td>
-                          <p className="title">Arival at export process</p>
-                          <p className="text-muted">
-                            Capitol Hill, Seattle, WA 12:34 AM
-                          </p>
-                        </td>
-                        <td className="td-actions text-right">
-                          <Button
-                            color="link"
-                            id="tooltip217595172"
-                            title=""
-                            type="button"
-                          >
-                            <i className="tim-icons icon-pencil" />
-                          </Button>
-                          <UncontrolledTooltip
-                            delay={0}
-                            target="tooltip217595172"
-                            placement="right"
-                          >
-                            Edit Task
-                          </UncontrolledTooltip>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col lg="6" md="12">
-            <Card>
-              <CardHeader>
-                <CardTitle tag="h4">Simple Table</CardTitle>
-              </CardHeader>
-              <CardBody>
-                <Table className="tablesorter" responsive>
-                  <thead className="text-primary">
-                    <tr>
-                      <th>Name</th>
-                      <th>Country</th>
-                      <th>City</th>
-                      <th className="text-center">Salary</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Dakota Rice</td>
-                      <td>Niger</td>
-                      <td>Oud-Turnhout</td>
-                      <td className="text-center">$36,738</td>
-                    </tr>
-                    <tr>
-                      <td>Minerva Hooper</td>
-                      <td>Curaçao</td>
-                      <td>Sinaai-Waas</td>
-                      <td className="text-center">$23,789</td>
-                    </tr>
-                    <tr>
-                      <td>Sage Rodriguez</td>
-                      <td>Netherlands</td>
-                      <td>Baileux</td>
-                      <td className="text-center">$56,142</td>
-                    </tr>
-                    <tr>
-                      <td>Philip Chaney</td>
-                      <td>Korea, South</td>
-                      <td>Overland Park</td>
-                      <td className="text-center">$38,735</td>
-                    </tr>
-                    <tr>
-                      <td>Doris Greene</td>
-                      <td>Malawi</td>
-                      <td>Feldkirchen in Kärnten</td>
-                      <td className="text-center">$63,542</td>
-                    </tr>
-                    <tr>
-                      <td>Mason Porter</td>
-                      <td>Chile</td>
-                      <td>Gloucester</td>
-                      <td className="text-center">$78,615</td>
-                    </tr>
-                    <tr>
-                      <td>Jon Porter</td>
-                      <td>Portugal</td>
-                      <td>Gloucester</td>
-                      <td className="text-center">$98,615</td>
-                    </tr>
-                  </tbody>
-                </Table>
               </CardBody>
             </Card>
           </Col>
         </Row>
       </div>
-    </>
-  );
+
+    )
+  }
 }
 
-export default Dashboard;
+export default Dashboard
