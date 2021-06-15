@@ -24,6 +24,7 @@ class CompanyAdmin extends Component {
       search: "",
       role: { name: "" },
       activated: true
+
     };
 
     this.getUsers = this.getUsers.bind(this);
@@ -63,7 +64,7 @@ class CompanyAdmin extends Component {
 
   getUsers = async () => {
     const config = {
-      headers: { Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiYXV0aCI6IlJPTEVfQURNSU4sUk9MRV9QRVJNSVNTSU9OX0NSRUFURSxST0xFX1BFUk1JU1NJT05fREVMRVRFLFJPTEVfUEVSTUlTU0lPTl9SRUFELFJPTEVfUEVSTUlTU0lPTl9VUERBVEUiLCJleHAiOjE2MjUwNzA3NDh9.9KowO8KnMpl6i04VmsdsDjmr-ZHs6MVDJFS0nUt4vt03JNvgVboN8ghwrfOSyafy8EDsOqki0zZkGjQaNM6l4A'
+      headers: { Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfUEVSTUlTU0lPTl9DUkVBVEUsUk9MRV9QRVJNSVNTSU9OX0RFTEVURSxST0xFX1BFUk1JU1NJT05fUkVBRCxST0xFX1BFUk1JU1NJT05fVVBEQVRFLFJPTEVfVVNFUiIsImV4cCI6MTYyNTM4OTUxOH0.xlD6cRaRDVLTbTkZB-guJoqMzJ4MzWTaECLsC31IQRYRtk6KWEEO1NSoP1Dx6YghBaNgrcaX6a0KFqDSDUIakA',
     }
   };
     axios
