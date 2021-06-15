@@ -83,23 +83,23 @@ class BusinessUnitAdmin extends Component {
 
     }
 
-getBusinessUnits = async ()=>{
+    getBusinessUnits = async ()=>{
 
-    axios.get('http://localhost:7100/smart-factory/business-unit').then(response => {
-        this.setState({
-          ...this.state,
-          BusinessUnits: response.data.BUs,
-          isLoading: true
-        });
-
-        
-      }).catch(error => {
-        alert('Could not connect to Server. Make sure Mockoon server is on if you are using it')
-        
-        });
-
-        
-};
+      axios.get('https://bu-smart.herokuapp.com/BUs').then(response => {
+        console.log(response)
+          this.setState({
+            ...this.state,
+            BusinessUnits: response.data,
+          });
+  
+          console.log(this.state);
+  
+          
+        }).catch(error => {
+          alert('Could not connect to Server. Make sure Mockoon server is on if you are using it')
+          
+          });
+  };
 
 
   render() {
