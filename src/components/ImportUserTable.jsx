@@ -5,13 +5,11 @@ import ImportXLSX from "./ImportXLSX"
 import {
   Row,
   Col,
-  Table,
   Card,
   CardHeader,
   CardBody,
   CardTitle,
 } from "reactstrap";
-import axios from "axios";
 
 
 class CompanyAdmin extends Component {

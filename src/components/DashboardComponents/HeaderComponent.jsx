@@ -5,23 +5,12 @@ import classNames from "classnames"
 
 // reactstrap components
 import {
-  Button,
-  ButtonGroup,
   Card,
   CardHeader,
-  CardBody,
   CardTitle,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  Label,
-  FormGroup,
-  Input,
-  Table,
   Row,
   Col,
-  UncontrolledTooltip,
+
 } from "reactstrap"
 const HeaderComponent = ({ selectedData }) => {
  

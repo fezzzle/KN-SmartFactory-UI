@@ -1,16 +1,13 @@
-import { useState, useRef } from "react";
-import { Card, CardBody, Button, CardTitle} from "reactstrap";
-import { NavLink as RRNavLink, useHistory } from "react-router-dom";
+import { useRef } from "react";
+import { Card, CardBody, CardTitle} from "reactstrap";
+import {  useHistory } from "react-router-dom";
 import DeviceAddForm from "../Components/DeviceAddForm";
 import { useDispatch, useSelector } from "react-redux";
 import { patchThingsArrayData } from "../../../store/actions/actions";
-import store from "../../../store/store";
 
 const DeviceAddFormContainer = (props) => {
-  console.log("DeviceAddFormContainer props:", props);
   const dispatch = useDispatch();
 
-  // const storeState = store.getState();
   const stateData = useSelector((state) => state.factory);
 
   const history = useHistory();

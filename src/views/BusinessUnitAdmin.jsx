@@ -85,10 +85,10 @@ class BusinessUnitAdmin extends Component {
 
 getBusinessUnits = async ()=>{
 
-    axios.get('http://localhost:7100/smart-factory/business-unit').then(response => {
+    axios.get('https://bu-smart.herokuapp.com/BUs').then(response => {
         this.setState({
           ...this.state,
-          BusinessUnits: response.data.BUs,
+          BusinessUnits: response.data,
           isLoading: true
         });
 

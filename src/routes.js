@@ -32,29 +32,6 @@ import {
 } from "./components/Factory/Containers"
 import { Route, Switch } from "react-router-dom";
 import UserProfile from "views/UserProfile.js";
-import ImportUserTable from "../src/components/ImportUserTable"
-
-// function RouteWithSubRoutes(route) {
-//   return (
-//     <Route
-//       path={route.path}
-//       exact={route.exact}
-//       render={(props) => <route.component {...props} routes={route.routes} />}
-//     />
-//   );
-// }
-
-// export function RenderRoutes({ routes }) {
-//   return (
-//     <Switch>
-//     {routes.map((route, key) => {
-//       return <RouteWithSubRoutes key={key} {...route} />;
-//     })}
-//     <Route component={() => <h1>Not Found!</h1>} />
-//   </Switch>
-//   );
-// }
-
 
 function RouteWithSubRoutes(route) {
   return (
@@ -95,28 +72,6 @@ var routes = [
     component: Map,
     layout: "/admin",
   },
-  // {
-  //   path: "/companyadmin",
-  //   name: "Company Admin",
-  //   rtlName: "خط الإنتاج",
-  //   icon: "tim-icons icon-puzzle-10",
-  //   component: RenderRoutes, // here's the update
-  //   routes: [
-  //     {
-  //       path: "/companyadmin",
-  //       name: "ROOT_ADMIN_PANEL",
-  //       exact: true,
-  //       component: CompanyAdmin,
-  //     },
-  //     {
-  //       path: "/companyadmin/import-users",
-  //       name: "ADD_USERS_EXCEL",
-  //       exact: true,
-  //       component: ImportUserTable,
-  //     },
-  //   ],
-  //   layout: "/admin",
-  // },
   {
     path: "/factories",
     name: "FACTORIES",
@@ -187,14 +142,6 @@ var routes = [
     ],
     layout: "/admin",
   },
-  // {
-  //   path: "/notifications",
-  //   name: "Notifications",
-  //   rtlName: "إخطارات",
-  //   icon: "tim-icons icon-bell-55",
-  //   component: Notifications,
-  //   layout: "/admin",
-  // },
   {
     path: "/user-profile",
     name: "User Profile",
@@ -222,4 +169,3 @@ var routes = [
 
 ];
 export default routes;
-// export default ROUTES;
