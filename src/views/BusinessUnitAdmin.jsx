@@ -14,6 +14,7 @@ import {
   ButtonGroup,
 } from "reactstrap";
 import axios from 'axios';
+import { Link, Route,Switch } from 'react-router-dom';
 
 
 
@@ -78,17 +79,16 @@ class BusinessUnitAdmin extends Component {
         let newState = {...this.state}
         newState.BusinessUnits = newState.BusinessUnits.filter( o => o.buID != comp.buID)
         this.setState(newState)
-        
 
 
     }
 
 getBusinessUnits = async ()=>{
 
-    axios.get('http://localhost:7100/smart-factory/business-unit').then(response => {
+    axios.get('https://bu-smart.herokuapp.com/BUs').then(response => {
         this.setState({
           ...this.state,
-          BusinessUnits: response.data.BUs,
+          BusinessUnits: response.data,
           isLoading: true
         });
 
